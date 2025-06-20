@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graphs - Python DSA Reference</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="nav-back">
+            ← Back to Main Menu
+        </a>
+        
+        <div class="content-wrapper">
+            <h1 class="section-title">
+                <span>🕸️</span>
+                Graphs
+            </h1>
+
+            <div class="subsection">
+                <h3>Graph Representations</h3>
+                
+                <h4>Adjacency List</h4>
+                <div class="code-block">class Graph:
+    def __init__(self):
+        self.vertices = {}
+    
+    def add_vertex(self, vertex):
+        """Add a vertex to the graph"""
+        if vertex not in self.vertices:
+            self.vertices[vertex] = []
+    
+    def add_edge(self, vertex1, vertex2, directed=False):
+        """Add an edge between two vertices"""
+        self.add_vertex(vertex1)
+        self.add_vertex(vertex2)
+        
+        self.vertices[vertex1].append(vertex2)
+        if not directed:
+            self.vertices[vertex2].append(vertex1)
+    
+    def get_neighbors(self, vertex):
+        """Get all neighbors of a vertex"""
+        return self.vertices.get(vertex, [])
+    
+    def display(self):
+        """Display the graph"""
+        for vertex, neighbors in self.vertices.items():
+            print(f"{vertex}: {neighbors}")
+
+# Example usage
+graph = Graph()
+graph.add_edge('A', 'B')
+graph.add_edge('A', 'C')
+graph.add_edge('B', 'D')
+graph.add_edge('C', 'D')</div>
+
+                <h4>Adjacency Matrix</h4>
+                <div class="code-block">class GraphMatrix:
+    def __init__(self, num_vertices):
+        self.num_vertices = num_vertices
+        self.adj_matrix = [[0] * num_vertices for _ in range(num_vertices)]
+        self.vertex_labels = {}
+        self.label_to_index = {}
+    
+    def add_vertex(self, label, index):
+        """Map vertex label to matrix index"""
+        self.vertex_labels[index] = label
+        self.label_to_index[label] = index
+    
+    def add_edge(self, vertex1, vertex2, weight=1, directed=False):
+        """Add edge with optional weight"""
+        i = self.label_to_index[vertex1]
+        j = self.label_to_index[vertex2]
+        
+        self.adj_matrix[i][j] = weight
+        if not directed:
+            self.adj_matrix[j][i] = weight
+    
+    def has_edge(self, vertex1, vertex2):
+        """Check if edge exists"""
+        i = self.label_to_index[vertex1]
+        j = self.label_to_index[vertex2]
+        return self.adj_matrix[i][j] != 0
+    
+    def get_weight(self, vertex1, vertex2):
+        """Get edge weight"""
+        i = self.label_to_index[vertex1]
+        j = self.label_to_index[vertex2]
+        return self.adj_matrix[i][j]</div>
+            </div>
+
+            <div class="subsection">
+                <h3>Graph Traversal Algorithms</h3>
+                <div class="method-grid">
+                    <div class="method-card">
+                        <h4>Depth-First Search (DFS) <span class="complexity-badge complexity-on">O(V+E)</span></h4>
+                        <p>Explore as far as possible before backtracking</p>
+                        <div class="code-block">def dfs(graph, start, visited=None):
+    """DFS using recursion"""
+    if visited is None:
+        visited = set()
+    
+    visited.add(start)
+    print(start, end=' ')
+    
+    for neighbor in graph.get_neighbors(start):
+        if neighbor not in visited:
+            dfs(graph, neighbor, visited)
+    
+    return visited
+
+def dfs_iterative(graph, start):
+    """DFS using stack (iterative)"""
+    visited = set()
+    stack = [start]
+    
+    while stack:
+        vertex = stack.pop()
+        if vertex not in visited:
+            visited.add(vertex)
+            print(vertex, end=' ')
+            
+            # Add neighbors to stack
+            for neighbor in graph.get_neighbors(vertex):
+                if neighbor not in visited:
+                    stack.append(neighbor)
+    
+    return visited</div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>Breadth-First Search (BFS) <span class="complexity-badge complexity-on">O(V+E)</span></h4>
+                        <p>Explore all neighbors before going deeper</p>
+                        <div class="code-block">from collections import deque
+
+def bfs(graph, start):
+    """BFS using queue"""
+    visited = set()
+    queue = deque([start])
+    visited.add(start)
+    
+    while queue:
+        vertex = queue.popleft()
+        print(vertex, end=' ')
+        
+        for neighbor in graph.get_neighbors(vertex):
+            if neighbor not in visited:
+                visited.add(neighbor)
+                queue.append(neighbor)
+    
+    return visited
+
+def bfs_shortest_path(graph, start, goal):
+    """Find shortest path using BFS"""
+    if start == goal:
+        return [start]
+    
+    visited = set()
+    queue = deque([(start, [start])])
+    visited.add(start)
+    
+    while queue:
+        vertex, path = queue.popleft()
+        
+        for neighbor in graph.get_neighbors(vertex):
+            if neighbor == goal:
+                return path + [neighbor]
+            
+            if neighbor not in visited:
+                visited.add(neighbor)
+                queue.append((neighbor, path + [neighbor]))
+    
+    return None  # No path found</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>Shortest Path Algorithms</h3>
+                
+                <h4>Dijkstra's Algorithm</h4>
+                <div class="code-block">import heapq
+
+def dijkstra(graph, start):
+    """Find shortest paths from start to all vertices"""
+    distances = {vertex: float('inf') for vertex in graph.vertices}
+    distances[start] = 0
+    
+    # Priority queue: (distance, vertex)
+    pq = [(0, start)]
+    visited = set()
+    
+    while pq:
+        current_dist, current_vertex = heapq.heappop(pq)
+        
+        if current_vertex in visited:
+            continue
+        
+        visited.add(current_vertex)
+        
+        # Check all neighbors
+        for neighbor in graph.get_neighbors(current_vertex):
+            if neighbor not in visited:
+                # Assume edge weight is 1, modify as needed
+                new_dist = current_dist + 1
+                
+                if new_dist < distances[neighbor]:
+                    distances[neighbor] = new_dist
+                    heapq.heappush(pq, (new_dist, neighbor))
+    
+    return distances
+
+def dijkstra_with_path(graph, start, end):
+    """Dijkstra with path reconstruction"""
+    distances = {vertex: float('inf') for vertex in graph.vertices}
+    previous = {vertex: None for vertex in graph.vertices}
+    distances[start] = 0
+    
+    pq = [(0, start)]
+    visited = set()
+    
+    while pq:
+        current_dist, current_vertex = heapq.heappop(pq)
+        
+        if current_vertex == end:
+            break
+        
+        if current_vertex in visited:
+            continue
+        
+        visited.add(current_vertex)
+        
+        for neighbor in graph.get_neighbors(current_vertex):
+            if neighbor not in visited:
+                new_dist = current_dist + 1  # Edge weight
+                
+                if new_dist < distances[neighbor]:
+                    distances[neighbor] = new_dist
+                    previous[neighbor] = current_vertex
+                    heapq.heappush(pq, (new_dist, neighbor))
+    
+    # Reconstruct path
+    path = []
+    current = end
+    while current is not None:
+        path.append(current)
+        current = previous[current]
+    
+    return path[::-1] if path and path[-1] == start else None</div>
+
+                <h4>Floyd-Warshall Algorithm</h4>
+                <div class="code-block">def floyd_warshall(graph):
+    """All-pairs shortest path algorithm"""
+    vertices = list(graph.vertices.keys())
+    n = len(vertices)
+    
+    # Initialize distance matrix
+    dist = [[float('inf')] * n for _ in range(n)]
+    
+    # Distance from vertex to itself is 0
+    for i in range(n):
+        dist[i][i] = 0
+    
+    # Set known edge distances
+    for i, vertex1 in enumerate(vertices):
+        for j, vertex2 in enumerate(vertices):
+            if vertex2 in graph.get_neighbors(vertex1):
+                dist[i][j] = 1  # Edge weight
+    
+    # Floyd-Warshall algorithm
+    for k in range(n):
+        for i in range(n):
+            for j in range(n):
+                if dist[i][k] + dist[k][j] < dist[i][j]:
+                    dist[i][j] = dist[i][k] + dist[k][j]
+    
+    return dist, vertices</div>
+            </div>
+
+            <div class="subsection">
+                <h3>Cycle Detection</h3>
+                <div class="code-block">def has_cycle_undirected(graph):
+    """Detect cycle in undirected graph using DFS"""
+    visited = set()
+    
+    def dfs(vertex, parent):
+        visited.add(vertex)
+        
+        for neighbor in graph.get_neighbors(vertex):
+            if neighbor not in visited:
+                if dfs(neighbor, vertex):
+                    return True
+            elif neighbor != parent:
+                return True  # Back edge found (cycle)
+        
+        return False
+    
+    for vertex in graph.vertices:
+        if vertex not in visited:
+            if dfs(vertex, None):
+                return True
+    
+    return False
+
+def has_cycle_directed(graph):
+    """Detect cycle in directed graph using DFS"""
+    WHITE, GRAY, BLACK = 0, 1, 2
+    colors = {vertex: WHITE for vertex in graph.vertices}
+    
+    def dfs(vertex):
+        if colors[vertex] == GRAY:
+            return True  # Back edge (cycle)
+        
+        if colors[vertex] == BLACK:
+            return False  # Already processed
+        
+        colors[vertex] = GRAY
+        
+        for neighbor in graph.get_neighbors(vertex):
+            if dfs(neighbor):
+                return True
+        
+        colors[vertex] = BLACK
+        return False
+    
+    for vertex in graph.vertices:
+        if colors[vertex] == WHITE:
+            if dfs(vertex):
+                return True
+    
+    return False</div>
+            </div>
+
+            <div class="subsection">
+                <h3>Topological Sort</h3>
+                <div class="code-block">def topological_sort_dfs(graph):
+    """Topological sort using DFS"""
+    visited = set()
+    stack = []
+    
+    def dfs(vertex):
+        visited.add(vertex)
+        
+        for neighbor in graph.get_neighbors(vertex):
+            if neighbor not in visited:
+                dfs(neighbor)
+        
+        stack.append(vertex)
+    
+    for vertex in graph.vertices:
+        if vertex not in visited:
+            dfs(vertex)
+    
+    return stack[::-1]  # Reverse to get topological order
+
+def topological_sort_kahn(graph):
+    """Kahn's algorithm using in-degree"""
+    from collections import deque
+    
+    # Calculate in-degrees
+    in_degree = {vertex: 0 for vertex in graph.vertices}
+    for vertex in graph.vertices:
+        for neighbor in graph.get_neighbors(vertex):
+            in_degree[neighbor] += 1
+    
+    # Find vertices with no incoming edges
+    queue = deque([v for v in graph.vertices if in_degree[v] == 0])
+    result = []
+    
+    while queue:
+        vertex = queue.popleft()
+        result.append(vertex)
+        
+        # Remove this vertex and update in-degrees
+        for neighbor in graph.get_neighbors(vertex):
+            in_degree[neighbor] -= 1
+            if in_degree[neighbor] == 0:
+                queue.append(neighbor)
+    
+    # Check for cycles
+    if len(result) != len(graph.vertices):
+        return None  # Graph has cycle
+    
+    return result</div>
+            </div>
+
+            <div class="subsection">
+                <h3>Interactive Demo</h3>
+                <div class="demo-section">
+                    <h4>Try Graph Operations</h4>
+                    <div class="demo-controls">
+                        <input type="text" id="vertex1Input" class="demo-input" placeholder="Vertex 1" value="A">
+                        <input type="text" id="vertex2Input" class="demo-input" placeholder="Vertex 2" value="B">
+                        <input type="text" id="startVertex" class="demo-input" placeholder="Start vertex" value="A">
+                        <button class="demo-button" onclick="addEdge()">Add Edge</button>
+                        <button class="demo-button" onclick="performDFS()">DFS</button>
+                        <button class="demo-button" onclick="performBFS()">BFS</button>
+                        <button class="demo-button" onclick="findPath()">Find Path</button>
+                        <button class="demo-button" onclick="clearGraph()">Clear</button>
+                    </div>
+                    <div id="graphOutput" class="demo-output">Current graph: Empty</div>
+                </div>
+            </div>
+
+            <div class="note">
+                <strong>💡 Graph Types:</strong>
+                <ul>
+                    <li><strong>Directed vs Undirected:</strong> Edges have direction or not</li>
+                    <li><strong>Weighted vs Unweighted:</strong> Edges have weights or not</li>
+                    <li><strong>Connected vs Disconnected:</strong> All vertices reachable or not</li>
+                    <li><strong>Cyclic vs Acyclic:</strong> Contains cycles or not (DAG)</li>
+                </ul>
+            </div>
+
+            <div class="tip">
+                <strong>🚀 Algorithm Choices:</strong>
+                <ul>
+                    <li><strong>DFS:</strong> Path finding, cycle detection, topological sort</li>
+                    <li><strong>BFS:</strong> Shortest path in unweighted graphs, level-order traversal</li>
+                    <li><strong>Dijkstra:</strong> Shortest path in weighted graphs (non-negative weights)</li>
+                    <li><strong>Bellman-Ford:</strong> Shortest path with negative weights</li>
+                </ul>
+            </div>
+
+            <div class="warning">
+                <strong>⚠️ Considerations:</strong>
+                <ul>
+                    <li>Adjacency list vs matrix: space-time tradeoffs</li>
+                    <li>Dense vs sparse graphs affect representation choice</li>
+                    <li>Negative weight cycles in shortest path algorithms</li>
+                    <li>Stack overflow in recursive DFS for large graphs</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class GraphDemo {
+            constructor() {
+                this.vertices = {};
+            }
+            
+            addVertex(vertex) {
+                if (!(vertex in this.vertices)) {
+                    this.vertices[vertex] = [];
+                }
+            }
+            
+            addEdge(vertex1, vertex2, directed = false) {
+                this.addVertex(vertex1);
+                this.addVertex(vertex2);
+                
+                this.vertices[vertex1].push(vertex2);
+                if (!directed) {
+                    this.vertices[vertex2].push(vertex1);
+                }
+            }
+            
+            getNeighbors(vertex) {
+                return this.vertices[vertex] || [];
+            }
+            
+            dfs(start) {
+                const visited = new Set();
+                const result = [];
+                
+                const dfsHelper = (vertex) => {
+                    visited.add(vertex);
+                    result.push(vertex);
+                    
+                    for (const neighbor of this.getNeighbors(vertex)) {
+                        if (!visited.has(neighbor)) {
+                            dfsHelper(neighbor);
+                        }
+                    }
+                };
+                
+                if (start in this.vertices) {
+                    dfsHelper(start);
+                }
+                
+                return result;
+            }
+            
+            bfs(start) {
+                const visited = new Set();
+                const queue = [start];
+                const result = [];
+                
+                if (!(start in this.vertices)) {
+                    return result;
+                }
+                
+                visited.add(start);
+                
+                while (queue.length > 0) {
+                    const vertex = queue.shift();
+                    result.push(vertex);
+                    
+                    for (const neighbor of this.getNeighbors(vertex)) {
+                        if (!visited.has(neighbor)) {
+                            visited.add(neighbor);
+                            queue.push(neighbor);
+                        }
+                    }
+                }
+                
+                return result;
+            }
+            
+            findPath(start, goal) {
+                if (start === goal) return [start];
+                
+                const visited = new Set();
+                const queue = [[start]];
+                visited.add(start);
+                
+                while (queue.length > 0) {
+                    const path = queue.shift();
+                    const vertex = path[path.length - 1];
+                    
+                    for (const neighbor of this.getNeighbors(vertex)) {
+                        if (neighbor === goal) {
+                            return path.concat([neighbor]);
+                        }
+                        
+                        if (!visited.has(neighbor)) {
+                            visited.add(neighbor);
+                            queue.push(path.concat([neighbor]));
+                        }
+                    }
+                }
+                
+                return null; // No path found
+            }
+            
+            display() {
+                const edges = [];
+                for (const [vertex, neighbors] of Object.entries(this.vertices)) {
+                    if (neighbors.length > 0) {
+                        edges.push(`${vertex}: [${neighbors.join(', ')}]`);
+                    } else {
+                        edges.push(`${vertex}: []`);
+                    }
+                }
+                return edges.join('\n') || 'Empty';
+            }
+            
+            clear() {
+                this.vertices = {};
+            }
+        }
+        
+        const graph = new GraphDemo();
+        
+        function updateOutput(message = null) {
+            if (message) {
+                document.getElementById('graphOutput').textContent = message;
+            } else {
+                document.getElementById('graphOutput').textContent = 
+                    `Current graph:\n${graph.display()}`;
+            }
+        }
+        
+        function addEdge() {
+            const vertex1 = document.getElementById('vertex1Input').value.trim();
+            const vertex2 = document.getElementById('vertex2Input').value.trim();
+            
+            if (vertex1 && vertex2) {
+                graph.addEdge(vertex1, vertex2);
+                updateOutput();
+            }
+        }
+        
+        function performDFS() {
+            const start = document.getElementById('startVertex').value.trim();
+            if (start) {
+                const result = graph.dfs(start);
+                updateOutput(`DFS from ${start}: [${result.join(', ')}]`);
+            }
+        }
+        
+        function performBFS() {
+            const start = document.getElementById('startVertex').value.trim();
+            if (start) {
+                const result = graph.bfs(start);
+                updateOutput(`BFS from ${start}: [${result.join(', ')}]`);
+            }
+        }
+        
+        function findPath() {
+            const start = document.getElementById('startVertex').value.trim();
+            const end = document.getElementById('vertex1Input').value.trim();
+            
+            if (start && end) {
+                const path = graph.findPath(start, end);
+                if (path) {
+                    updateOutput(`Path from ${start} to ${end}: [${path.join(' → ')}]`);
+                } else {
+                    updateOutput(`No path found from ${start} to ${end}`);
+                }
+            }
+        }
+        
+        function clearGraph() {
+            graph.clear();
+            updateOutput();
+        }
+        
+        // Initialize with sample graph
+        graph.addEdge('A', 'B');
+        graph.addEdge('A', 'C');
+        graph.addEdge('B', 'D');
+        graph.addEdge('C', 'D');
+        graph.addEdge('D', 'E');
+        updateOutput();
+    </script>
+</body>
+</html>

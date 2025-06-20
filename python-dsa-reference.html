@@ -1,0 +1,2895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐍 Python DSA Complete Reference for C++ Developers</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --accent-color: #ff6b6b;
+            --success-color: #2ed573;
+            --warning-color: #ffc107;
+            --text-dark: #333;
+            --text-light: #666;
+            --bg-white: #ffffff;
+            --bg-light: #f8f9ff;
+            --border-color: #e0e0e0;
+            --shadow-light: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --shadow-medium: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --shadow-heavy: 0 20px 60px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: var(--text-dark);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .stat {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px 25px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .search-container {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .search-box {
+            padding: 15px 25px;
+            font-size: 16px;
+            border: none;
+            border-radius: 50px;
+            width: 100%;
+            max-width: 600px;
+            box-shadow: var(--shadow-medium);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .search-box:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .navigation {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .nav-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 18px 15px;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .nav-item:hover::before {
+            left: 100%;
+        }
+
+        .nav-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .nav-item.active {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .nav-item-icon {
+            font-size: 1.5rem;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .content {
+            background: var(--bg-white);
+            border-radius: 25px;
+            padding: 40px;
+            box-shadow: var(--shadow-heavy);
+            min-height: 600px;
+            position: relative;
+        }
+
+        .section {
+            display: none;
+            animation: fadeInSlide 0.6s ease-in-out;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeInSlide {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        .section-title-wrapper {
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            color: var(--text-dark);
+            margin-right: 20px;
+            font-weight: 700;
+        }
+
+        .section-icon {
+            font-size: 3rem;
+            margin-right: 15px;
+        }
+
+        .cpp-equivalent {
+            background: linear-gradient(45deg, var(--accent-color), #ffa500);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            box-shadow: var(--shadow-light);
+        }
+
+        .subsection {
+            margin-bottom: 50px;
+            padding: 30px;
+            background: var(--bg-light);
+            border-radius: 20px;
+            border-left: 6px solid var(--primary-color);
+            position: relative;
+        }
+
+        .subsection::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .subsection h3 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+        }
+
+        .subsection-icon {
+            margin-right: 12px;
+            font-size: 1.4em;
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            font-family: 'Fira Code', 'JetBrains Mono', 'Consolas', monospace;
+            overflow-x: auto;
+            position: relative;
+            border: 1px solid #333;
+        }
+
+        .code-block::before {
+            content: 'Python';
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: #007acc;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .code-block pre {
+            margin: 0;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .cpp-comparison {
+            background: linear-gradient(135deg, #ffe6e6, #fff0f0);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 15px 0;
+            border-left: 4px solid var(--accent-color);
+            position: relative;
+        }
+
+        .cpp-comparison::before {
+            content: '🔗 C++ STL Equivalent: ';
+            font-weight: bold;
+            color: var(--accent-color);
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .tip {
+            background: linear-gradient(135deg, #e8f5e8, #f0fff0);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 15px 0;
+            border-left: 4px solid var(--success-color);
+            position: relative;
+        }
+
+        .tip::before {
+            content: '💡 Pro Tip: ';
+            font-weight: bold;
+            color: var(--success-color);
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .warning {
+            background: linear-gradient(135deg, #fff3cd, #fffbf0);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 15px 0;
+            border-left: 4px solid var(--warning-color);
+            position: relative;
+        }
+
+        .warning::before {
+            content: '⚠️ Important: ';
+            font-weight: bold;
+            color: #856404;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .operations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin: 25px 0;
+        }
+
+        .operation-card {
+            background: var(--bg-white);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: var(--shadow-light);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .operation-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        }
+
+        .operation-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .operation-title {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 12px;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .complexity {
+            background: var(--primary-color);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .complexity.time { background: #28a745; }
+        .complexity.space { background: #17a2b8; }
+
+        .interactive-demo {
+            background: linear-gradient(135deg, #f0f8ff, #e6f3ff);
+            padding: 30px;
+            border-radius: 20px;
+            margin: 30px 0;
+            border: 2px dashed var(--primary-color);
+            position: relative;
+        }
+
+        .interactive-demo::before {
+            content: '🎮 Interactive Demo';
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .demo-controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .demo-input {
+            padding: 12px 15px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            transition: border-color 0.3s ease;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .demo-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .demo-button {
+            background: var(--primary-color);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .demo-button:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-light);
+        }
+
+        .demo-output {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Fira Code', monospace;
+            min-height: 60px;
+            max-height: 300px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            line-height: 1.4;
+        }
+
+        .problem-examples {
+            background: #fff9e6;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border-left: 4px solid #ffa500;
+        }
+
+        .problem-examples h4 {
+            color: #cc8800;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .example-item {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            border: 1px solid #ffe0b3;
+        }
+
+        .example-title {
+            font-weight: bold;
+            color: #b8860b;
+            margin-bottom: 8px;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            box-shadow: var(--shadow-medium);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            z-index: 1001;
+            transition: width 0.3s ease;
+        }
+
+        /* Syntax highlighting */
+        .keyword { color: #569cd6; }
+        .string { color: #ce9178; }
+        .comment { color: #6a9955; }
+        .number { color: #b5cea8; }
+        .function { color: #dcdcaa; }
+        .class { color: #4ec9b0; }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .container { padding: 15px; }
+            .content { padding: 25px; }
+            .section-title { font-size: 2.2rem; }
+            .operations-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2.5rem; }
+            .header p { font-size: 1.1rem; }
+            .stats { flex-direction: column; gap: 15px; }
+            .navigation { grid-template-columns: repeat(2, 1fr); }
+            .section-header { flex-direction: column; gap: 15px; }
+            .demo-controls { flex-direction: column; }
+            .demo-input { min-width: auto; }
+        }
+
+        @media (max-width: 480px) {
+            .navigation { grid-template-columns: 1fr; }
+            .content { padding: 20px; }
+            .subsection { padding: 20px; }
+        }
+
+        /* Loading animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+    
+    <div class="container">
+        <div class="header">
+            <h1>🐍 Python DSA Complete Reference</h1>
+            <p>Comprehensive guide for C++ developers transitioning to Python</p>
+            <div class="stats">
+                <div class="stat">
+                    <span class="stat-number">16</span>
+                    <span class="stat-label">Topics Covered</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">100+</span>
+                    <span class="stat-label">Code Examples</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">50+</span>
+                    <span class="stat-label">C++ Comparisons</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">25+</span>
+                    <span class="stat-label">Interactive Demos</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="search-container">
+            <input type="text" class="search-box" placeholder="🔍 Search for data structures, algorithms, methods, or concepts..." id="searchBox">
+        </div>
+
+        <div class="navigation" id="navigation">
+            <div class="nav-item active" data-section="arrays">
+                <span class="nav-item-icon">📋</span>
+                Arrays & Lists
+            </div>
+            <div class="nav-item" data-section="strings">
+                <span class="nav-item-icon">🔤</span>
+                Strings
+            </div>
+            <div class="nav-item" data-section="tuples">
+                <span class="nav-item-icon">📦</span>
+                Tuples
+            </div>
+            <div class="nav-item" data-section="dictionaries">
+                <span class="nav-item-icon">📚</span>
+                Dictionaries
+            </div>
+            <div class="nav-item" data-section="sets">
+                <span class="nav-item-icon">🎯</span>
+                Sets
+            </div>
+            <div class="nav-item" data-section="stacks-queues">
+                <span class="nav-item-icon">📚</span>
+                Stacks & Queues
+            </div>
+            <div class="nav-item" data-section="linked-lists">
+                <span class="nav-item-icon">🔗</span>
+                Linked Lists
+            </div>
+            <div class="nav-item" data-section="trees">
+                <span class="nav-item-icon">🌳</span>
+                Trees
+            </div>
+            <div class="nav-item" data-section="graphs">
+                <span class="nav-item-icon">🕸️</span>
+                Graphs
+            </div>
+            <div class="nav-item" data-section="heaps">
+                <span class="nav-item-icon">⛰️</span>
+                Priority Queues
+            </div>
+            <div class="nav-item" data-section="tries">
+                <span class="nav-item-icon">🌲</span>
+                Tries
+            </div>
+            <div class="nav-item" data-section="union-find">
+                <span class="nav-item-icon">🤝</span>
+                Union-Find
+            </div>
+            <div class="nav-item" data-section="sliding-window">
+                <span class="nav-item-icon">🪟</span>
+                Sliding Window
+            </div>
+            <div class="nav-item" data-section="greedy">
+                <span class="nav-item-icon">🎯</span>
+                Greedy Algorithms
+            </div>
+            <div class="nav-item" data-section="dynamic-programming">
+                <span class="nav-item-icon">🧠</span>
+                Dynamic Programming
+            </div>
+            <div class="nav-item" data-section="backtracking">
+                <span class="nav-item-icon">↩️</span>
+                Backtracking
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- Arrays & Lists Section -->
+            <div class="section active" id="arrays">
+                <div class="section-header">
+                    <div class="section-title-wrapper">
+                        <span class="section-icon">📋</span>
+                        <h2 class="section-title">Arrays & Lists</h2>
+                    </div>
+                    <div class="cpp-equivalent">C++: vector&lt;T&gt;, array&lt;T,N&gt;</div>
+                </div>
+
+                <div class="subsection">
+                    <h3><span class="subsection-icon">🔧</span>Creation & Initialization</h3>
+                    
+                    <div class="code-block">
+<pre># Empty list
+arr = []
+arr = list()
+
+# With initial values
+arr = [1, 2, 3, 4, 5]
+arr = list(range(5))        # [0, 1, 2, 3, 4]
+arr = [0] * 5               # [0, 0, 0, 0, 0]
+
+# 2D array (matrix)
+matrix = [[0] * 3 for _ in range(2)]  # 2x3 matrix
+
+# List comprehension
+squares = [i**2 for i in range(5)]     # [0, 1, 4, 9, 16]
+evens = [x for x in range(10) if x % 2 == 0]  # [0, 2, 4, 6, 8]
+
+# From other iterables
+arr = list("hello")         # ['h', 'e', 'l', 'l', 'o']
+arr = list(range(1, 6))     # [1, 2, 3, 4, 5]</pre>
+                    </div>
+
+                    <div class="cpp-comparison">
+                        <strong>C++:</strong> vector&lt;int&gt; arr = {1, 2, 3, 4, 5}; <br>
+                        <strong>C++:</strong> vector&lt;int&gt; arr(5, 0); // size 5, all zeros<br>
+                        <strong>C++:</strong> vector&lt;vector&lt;int&gt;&gt; matrix(2, vector&lt;int&gt;(3, 0));
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3><span class="subsection-icon">⚡</span>Basic Operations</h3>
+                    
+                    <div class="operations-grid">
+                        <div class="operation-card">
+                            <div class="operation-title">
+                                Adding Elements
+                                <span class="complexity time">O(1) avg</span>
+                            </div>
+                            <div class="code-block">
+<pre>arr.append(6)           # Add to end
+arr.insert(0, 0)        # Insert at index
+arr.extend([7, 8])      # Add multiple
+arr += [9, 10]          # Same as extend</pre>
+                            </div>
+                        </div>
+
+                        <div class="operation-card">
+                            <div class="operation-title">
+                                Removing Elements
+                                <span class="complexity time">O(n)</span>
+                            </div>
+                            <div class="code-block">
+<pre>last = arr.pop()        # Remove & return last
+item = arr.pop(0)       # Remove at index
+arr.remove(5)           # Remove first occurrence
+del arr[0]              # Delete at index
+arr.clear()             # Remove all</pre>
+                            </div>
+                        </div>
+
+                        <div class="operation-card">
+                            <div class="operation-title">
+                                Accessing Elements
+                                <span class="complexity time">O(1)</span>
+                            </div>
+                            <div class="code-block">
+<pre>first = arr[0]          # First element
+last = arr[-1]          # Last element
+length = len(arr)       # Get length
+arr[0] = 10             # Modify element</pre>
+                            </div>
+                        </div>
+
+                        <div class="operation-card">
+                            <div class="operation-title">
+                                Searching & Counting
+                                <span class="complexity time">O(n)</span>
+                            </div>
+                            <div class="code-block">
+<pre>index = arr.index(3)    # Find index (ValueError if not found)
+count = arr.count(2)    # Count occurrences
+exists = 3 in arr       # Check existence (returns bool)</pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tip">
+                        Lists in Python are dynamic arrays (like C++ vectors). They automatically resize and can store different data types in the same list, unlike C++ vectors which are strongly typed.
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3><span class="subsection-icon">✂️</span>Slicing (Python's Superpower)</h3>
+                    
+                    <div class="code-block">
+<pre>arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+# Basic slicing: arr[start:end:step]
+slice1 = arr[1:5]       # [1, 2, 3, 4] - from index 1 to 4
+slice2 = arr[:5]        # [0, 1, 2, 3, 4] - from start to index 4
+slice3 = arr[5:]        # [5, 6, 7, 8, 9] - from index 5 to end
+slice4 = arr[:]         # [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] - full copy
+
+# Step slicing
+evens = arr[::2]        # [0, 2, 4, 6, 8] - every 2nd element
+odds = arr[1::2]        # [1, 3, 5, 7, 9] - every 2nd starting from 1
+reverse = arr[::-1]     # [9, 8, 7, 6, 5, 4, 3, 2, 1, 0] - reverse
+
+# Negative indices
+last_three = arr[-3:]   # [7, 8, 9] - last 3 elements
+first_to_third_last = arr[:-3]  # [0, 1, 2, 3, 4, 5, 6] - all except last 3
+
+# Slice assignment
+arr[1:4] = [10, 20, 30] # Replace elements at indices 1,2,3
+arr[::2] = [0] * 5      # Replace every 2nd element with 0</pre>
+                    </div>
+
+                    <div class="cpp-comparison">
+                        <strong>C++:</strong> No direct equivalent. You'd need std::vector::begin() + index iterators or manual loops.<br>
+                        For copying: std::vector&lt;int&gt; copy(arr.begin() + 1, arr.begin() + 5);
+                    </div>
+
+                    <div class="warning">
+                        Slicing creates a new list (shallow copy). For large lists, this can be memory intensive. Use itertools.islice() for memory-efficient slicing of large sequences.
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3><span class="subsection-icon">🔄</span>Iteration Patterns</h3>
+                    
+                    <div class="code-block">
+<pre># Basic iteration
+for item in arr:
+    print(item)
+
+# With index (enumerate)
+for i, item in enumerate(arr):
+    print(f"Index {i}: {item}")
+
+# With index and custom start
+for i, item in enumerate(arr, start=1):
+    print(f"Position {i}: {item}")
+
+# Iterate with range
+for i in range(len(arr)):
+    print(f"arr[{i}] = {arr[i]}")
+
+# Reverse iteration
+for item in reversed(arr):
+    print(item)
+
+# Parallel iteration (zip)
+names = ["Alice", "Bob", "Charlie"]
+ages = [25, 30, 35]
+for name, age in zip(names, ages):
+    print(f"{name} is {age} years old")
+
+# List comprehension (functional style)
+doubled = [x * 2 for x in arr]
+filtered = [x for x in arr if x > 0]
+transformed = [str(x) + "!" for x in arr if x % 2 == 0]</pre>
+                    </div>
+
+                    <div class="cpp-comparison">
+                        <strong>C++:</strong> for(auto item : arr) // range-based for (C++11+)<br>
+                        <strong>C++:</strong> for(int i = 0; i &lt; arr.size(); ++i) // traditional for<br>
+                        <strong>C++:</strong> std::transform, std::filter with lambdas for functional style
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3><span class="subsection-icon">🛠️</span>Advanced List Methods</h3>
+                    
+                    <div class="operations-grid">
+                        <div class="operation-card">
+                            <div class="operation-title">
+                                Sorting & Reversing
+                                <span class="complexity time">O(n log n)</span>
+                            </div>
+                            <div class="code-block">
+<pre># In-place operations
+arr.sort()              # Sort ascending
+arr.sort(reverse=True)  # Sort descending
+arr.reverse()           # Reverse in-place
+
+# Custom sorting
+words = ["apple", "pie", "a"]
+words.sort(key=len)     # Sort by length
+words.sort(key=str.lower)  # Case-insensitive
+
+# Non-destructive versions
+sorted_arr = sorted(arr)
+reversed_arr = list(reversed(arr))</pre>
+                            </div>
+                        </div>
+
+                        <div class="operation-card">
+                            <div class="operation-title">
+                                Copying Lists
+                                <span class="complexity">O(n)</span>
+                            </div>
+                            <div class="code-block">
+<pre># Shallow copy
+copy1 = arr.copy()
+copy2 = arr[:]
+copy3 = list(arr)
+
+# Deep copy (for nested structures)
+import copy
+nested = [[1, 2], [3, 4]]
+deep_copy = copy.deepcopy(nested)</pre>
+                            </div>
+                        </div>
+
+                        <div class="operation-card">
+                            <div class="operation-title">
+                                List as Stack/Queue
+                                <span class="complexity">O(1) / O(n)</span>
+                            </div>
+                            <div class="code-block">
+<pre># Stack operations (LIFO)
+arr.append(item)        # Push - O(1)
+item = arr.pop()        # Pop - O(1)
+
+# Queue operations (FIFO) - inefficient!
+arr.append(item)        # Enqueue - O(1)
+item = arr.pop(0)       # Dequeue - O(n)
+
+# Use collections.deque for efficient queues</pre>
+                            </div>
+                        </div>
+
+                        <div class="operation-card">
+                            <div class="operation-title">
+                                List Aggregations
+                                <span class="complexity">O(n)</span>
+                            </div>
+                            <div class="code-block">
+<pre>total = sum(arr)        # Sum all elements
+maximum = max(arr)      # Find maximum
+minimum = min(arr)      # Find minimum
+all_true = all(arr)     # All elements truthy?
+any_true = any(arr)     # Any element truthy?</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="interactive-demo">
+                    <div class="demo-controls">
+                        <input type="text" class="demo-input" id="listInput" placeholder="Enter numbers separated by commas (e.g., 1,2,3,4,5)">
+                        <button class="demo-button" onclick="processListDemo()">Process List</button>
+                        <button class="demo-button" onclick="clearListDemo()">Clear</button>
+                    </div>
+                    <div class="demo-output" id="listOutput">Enter some numbers to see list operations in action!
+
+Try: 5,2,8,1,9,3
+This will demonstrate: creation, sorting, slicing, searching, and more...</div>
+                </div>
+
+                <div class="problem-examples">
+                    <h4>🎯 Common Interview Problems</h4>
+                    
+                    <div class="example-item">
+                        <div class="example-title">Two Sum - Find pair that adds to target</div>
+                        <div class="code-block">
+<pre>def two_sum(nums, target):
+    """O(n) solution using hashmap"""
+    seen = {}
+    for i, num in enumerate(nums):
+        complement = target - num
+        if complement in seen:
+            return [seen[complement], i]
+        seen[num] = i
+    return []
+
+# Usage: two_sum([2,7,11,15], 9) → [0,1]</pre>
+                        </div>
+                    </div>
+
+                    <div class="example-item">
+                        <div class="example-title">Remove Duplicates from Sorted Array</div>
+                        <div class="code-block">
+<pre>def remove_duplicates(nums):
+    """In-place removal, O(n) time, O(1) space"""
+    if not nums:
+        return 0
+    
+    write_index = 1
+    for i in range(1, len(nums)):
+        if nums[i] != nums[i-1]:
+            nums[write_index] = nums[i]
+            write_index += 1
+    
+    return write_index</pre>
+                        </div>
+                    </div>
+
+                    <div class="example-item">
+                        <div class="example-title">Rotate Array Right by k Steps</div>
+                        <div class="code-block">
+<pre>def rotate_array(nums, k):
+    """O(n) time, O(1) space using reversal"""
+    n = len(nums)
+    k = k % n  # Handle k > n
+    
+    # Reverse entire array
+    nums.reverse()
+    # Reverse first k elements
+    nums[:k] = reversed(nums[:k])
+    # Reverse remaining elements
+    nums[k:] = reversed(nums[k:])
+
+# Alternative: nums[:] = nums[-k:] + nums[:-k]</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tip">
+                    <strong>Performance Tips:</strong><br>
+                    • Use list comprehensions instead of loops when possible (up to 2x faster)<br>
+                    • Prefer `arr.extend(other)` over `arr += other` for better readability<br>
+                    • Use `collections.deque` for frequent insertions/deletions at both ends<br>
+                    • For large datasets, consider `array.array` or `numpy.array` for better memory efficiency
+                </div>
+            </div>
+
+            <!-- Strings Section -->
+            <div class="section" id="strings">
+                <div class="section-header">
+                    <div class="section-title-wrapper">
+                        <span class="section-icon">🔤</span>
+                        <h2 class="section-title">Strings</h2>
+                    </div>
+                    <div class="cpp-equivalent">C++: std::string</div>
+                </div>
+
+                <div class="subsection">
+                    <h3><span class="subsection-icon">🔧</span>String Creation & Basic Properties</h3>
+                    
+                    <div class="code-block">
+<pre># String creation
+s = "Hello World"           # Double quotes
+s = 'Hello World'           # Single quotes
+s = """Multi-line
+string with
+line breaks"""              # Triple quotes
+
+# Raw strings (escape sequences ignored)
+path = r"C:\Users\name\file.txt"
+
+# F-strings (Python 3.6+) - Best for formatting
+name = "Alice"
+age = 25
+greeting = f"Hello {name}, you are {age} years old!"
+
+# String properties
+length = len(s)             # Length: 11
+empty = len(s) == 0         # Check if empty
+char = s[0]                 # First character: 'H'
+last_char = s[-1]           # Last character: 'd'
+
+# Strings are immutable!
+# s[0] = 'h'  # ❌ TypeError: 'str' object doesn't support item assignment</pre>
+                    </div>
+
+                    <div class="cpp-comparison">
+                        <strong>C++:</strong> std::string s = "Hello World";<br>
+                        <strong>C++:</strong> char c = s[0]; s[0] = 'h'; // ✅ Strings are mutable in C++<br>
+                        <strong>C++:</strong> std::string formatted = std::format("Hello {}, you are {} years old!", name, age); // C++20
+                    </div>
+
+                    <div class="warning">
+                        Unlike C++ strings, Python strings are <strong>immutable</strong>. Every string operation that seems to modify a string actually creates a new string object.
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3><span class="subsection-icon">🛠️</span>Essential String Methods</h3>
+                    
+                    <div class="operations-grid">
+                        <div class="operation-card">
+                            <div class="operation-title">
+                                Case Operations
+                                <span class="complexity time">O(n)</span>
+                            </div>
+                            <div class="code-block">
+<pre>s = "Hello World"
+
+s.upper()           # "HELLO WORLD"
+s.lower()           # "hello world"
+s.capitalize()      # "Hello world"
+s.title()           # "Hello World"
+s.swapcase()        # "hELLO wORLD"
+
+# Case checking
+s.isupper()         # False
+s.islower()         # False
+s.istitle()         # True</pre>
+                            </div>
+                        </div>
+
+                        <div class="operation-card">
+                            <div class="operation-title">
+                                Whitespace Operations
+                                <span class="complexity time">O(n)</span>
+                            </div>
+                            <div class="code-block">
+<pre>s = "  Hello World  "
+
+s.strip()           # "Hello World"
+s.lstrip()          # "Hello World  "
+s.rstrip()          # "  Hello World"
+s.strip("H ")       # "ello World"
+
+# Strip specific characters
+s.strip("Hd ")      # "ello Worl"</pre>
+                            </div>
+                        </div>
+
+                        <div class="operation-card">
+                            <div class="operation-title">
+                                Search & Replace
+                                <span class="complexity time">O(n)</span>
+                            </div>
+                            <div class="code-block">
+<pre>s = "Hello World Hello"
+
+# Finding
+s.find("World")     # 6 (index, -1 if not found)
+s.index("World")    # 6 (index, ValueError if not found)
+s.rfind("Hello")    # 12 (last occurrence)
+s.count("l")        # 3 (count occurrences)
+
+# Checking
+s.startswith("Hello")  # True
+s.endswith("World")    # False
+"World" in s           # True (membership test)</pre>
+                            </div>
+                        </div>
+
+                        <div class="operation-card">
+                            <div class="operation-title">
+                                String Validation
+                                <span class="complexity time">O(n)</span>
+                            </div>
+                            <div class="code-block">
+<pre>s = "Hello123"
+
+s.isdigit()         # False (all digits?)
+s.isalpha()         # False (all letters?)
+s.isalnum()         # True (alphanumeric?)
+s.isspace()         # False (all whitespace?)
+s.isprintable()     # True (all printable?)
+
+# Numeric checks
+"123".isdecimal()   # True
+"123".isnumeric()   # True
+"Ⅳ".isnumeric()     # True (Roman numerals)</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3><span class="subsection-icon">✂️</span>String Splitting & Joining</h3>
+                    
+                    <div class="code-block">
+<pre>text = "apple,banana,cherry,date"
+
+# Splitting
+fruits = text.split(",")        # ["apple", "banana", "cherry", "date"]
+words = "hello world".split()   # ["hello", "world"] (default: whitespace)
+limited = text.split(",", 2)    # ["apple", "banana", "cherry,date"] (max splits)
+
+# Advanced splitting
+lines = "line1\nline2\nline3".splitlines()  # ["line1", "line2", "line3"]
+parts = "a::b::c".partition("::")            # ("a", "::", "b::c") - splits at first occurrence
+parts = "a::b::c".rpartition("::")           # ("a::b", "::", "c") - splits at last occurrence
+
+# Joining (reverse of split)
+fruits = ["apple", "banana", "cherry"]
+result = ",".join(fruits)       # "apple,banana,cherry"
+result = " | ".join(fruits)     # "apple | banana | cherry"
+result = "".join(fruits)        # "applebananacherry"
+
+# Join with different types (convert to string first)
+numbers = [1, 2, 3, 4, 5]
+result = ",".join(map(str, numbers))  # "1,2,3,4,5"
+result = ",".join(str(x) for x in numbers)  # Same result with generator</pre>
+                    </div>
+
+                    <div class="cpp-comparison">
+                        <strong>C++:</strong> No built-in split/join. You'd use std::stringstream, std::getline, or boost::split.<br>
+                        <strong>C++:</strong> Manual tokenization with std::string::find() and std::string::substr()
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3><span class="subsection-icon">🎨</span>String Formatting (Modern Python)</h3>
+                    
+                    <div class="code-block">
+<pre># F-strings (Python 3.6+) - RECOMMENDED
+name = "Alice"
+age = 25
+balance = 1234.567
+
+# Basic formatting
+greeting = f"Hello {name}!"
+info = f"{name} is {age} years old"
+
+# With expressions
+result = f"{name.upper()} will be {age + 1} next year"
+math_result = f"2 + 2 = {2 + 2}"
+
+# Number formatting
+price = f"Price: ${balance:.2f}"        # "Price: $1234.57"
+percent = f"Success rate: {0.856:.1%}"  # "Success rate: 85.6%"
+padded = f"ID: {42:05d}"               # "ID: 00042" (zero-padded)
+
+# Alignment and width
+left = f"'{name:<10}'"                 # "'Alice     '"
+right = f"'{name:>10}'"                # "'     Alice'"
+center = f"'{name:^10}'"               # "'  Alice   '"
+
+# Date formatting
+from datetime import datetime
+now = datetime.now()
+formatted_date = f"Today is {now:%Y-%m-%d %H:%M:%S}"
+
+# Debug formatting (Python 3.8+)
+x = 42
+debug = f"{x=}"                        # "x=42"
+debug_calc = f"{x * 2=}"               # "x * 2=84"</pre>
+                    </div>
+
+                    <div class="code-block">
+<pre># Alternative methods (older but still used)
+
+# .format() method
+template = "Hello {}, you are {} years old"
+result = template.format(name, age)
+
+# Named placeholders
+template = "Hello {name}, you are {age} years old"
+result = template.format(name=name, age=age)
+
+# % formatting (oldest, avoid in new code)
+result = "Hello %s, you are %d years old" % (name, age)</pre>
+                    </div>
+
+                    <div class="tip">
+                        F-strings are not only the most readable but also the fastest string formatting method in Python. They're evaluated at runtime and support any Python expression.
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3><span class="subsection-icon">🔄</span>String Iteration & Processing</h3>
+                    
+                    <div class="code-block">
+<pre>text = "Hello World"
+
+# Character iteration
+for char in text:
+    print(char)
+
+# With index
+for i, char in enumerate(text):
+    print(f"Position {i}: {char}")
+
+# Character codes
+for char in "ABC":
+    print(f"{char} -> {ord(char)}")  # A -> 65, B -> 66, C -> 67
+
+# From codes to characters
+codes = [72, 101, 108, 108, 111]
+word = ''.join(chr(code) for code in codes)  # "Hello"
+
+# String processing patterns
+def count_vowels(s):
+    return sum(1 for char in s.lower() if char in 'aeiou')
+
+def reverse_words(s):
+    return ' '.join(word[::-1] for word in s.split())
+
+def is_palindrome(s):
+    # Remove non-alphanumeric and convert to lowercase
+    cleaned = ''.join(char.lower() for char in s if char.isalnum())
+    return cleaned == cleaned[::-1]
+
+# Examples
+print(count_vowels("Hello World"))      # 3
+print(reverse_words("Hello World"))     # "olleH dlroW"
+print(is_palindrome("A man a plan a canal Panama"))  # True</pre>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3><span class="subsection-icon">🧮</span>Advanced String Operations</h3>
+                    
+                    <div class="operations-grid">
+                        <div class="operation-card">
+                            <div class="operation-title">
+                                String Replacement
+                                <span class="complexity time">O(n)</span>
+                            </div>
+                            <div class="code-block">
+<pre>s = "Hello World Hello"
+
+# Basic replacement
+s.replace("Hello", "Hi")        # "Hi World Hi"
+s.replace("Hello", "Hi", 1)     # "Hi World Hello" (max 1 replacement)
+
+# Multiple replacements
+import re
+text = "I like cats and dogs"
+# Replace multiple words
+replacements = {"cats": "dogs", "dogs": "cats"}
+for old, new in replacements.items():
+    text = text.replace(old, new)</pre>
+                            </div>
+                        </div>
+
+                        <div class="operation-card">
+                            <div class="operation-title">
+                                String Padding & Alignment
+                                <span class="complexity time">O(n)</span>
+                            </div>
+                            <div class="code-block">
+<pre>s = "Python"
+
+# Padding
+s.ljust(10)         # "Python    " (left justify)
+s.rjust(10)         # "    Python" (right justify)
+s.center(10)        # "  Python  " (center)
+s.zfill(10)         # "0000Python" (zero padding)
+
+# Custom padding character
+s.ljust(10, '-')    # "Python----"
+s.center(10, '*')   # "**Python**"</pre>
+                            </div>
+                        </div>
+
+                        <div class="operation-card">
+                            <div class="operation-title">
+                                String Encoding
+                                <span class="complexity time">O(n)</span>
+                            </div>
+                            <div class="code-block">
+<pre>s = "Hello 世界"
+
+# Encoding to bytes
+utf8_bytes = s.encode('utf-8')      # b'Hello \xe4\xb8\x96\xe7\x95\x8c'
+ascii_bytes = s.encode('ascii', errors='ignore')  # b'Hello '
+
+# Decoding from bytes
+decoded = utf8_bytes.decode('utf-8')  # "Hello 世界"
+
+# Other encodings
+latin1 = "café".encode('latin-1')
+cp1252 = "café".encode('cp1252')</pre>
+                            </div>
+                        </div>
+
+                        <div class="operation-card">
+                            <div class="operation-title">
+                                String Translation
+                                <span class="complexity time">O(n)</span>
+                            </div>
+                            <div class="code-block">
+<pre># Translation table
+translation = str.maketrans("aeiou", "12345")
+result = "hello".translate(translation)  # "h2ll4"
+
+# Remove characters
+remove_vowels = str.maketrans("", "", "aeiou")
+result = "hello world".translate(remove_vowels)  # "hll wrld"
+
+# ROT13 encoding
+import codecs
+encoded = codecs.encode("hello", "rot13")  # "uryyb"</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="interactive-demo">
+                    <div class="demo-controls">
+                        <input type="text" class="demo-input" id="stringInput" placeholder="Enter a string to analyze (e.g., 'Hello World 123')">
+                        <button class="demo-button" onclick="processStringDemo()">Analyze String</button>
+                        <button class="demo-button" onclick="clearStringDemo()">Clear</button>
+                    </div>
+                    <div class="demo-output" id="stringOutput">Enter a string to see various string operations and analysis!
+
+Try: "Hello World 123" or "A man a plan a canal Panama"</div>
+                </div>
+
+                <div class="problem-examples">
+                    <h4>🎯 Common String Interview Problems</h4>
+                    
+                    <div class="example-item">
+                        <div class="example-title">Valid Palindrome - Check if string reads same forwards/backwards</div>
+                        <div class="code-block">
+<pre>def is_palindrome(s):
+    """O(n) time, O(1) space - Two pointer approach"""
+    left, right = 0, len(s) - 1
+    
+    while left < right:
+        # Skip non-alphanumeric characters
+        while left < right and not s[left].isalnum():
+            left += 1
+        while left < right and not s[right].isalnum():
+            right -= 1
+        
+        # Compare characters (case-insensitive)
+        if s[left].lower() != s[right].lower():
+            return False
+        
+        left += 1
+        right -= 1
+    
+    return True
+
+# Usage: is_palindrome("A man a plan a canal Panama") → True</pre>
+                        </div>
+                    </div>
+
+                    <div class="example-item">
+                        <div class="example-title">Longest Substring Without Repeating Characters</div>
+                        <div class="code-block">
+<pre>def longest_unique_substring(s):
+    """O(n) sliding window approach"""
+    char_index = {}
+    left = 0
+    max_length = 0
+    
+    for right, char in enumerate(s):
+        if char in char_index and char_index[char] >= left:
+            left = char_index[char] + 1
+        
+        char_index[char] = right
+        max_length = max(max_length, right - left + 1)
+    
+    return max_length
+
+# Usage: longest_unique_substring("abcabcbb") → 3 ("abc")</pre>
+                        </div>
+                    </div>
+
+                    <div class="example-item">
+                        <div class="example-title">Valid Anagram - Check if two strings have same characters</div>
+                        <div class="code-block">
+<pre>def is_anagram(s1, s2):
+    """Multiple approaches"""
+    
+    # Approach 1: Sorting - O(n log n)
+    return sorted(s1.lower()) == sorted(s2.lower())
+    
+    # Approach 2: Character count - O(n)
+    from collections import Counter
+    return Counter(s1.lower()) == Counter(s2.lower())
+    
+    # Approach 3: Manual counting - O(n)
+    if len(s1) != len(s2):
+        return False
+    
+    count = {}
+    for char in s1.lower():
+        count[char] = count.get(char, 0) + 1
+    
+    for char in s2.lower():
+        if char not in count:
+            return False
+        count[char] -= 1
+        if count[char] == 0:
+            del count[char]
+    
+    return len(count) == 0
+
+# Usage: is_anagram("listen", "silent") → True</pre>
+                        </div>
+                    </div>
+
+                    <div class="example-item">
+                        <div class="example-title">String Compression - Encode repeated characters</div>
+                        <div class="code-block">
+<pre>def compress_string(s):
+    """O(n) compression with character counts"""
+    if not s:
+        return ""
+    
+    result = []
+    current_char = s[0]
+    count = 1
+    
+    for i in range(1, len(s)):
+        if s[i] == current_char:
+            count += 1
+        else:
+            result.append(current_char + str(count))
+            current_char = s[i]
+            count = 1
+    
+    # Don't forget the last group
+    result.append(current_char + str(count))
+    
+    compressed = ''.join(result)
+    return compressed if len(compressed) < len(s) else s
+
+# Usage: compress_string("aabcccccaaa") → "a2b1c5a3"</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tip">
+                    <strong>String Performance Tips:</strong><br>
+                    • Use f-strings for formatting (fastest and most readable)<br>
+                    • Join lists instead of concatenating strings in loops<br>
+                    • Use str.translate() for character replacements (faster than multiple replace() calls)<br>
+                    • Consider using regular expressions for complex pattern matching<br>
+                    • For heavy string processing, look into the str.format_map() method
+                </div>
+            </div>
+
+            <!-- Tuples Section -->
+            <div class="section" id="tuples">
+                <div class="section-header">
+                    <div class="section-title-wrapper">
+                        <span class="section-icon">📦</span>
+                        <h2 class="section-title">Tuples</h2>
+                    </div>
+                    <div class="cpp-equivalent">C++: std::tuple, std::pair</div>
+                </div>
+
+                <div class="subsection">
+                    <h3><span class="subsection-icon">🔧</span>Tuple Creation & Basic Operations</h3>
+                    
+                    <div class="code-block">
+<pre># Tuple creation
+empty_tuple = ()
+single_item = (42,)         # Note the comma for single item!
+coordinates = (10, 20)
+rgb_color = (255, 128, 0)
+mixed_data = ("Alice", 25, True, 3.14)
+
+# Alternative creation
+point = tuple([10, 20])     # From list
+numbers = tuple(range(5))   # (0, 1, 2, 3, 4)
+
+# Tuple properties
+length = len(coordinates)   # 2
+first = coordinates[0]      # 10 (indexing works like lists)
+last = coordinates[-1]      # 20
+
+# Tuples are immutable!
+# coordinates[0] = 15  # ❌ TypeError: 'tuple' object doesn't support item assignment
+
+# But you can create new tuples
+new_coords = (15, 20)
+concatenated = coordinates + (30, 40)  # (10, 20, 30, 40)
+repeated = (1, 2) * 3       # (1, 2, 1, 2, 1, 2)</pre>
+                    </div>
+
+                    <div class="cpp-comparison">
+                        <strong>C++:</strong> std::tuple&lt;int, int&gt; coordinates{10, 20};<br>
+                        <strong>C++:</strong> std::pair&lt;int, int&gt; point{10, 20};<br>
+                        <strong>C++:</strong> auto [x, y] = coordinates; // C++17 structured bindings
+                    </div>
+
+                    <div class="tip">
+                        Tuples are immutable sequences, perfect for representing fixed collections of related data like coordinates, RGB colors, or database records.
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3><span class="subsection-icon">📦</span>Tuple Unpacking (Python's Superpower)</h3>
+                    
+                    <div class="code-block">
+<pre># Basic unpacking
+point = (10, 20)
+x, y = point                # x = 10, y = 20
+
+# Multiple assignment
+person = ("Alice", 25, "Engineer")
+name, age, job = person
+
+# Swapping variables (no temp variable needed!)
+a, b = 10, 20
+a, b = b, a                 # Now a = 20, b = 10
+
+# Unpacking with star operator (Python 3)
+numbers = (1, 2, 3, 4, 5)
+first, *middle, last = numbers
+# first = 1, middle = [2, 3, 4], last = 5
+
+first, second, *rest = numbers
+# first = 1, second = 2, rest = [3, 4, 5]
+
+# Unpacking function returns
+def get_name_age():
+    return "Bob", 30
+
+name, age = get_name_age()  # Unpack return values
+
+# Unpacking in loops
+people = [("Alice", 25), ("Bob", 30), ("Charlie", 35)]
+for name, age in people:
+    print(f"{name} is {age} years old")
+
+# Unpacking in function calls
+def greet(first, last):
+    return f"Hello {first} {last}!"
+
+name_tuple = ("John", "Doe")
+greeting = greet(*name_tuple)  # Equivalent to greet("John", "Doe")</pre>
+                    </div>
+
+                    <div class="cpp-comparison">
+                        <strong>C++:</strong> auto [x, y] = point; // C++17 structured bindings<br>
+                        <strong>C++:</strong> std::tie(name, age) = person; // With std::tie<br>
+                        <strong>C++:</strong> std::swap(a, b); // For swapping
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3><span class="subsection-icon">🎯</span>Common Tuple Use Cases</h3>
+                    
+                    <div class="operations-grid">
+                        <div class="operation-card">
+                            <div class="operation-title">
+                                Multiple Return Values
+                                <span class="complexity">Elegant</span>
+                            </div>
+                            <div class="code-block">
+<pre>def divmod_example(a, b):
+    """Return quotient and remainder"""
+    return a // b, a % b
+
+quotient, remainder = divmod_example(17, 5)
+# quotient = 3, remainder = 2
+
+def min_max_index(arr):
+    """Return min/max values and their indices"""
+    min_val = min(arr)
+    max_val = max(arr)
+    return (min_val, arr.index(min_val), 
+            max_val, arr.index(max_val))</pre>
+                            </div>
+                        </div>
+
+                        <div class="operation-card">
+                            <div class="operation-title">
+                                Dictionary Keys/Items
+                                <span class="complexity">Common</span>
+                            </div>
+                            <div class="code-block">
+<pre># Tuples as dictionary keys (immutable!)
+locations = {
+    (0, 0): "Origin",
+    (1, 0): "East",
+    (0, 1): "North",
+    (-1, 0): "West"
+}
+
+origin = locations[(0, 0)]  # "Origin"
+
+# Iterating over dict items
+for (x, y), name in locations.items():
+    print(f"({x}, {y}) -> {name}")</pre>
+                            </div>
+                        </div>
+
+                        <div class="operation-card">
+                            <div class="operation-title">
+                                Named Tuples
+                                <span class="complexity">Advanced</span>
+                            </div>
+                            <div class="code-block">
+<pre>from collections import namedtuple
+
+# Define a named tuple
+Point = namedtuple('Point', ['x', 'y'])
+Person = namedtuple('Person', 'name age city')
+
+# Create instances
+p1 = Point(10, 20)
+p2 = Point(x=15, y=25)
+
+# Access by name or index
+print(p1.x, p1.y)      # 10 20
+print(p1[0], p1[1])    # 10 20
+
+# Named tuples are still tuples!
+x, y = p1              # Unpacking works
+print(len(p1))         # 2</pre>
+                            </div>
+                        </div>
+
+                        <div class="operation-card">
+                            <div class="operation-title">
+                                Sorting & Comparison
+                                <span class="complexity">Useful</span>
+                            </div>
+                            <div class="code-block">
+<pre># Tuples compare lexicographically
+points = [(1, 3), (2, 1), (1, 2), (2, 3)]
+sorted_points = sorted(points)
+# [(1, 2), (1, 3), (2, 1), (2, 3)]
+
+# Sort by second element
+by_y = sorted(points, key=lambda p: p[1])
+# [(2, 1), (1, 2), (1, 3), (2, 3)]
+
+# Priority in sorting
+tasks = [("urgent", 1), ("normal", 3), ("urgent", 2)]
+sorted_tasks = sorted(tasks)
+# [('normal', 3), ('urgent', 1), ('urgent', 2)]</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="interactive-demo">
+                    <div class="demo-controls">
+                        <input type="text" class="demo-input" id="tupleInput" placeholder="Enter tuple elements separated by commas (e.g., 10,20,30)">
+                        <button class="demo-button" onclick="processTupleDemo()">Process Tuple</button>
+                        <button class="demo-button" onclick="clearTupleDemo()">Clear</button>
+                    </div>
+                    <div class="demo-output" id="tupleOutput">Enter tuple elements to see tuple operations!
+
+Try: 10,20,30 or Alice,25,Engineer</div>
+                </div>
+            </div>
+
+            <!-- Dictionaries Section -->
+            <div class="section" id="dictionaries">
+                <div class="section-header">
+                    <div class="section-title-wrapper">
+                        <span class="section-icon">📚</span>
+                        <h2 class="section-title">Dictionaries</h2>
+                    </div>
+                    <div class="cpp-equivalent">C++: std::map, std::unordered_map</div>
+                </div>
+
+                <div class="subsection">
+                    <h3><span class="subsection-icon">🔧</span>Dictionary Creation & Basic Operations</h3>
+                    
+                    <div class="code-block">
+<pre># Dictionary creation
+empty_dict = {}
+empty_dict2 = dict()
+
+# With initial data
+person = {
+    "name": "Alice",
+    "age": 25,
+    "city": "New York",
+    "is_student": False
+}
+
+# Alternative creation methods
+pairs = [("a", 1), ("b", 2), ("c", 3)]
+from_pairs = dict(pairs)        # {"a": 1, "b": 2, "c": 3}
+from_keywords = dict(name="Bob", age=30)  # {"name": "Bob", "age": 30}
+
+# Dictionary comprehension
+squares = {x: x**2 for x in range(5)}  # {0: 0, 1: 1, 2: 4, 3: 9, 4: 16}
+filtered = {k: v for k, v in person.items() if isinstance(v, str)}
+
+# Accessing values
+name = person["name"]           # "Alice" (KeyError if not exists)
+age = person.get("age")         # 25 (None if not exists)
+salary = person.get("salary", 0)  # 0 (default value)
+
+# Checking existence
+has_name = "name" in person     # True
+has_salary = "salary" in person # False</pre>
+                    </div>
+
+                    <div class="cpp-comparison">
+                        <strong>C++:</strong> std::unordered_map&lt;std::string, int&gt; ages = {{"Alice", 25}, {"Bob", 30}};<br>
+                        <strong>C++:</strong> ages["Alice"] = 25; // Insert or update<br>
+                        <strong>C++:</strong> ages.find("Alice") != ages.end(); // Check existence
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3><span class="subsection-icon">🔄</span>Dictionary Iteration</h3>
+                    
+                    <div class="code-block">
+<pre>person = {"name": "Alice", "age": 25, "city": "New York"}
+
+# Iterate over keys (default)
+for key in person:
+    print(key, person[key])
+
+# Explicit key iteration
+for key in person.keys():
+    print(f"Key: {key}")
+
+# Iterate over values
+for value in person.values():
+    print(f"Value: {value}")
+
+# Iterate over key-value pairs (most common)
+for key, value in person.items():
+    print(f"{key}: {value}")
+
+# With enumerate for index
+for i, (key, value) in enumerate(person.items()):
+    print(f"{i}: {key} = {value}")
+
+# Dictionary comprehensions with iteration
+upper_keys = {k.upper(): v for k, v in person.items()}
+string_values = {k: v for k, v in person.items() if isinstance(v, str)}
+key_lengths = {k: len(str(v)) for k, v in person.items()}</pre>
+                    </div>
+
+                    <div class="cpp-comparison">
+                        <strong>C++:</strong> for(auto& [key, value] : map) // C++17 structured bindings<br>
+                        <strong>C++:</strong> for(auto& pair : map) // Traditional iteration<br>
+                        <strong>C++:</strong> for(auto it = map.begin(); it != map.end(); ++it) // Iterator
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3><span class="subsection-icon">⚡</span>Dictionary Operations</h3>
+                    
+                    <div class="operations-grid">
+                        <div class="operation-card">
+                            <div class="operation-title">
+                                Adding & Updating
+                                <span class="complexity time">O(1) avg</span>
+                            </div>
+                            <div class="code-block">
+<pre># Adding/updating single items
+person["email"] = "alice@email.com"
+person["age"] = 26  # Update existing
+
+# Update multiple items
+person.update({
+    "phone": "123-456-7890",
+    "country": "USA"
+})
+
+# Update from another dict
+other_info = {"job": "Engineer", "salary": 75000}
+person.update(other_info)
+
+# Conditional update (only if key doesn't exist)
+person.setdefault("id", "user123")
+person.setdefault("age", 30)  # Won't change age (already exists)</pre>
+                            </div>
+                        </div>
+
+                        <div class="operation-card">
+                            <div class="operation-title">
+                                Removing Items
+                                <span class="complexity time">O(1) avg</span>
+                            </div>
+                            <div class="code-block">
+<pre># Remove and return value
+email = person.pop("email")     # Remove "email" key
+backup = person.pop("backup", "None")  # With default
+
+# Remove and return arbitrary item
+item = person.popitem()         # Returns (key, value) tuple
+
+# Delete without returning
+del person["city"]              # KeyError if not exists
+
+# Clear all items
+person.clear()                  # Empty dictionary {}</pre>
+                            </div>
+                        </div>
+
+                        <div class="operation-card">
+                            <div class="operation-title">
+                                Dictionary Views
+                                <span class="complexity">Dynamic</span>
+                            </div>
+                            <div class="code-block">
+<pre>person = {"name": "Alice", "age": 25}
+
+# Dictionary views (dynamic!)
+keys = person.keys()            # dict_keys(['name', 'age'])
+values = person.values()        # dict_values(['Alice', 25])
+items = person.items()          # dict_items([('name', 'Alice'), ('age', 25)])
+
+# Views update when dict changes
+person["city"] = "NYC"
+print(keys)   # dict_keys(['name', 'age', 'city'])
+
+# Convert to lists if needed
+key_list = list(person.keys())
+value_list = list(person.values())</pre>
+                            </div>
+                        </div>
+
+                        <div class="operation-card">
+                            <div class="operation-title">
+                                Dictionary Copying
+                                <span class="complexity">O(n)</span>
+                            </div>
+                            <div class="code-block">
+<pre># Shallow copy
+copy1 = person.copy()
+copy2 = dict(person)
+copy3 = {**person}  # Dictionary unpacking
+
+# Deep copy (for nested dicts)
+import copy
+nested = {"user": {"name": "Alice", "prefs": {"theme": "dark"}}}
+deep_copy = copy.deepcopy(nested)
+
+# Copying with modifications
+updated_copy = {**person, "age": 30, "status": "active"}</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3><span class="subsection-icon">🏗️</span>Advanced Dictionary Types</h3>
+                    
+                    <div class="code-block">
+<pre>from collections import defaultdict, OrderedDict, Counter
+
+# defaultdict - Never raises KeyError
+dd = defaultdict(int)           # Default value: 0
+dd["count"] += 1                # No KeyError, starts at 0
+
+list_dd = defaultdict(list)     # Default value: []
+list_dd["items"].append("first")  # Creates list automatically
+
+set_dd = defaultdict(set)       # Default value: set()
+set_dd["tags"].add("python")
+
+# Custom default factory
+def default_dict():
+    return "Unknown"
+
+info_dd = defaultdict(default_dict)
+print(info_dd["missing"])       # "Unknown"
+
+# OrderedDict - Maintains insertion order (dict does this in Python 3.7+)
+od = OrderedDict()
+od["first"] = 1
+od["second"] = 2
+od["third"] = 3
+
+# Move to end
+od.move_to_end("first")         # Moves "first" to the end
+od.move_to_end("second", last=False)  # Moves "second" to beginning
+
+# Counter - For counting hashable objects
+text = "hello world"
+char_count = Counter(text)      # Counter({'l': 3, 'o': 2, 'h': 1, ...})
+
+numbers = [1, 2, 2, 3, 3, 3, 4, 4, 4, 4]
+num_count = Counter(numbers)    # Counter({4: 4, 3: 3, 2: 2, 1: 1})
+
+# Counter operations
+char_count.most_common(3)       # [('l', 3), ('o', 2), ('h', 1)]
+char_count.total()              # Total count of all elements
+char_count.subtract(Counter("hello"))  # Subtract counts</pre>
+                    </div>
+
+                    <div class="tip">
+                        <strong>defaultdict</strong> is perfect for grouping data without checking if keys exist.<br>
+                        <strong>Counter</strong> is ideal for frequency analysis and counting problems.<br>
+                        <strong>OrderedDict</strong> is less useful in Python 3.7+ since regular dicts maintain order.
+                    </div>
+                </div>
+
+                <div class="interactive-demo">
+                    <div class="demo-controls">
+                        <input type="text" class="demo-input" id="dictInput" placeholder="Enter key:value pairs separated by commas (e.g., name:Alice,age:25,city:NYC)">
+                        <button class="demo-button" onclick="processDictDemo()">Process Dictionary</button>
+                        <button class="demo-button" onclick="clearDictDemo()">Clear</button>
+                    </div>
+                    <div class="demo-output" id="dictOutput">Enter key:value pairs to see dictionary operations!
+
+Try: name:Alice,age:25,city:NYC</div>
+                </div>
+
+                <div class="problem-examples">
+                    <h4>🎯 Common Dictionary Interview Problems</h4>
+                    
+                    <div class="example-item">
+                        <div class="example-title">Group Anagrams - Group strings that are anagrams</div>
+                        <div class="code-block">
+<pre>def group_anagrams(strs):
+    """O(n * k log k) where n is number of strings, k is max string length"""
+    from collections import defaultdict
+    
+    groups = defaultdict(list)
+    
+    for s in strs:
+        # Sort characters to create key
+        key = ''.join(sorted(s))
+        groups[key].append(s)
+    
+    return list(groups.values())
+
+# Usage: group_anagrams(["eat","tea","tan","ate","nat","bat"])
+# → [["eat","tea","ate"], ["tan","nat"], ["bat"]]</pre>
+                        </div>
+                    </div>
+
+                    <div class="example-item">
+                        <div class="example-title">First Non-Repeating Character</div>
+                        <div class="code-block">
+<pre>def first_unique_char(s):
+    """O(n) solution using Counter"""
+    from collections import Counter
+    
+    char_count = Counter(s)
+    
+    for i, char in enumerate(s):
+        if char_count[char] == 1:
+            return i
+    
+    return -1  # No unique character found
+
+# Alternative approach without Counter
+def first_unique_char_manual(s):
+    char_count = {}
+    
+    # Count frequencies
+    for char in s:
+        char_count[char] = char_count.get(char, 0) + 1
+    
+    # Find first unique
+    for i, char in enumerate(s):
+        if char_count[char] == 1:
+            return i
+    
+    return -1</pre>
+                        </div>
+                    </div>
+
+                    <div class="example-item">
+                        <div class="example-title">Intersection of Two Arrays</div>
+                        <div class="code-block">
+<pre>def intersect_arrays(nums1, nums2):
+    """Return intersection with frequencies"""
+    from collections import Counter
+    
+    count1 = Counter(nums1)
+    count2 = Counter(nums2)
+    
+    result = []
+    for num, freq in count1.items():
+        if num in count2:
+            # Take minimum frequency
+            result.extend([num] * min(freq, count2[num]))
+    
+    return result
+
+# Alternative: Use & operator for Counter intersection
+def intersect_arrays_short(nums1, nums2):
+    from collections import Counter
+    
+    c1, c2 = Counter(nums1), Counter(nums2)
+    intersection = c1 & c2  # Intersection with min frequencies
+    
+    result = []
+    for num, freq in intersection.items():
+        result.extend([num] * freq)
+    
+    return result</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tip">
+                    <strong>Dictionary Performance Tips:</strong><br>
+                    • Use `dict.get(key, default)` instead of checking `if key in dict` before access<br>
+                    • Dictionary comprehensions are faster than building with loops<br>
+                    • Use `collections.defaultdict` when you need default values<br>
+                    • For counting, always use `collections.Counter` - it's optimized<br>
+                    • Consider `dict.setdefault()` for adding to lists in dictionary values
+                </div>
+            </div>
+
+            <!-- Sets Section -->
+            <div class="section" id="sets">
+                <div class="section-header">
+                    <div class="section-title-wrapper">
+                        <span class="section-icon">🎯</span>
+                        <h2 class="section-title">Sets</h2>
+                    </div>
+                    <div class="cpp-equivalent">C++: std::set, std::unordered_set</div>
+                </div>
+
+                <div class="subsection">
+                    <h3><span class="subsection-icon">🔧</span>Set Creation & Basic Properties</h3>
+                    
+                    <div class="code-block">
+<pre># Set creation
+empty_set = set()               # ❗ {} creates empty dict, not set!
+numbers = {1, 2, 3, 4, 5}      # Set with initial values
+from_list = set([1, 2, 2, 3])  # {1, 2, 3} - duplicates removed
+from_string = set("hello")      # {'h', 'e', 'l', 'o'} - unique characters
+
+# Set comprehension
+squares = {x**2 for x in range(5)}     # {0, 1, 4, 9, 16}
+vowels = {char for char in "hello world" if char in "aeiou"}  # {'e', 'o'}
+
+# Set properties
+length = len(numbers)           # 5
+is_empty = len(numbers) == 0    # False
+contains_3 = 3 in numbers       # True (O(1) average time!)
+
+# Sets are unordered and contain only unique elements
+duplicates = {1, 2, 2, 3, 3, 3}    # {1, 2, 3}
+print(duplicates)               # Order not guaranteed!</pre>
+                    </div>
+
+                    <div class="cpp-comparison">
+                        <strong>C++:</strong> std::unordered_set&lt;int&gt; numbers = {1, 2, 3, 4, 5};<br>
+                        <strong>C++:</strong> std::set&lt;int&gt; sorted_numbers = {1, 2, 3, 4, 5}; // Maintains order<br>
+                        <strong>C++:</strong> numbers.find(3) != numbers.end(); // Check membership
+                    </div>
+
+                    <div class="warning">
+                        Remember: <code>{}</code> creates an empty dictionary, not a set! Always use <code>set()</code> for empty sets.
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3><span class="subsection-icon">➕</span>Adding & Removing Elements</h3>
+                    
+                    <div class="operations-grid">
+                        <div class="operation-card">
+                            <div class="operation-title">
+                                Adding Elements
+                                <span class="complexity time">O(1) avg</span>
+                            </div>
+                            <div class="code-block">
+<pre>fruits = {"apple", "banana"}
+
+# Add single element
+fruits.add("orange")            # {"apple", "banana", "orange"}
+fruits.add("apple")             # No change (already exists)
+
+# Add multiple elements
+fruits.update(["grape", "kiwi"])           # From list
+fruits.update({"mango", "peach"})          # From set
+fruits.update("cherry")                    # From string: 'c', 'h', 'e', 'r', 'y'
+
+# Union operator (creates new set)
+more_fruits = fruits | {"pineapple", "coconut"}
+# Alternative: fruits.union({"pineapple", "coconut"})</pre>
+                            </div>
+                        </div>
+
+                        <div class="operation-card">
+                            <div class="operation-title">
+                                Removing Elements
+                                <span class="complexity time">O(1) avg</span>
+                            </div>
+                            <div class="code-block">
+<pre>fruits = {"apple", "banana", "orange"}
+
+# Remove specific element
+fruits.remove("banana")         # KeyError if not exists
+fruits.discard("grape")         # No error if not exists (safe)
+
+# Remove and return arbitrary element
+fruit = fruits.pop()            # Returns random element
+# fruits.pop(item)  # ❌ pop() takes no arguments for sets
+
+# Remove all elements
+fruits.clear()                  # Empty set: set()
+
+# Alternative removal methods
+fruits = {"apple", "banana", "orange"}
+del_fruits = fruits - {"apple"}    # {"banana", "orange"} (new set)
+fruits.difference_update({"banana"})  # Modify in place</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3><span class="subsection-icon">🔄</span>Set Operations (Mathematical)</h3>
+                    
+                    <div class="code-block">
+<pre>set1 = {1, 2, 3, 4, 5}
+set2 = {4, 5, 6, 7, 8}
+set3 = {1, 2, 3}
+
+# Union - All elements from both sets
+union1 = set1 | set2                    # {1, 2, 3, 4, 5, 6, 7, 8}
+union2 = set1.union(set2)               # Same result (method form)
+union3 = set1.union(set2, set3)         # Can take multiple sets
+
+# Intersection - Common elements
+intersection1 = set1 & set2             # {4, 5}
+intersection2 = set1.intersection(set2) # Same result (method form)
+
+# Difference - Elements in first but not second
+diff1 = set1 - set2                     # {1, 2, 3}
+diff2 = set1.difference(set2)           # Same result (method form)
+
+# Symmetric Difference - Elements in either set but not both
+sym_diff1 = set1 ^ set2                 # {1, 2, 3, 6, 7, 8}
+sym_diff2 = set1.symmetric_difference(set2)  # Same result (method form)
+
+# In-place operations (modify original set)
+set1 |= set2        # set1.update(set2)
+set1 &= set2        # set1.intersection_update(set2)
+set1 -= set2        # set1.difference_update(set2)
+set1 ^= set2        # set1.symmetric_difference_update(set2)</pre>
+                    </div>
+
+                    <div class="tip">
+                        <strong>Operator vs Method:</strong><br>
+                        • Operators (|, &, -, ^) work only with sets<br>
+                        • Methods (.union(), .intersection(), etc.) work with any iterable<br>
+                        • Use operators for readability, methods for flexibility
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3><span class="subsection-icon">📏</span>Set Relationships & Comparisons</h3>
+                    
+                    <div class="code-block">
+<pre>set1 = {1, 2, 3}
+set2 = {1, 2, 3, 4, 5}
+set3 = {4, 5, 6}
+set4 = {1, 2, 3}
+
+# Subset relationships
+is_subset = set1 <= set2                # True (set1 is subset of set2)
+is_subset2 = set1.issubset(set2)        # Same as above
+is_proper_subset = set1 < set2          # True (proper subset)
+
+# Superset relationships
+is_superset = set2 >= set1              # True (set2 is superset of set1)
+is_superset2 = set2.issuperset(set1)    # Same as above
+is_proper_superset = set2 > set1        # True (proper superset)
+
+# Disjoint sets (no common elements)
+are_disjoint = set1.isdisjoint(set3)    # True (no common elements)
+
+# Set equality
+are_equal = set1 == set4                # True (same elements)
+are_not_equal = set1 != set3            # True (different elements)
+
+# Checking relationships
+def analyze_sets(a, b):
+    if a == b:
+        return "Sets are equal"
+    elif a < b:
+        return "A is proper subset of B"
+    elif a > b:
+        return "A is proper superset of B"
+    elif a.isdisjoint(b):
+        return "Sets are disjoint"
+    else:
+        return "Sets overlap but neither is subset of other"
+
+print(analyze_sets({1, 2}, {1, 2, 3}))  # "A is proper subset of B"</pre>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3><span class="subsection-icon">🏗️</span>Specialized Set Types</h3>
+                    
+                    <div class="code-block">
+<pre># frozenset - Immutable set (can be used as dict key or set element)
+immutable_set = frozenset([1, 2, 3, 4])
+# immutable_set.add(5)  # ❌ AttributeError: 'frozenset' object has no attribute 'add'
+
+# frozenset as dictionary key
+cache = {
+    frozenset([1, 2, 3]): "result1",
+    frozenset([4, 5, 6]): "result2"
+}
+
+# Set of frozensets
+nested_sets = {
+    frozenset([1, 2]),
+    frozenset([3, 4]),
+    frozenset([5, 6])
+}
+
+# Converting between set and frozenset
+regular_set = {1, 2, 3}
+frozen = frozenset(regular_set)
+back_to_set = set(frozen)
+
+# frozenset operations (same as set, but immutable)
+fs1 = frozenset([1, 2, 3])
+fs2 = frozenset([3, 4, 5])
+union_fs = fs1 | fs2                    # frozenset({1, 2, 3, 4, 5})
+intersection_fs = fs1 & fs2             # frozenset({3})</pre>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3><span class="subsection-icon">⚡</span>Set Iteration & Comprehensions</h3>
+                    
+                    <div class="code-block">
+<pre>numbers = {1, 2, 3, 4, 5}
+
+# Basic iteration (order not guaranteed!)
+for num in numbers:
+    print(num)
+
+# Set comprehensions
+squares = {x**2 for x in numbers}           # {1, 4, 9, 16, 25}
+evens = {x for x in numbers if x % 2 == 0}  # {2, 4}
+
+# Filtering with conditions
+words = {"python", "java", "javascript", "go", "rust"}
+short_words = {word for word in words if len(word) <= 4}  # {"java", "go", "rust"}
+first_letters = {word[0] for word in words}  # {'p', 'j', 'g', 'r'}
+
+# Nested comprehensions
+matrix = [{1, 2}, {2, 3}, {3, 4}]
+all_numbers = {num for row in matrix for num in row}  # {1, 2, 3, 4}
+
+# Converting iterables to sets (removes duplicates)
+text = "hello world"
+unique_chars = set(text)                    # {'h', 'e', 'l', 'o', ' ', 'w', 'r', 'd'}
+unique_words = set(text.split())            # {'hello', 'world'}
+
+# Set from function results
+import random
+random_sample = {random.randint(1, 10) for _ in range(20)}  # Random unique numbers</pre>
+                    </div>
+                </div>
+
+                <div class="problem-examples">
+                    <h4>🎯 Common Set Interview Problems</h4>
+                    
+                    <div class="example-item">
+                        <div class="example-title">Contains Duplicate - Check if array has any duplicates</div>
+                        <div class="code-block">
+<pre>def contains_duplicate(nums):
+    """O(n) time, O(n) space - Using set for instant duplicate detection"""
+    return len(nums) != len(set(nums))
+
+# Alternative approach - early termination
+def contains_duplicate_early(nums):
+    """Stop as soon as we find a duplicate"""
+    seen = set()
+    for num in nums:
+        if num in seen:
+            return True
+        seen.add(num)
+    return False
+
+# Usage: contains_duplicate([1,2,3,1]) → True</pre>
+                        </div>
+                    </div>
+
+                    <div class="example-item">
+                        <div class="example-title">Single Number - Find the number that appears only once</div>
+                        <div class="code-block">
+<pre>def single_number(nums):
+    """O(n) time, O(1) space using XOR (bit manipulation)"""
+    result = 0
+    for num in nums:
+        result ^= num  # XOR cancels out duplicates
+    return result
+
+# Set-based approach (less efficient but more intuitive)
+def single_number_set(nums):
+    """O(n) time, O(n) space"""
+    seen = set()
+    for num in nums:
+        if num in seen:
+            seen.remove(num)
+        else:
+            seen.add(num)
+    return seen.pop()  # Only element left
+
+# Mathematical approach
+def single_number_math(nums):
+    """Sum of unique * 2 - sum of all = single number"""
+    return 2 * sum(set(nums)) - sum(nums)</pre>
+                        </div>
+                    </div>
+
+                    <div class="example-item">
+                        <div class="example-title">Happy Number - Determine if a number is "happy"</div>
+                        <div class="code-block">
+<pre>def is_happy(n):
+    """A happy number eventually reaches 1 when replaced by sum of squares of digits"""
+    def get_sum_of_squares(num):
+        total = 0
+        while num > 0:
+            digit = num % 10
+            total += digit * digit
+            num //= 10
+        return total
+    
+    seen = set()
+    
+    while n != 1 and n not in seen:
+        seen.add(n)
+        n = get_sum_of_squares(n)
+    
+    return n == 1
+
+# Usage: is_happy(19) → True
+# 19 → 1²+9² = 82 → 8²+2² = 68 → 6²+8² = 100 → 1²+0²+0² = 1</pre>
+                        </div>
+                    </div>
+
+                    <div class="example-item">
+                        <div class="example-title">Longest Consecutive Sequence</div>
+                        <div class="code-block">
+<pre>def longest_consecutive(nums):
+    """O(n) time - Find longest consecutive sequence in unsorted array"""
+    if not nums:
+        return 0
+    
+    num_set = set(nums)
+    longest_streak = 0
+    
+    for num in num_set:
+        # Only start counting if this is the beginning of a sequence
+        if num - 1 not in num_set:
+            current_num = num
+            current_streak = 1
+            
+            # Count consecutive numbers
+            while current_num + 1 in num_set:
+                current_num += 1
+                current_streak += 1
+            
+            longest_streak = max(longest_streak, current_streak)
+    
+    return longest_streak
+
+# Usage: longest_consecutive([100,4,200,1,3,2]) → 4 (sequence: 1,2,3,4)</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="interactive-demo">
+                    <div class="demo-controls">
+                        <input type="text" class="demo-input" id="setInput" placeholder="Enter comma-separated values (e.g., 1,2,3,2,4,3,5)">
+                        <button class="demo-button" onclick="processSetDemo()">Process Set</button>
+                        <button class="demo-button" onclick="clearSetDemo()">Clear</button>
+                    </div>
+                    <div class="demo-output" id="setOutput">Enter values to see set operations and analysis!
+
+Try: 1,2,3,2,4,3,5 or apple,banana,apple,cherry</div>
+                </div>
+
+                <div class="tip">
+                    <strong>Set Performance Tips:</strong><br>
+                    • Use sets for O(1) membership testing instead of lists (O(n))<br>
+                    • Sets are perfect for removing duplicates from any iterable<br>
+                    • Use set operations (|, &, -, ^) for readable set mathematics<br>
+                    • Consider frozenset when you need an immutable set<br>
+                    • Sets use hash tables - only hashable objects can be elements
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()">↑</button>
+
+    <script>
+        // Global state
+        let currentSection = 'arrays';
+        const sections = document.querySelectorAll('.section');
+        const navItems = document.querySelectorAll('.nav-item');
+        const searchBox = document.getElementById('searchBox');
+        const backToTop = document.getElementById('backToTop');
+        const progressBar = document.getElementById('progressBar');
+
+        // Navigation functionality
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const sectionId = item.getAttribute('data-section');
+                showSection(sectionId);
+                
+                // Update active nav item
+                navItems.forEach(nav => nav.classList.remove('active'));
+                item.classList.add('active');
+                
+                currentSection = sectionId;
+            });
+        });
+
+        function showSection(sectionId) {
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        // Search functionality
+        searchBox.addEventListener('input', debounce(handleSearch, 300));
+
+        function handleSearch(e) {
+            const query = e.target.value.toLowerCase().trim();
+            if (!query) {
+                clearHighlights();
+                return;
+            }
+            
+            searchAndHighlight(query);
+        }
+
+        function searchAndHighlight(query) {
+            clearHighlights();
+            
+            const content = document.querySelector('.content');
+            const walker = document.createTreeWalker(
+                content,
+                NodeFilter.SHOW_TEXT,
+                null,
+                false
+            );
+
+            const textNodes = [];
+            let node;
+            while (node = walker.nextNode()) {
+                if (node.textContent.toLowerCase().includes(query)) {
+                    textNodes.push(node);
+                }
+            }
+
+            textNodes.forEach(textNode => {
+                const regex = new RegExp(`(${escapeRegex(query)})`, 'gi');
+                const highlightedText = textNode.textContent.replace(regex, '<mark class="search-highlight">$1</mark>');
+                
+                if (highlightedText !== textNode.textContent) {
+                    const span = document.createElement('span');
+                    span.innerHTML = highlightedText;
+                    textNode.parentNode.replaceChild(span, textNode);
+                }
+            });
+        }
+
+        function clearHighlights() {
+            const highlights = document.querySelectorAll('.search-highlight');
+            highlights.forEach(highlight => {
+                const parent = highlight.parentNode;
+                parent.replaceChild(document.createTextNode(highlight.textContent), highlight);
+                parent.normalize();
+            });
+        }
+
+        function escapeRegex(string) {
+            return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        }
+
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        // Scroll functionality
+        window.addEventListener('scroll', () => {
+            // Show/hide back to top button
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+
+            // Update progress bar
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            progressBar.style.width = scrolled + '%';
+        });
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Interactive Demo Functions
+        function processListDemo() {
+            const input = document.getElementById('listInput').value.trim();
+            const output = document.getElementById('listOutput');
+            
+            if (!input) {
+                output.textContent = 'Please enter some numbers first!';
+                return;
+            }
+
+            try {
+                // Parse input
+                const numbers = input.split(',').map(x => parseInt(x.trim())).filter(x => !isNaN(x));
+                
+                if (numbers.length === 0) {
+                    output.textContent = 'Please enter valid numbers separated by commas.';
+                    return;
+                }
+
+                let result = `Original list: [${numbers.join(', ')}]\n\n`;
+                
+                // Demonstrate various operations
+                result += `Length: ${numbers.length}\n`;
+                result += `First element: ${numbers[0]}\n`;
+                result += `Last element: ${numbers[numbers.length - 1]}\n`;
+                result += `Sum: ${numbers.reduce((a, b) => a + b, 0)}\n`;
+                result += `Max: ${Math.max(...numbers)}\n`;
+                result += `Min: ${Math.min(...numbers)}\n\n`;
+                
+                // Sorting
+                const sorted = [...numbers].sort((a, b) => a - b);
+                result += `Sorted: [${sorted.join(', ')}]\n`;
+                
+                // Reverse
+                const reversed = [...numbers].reverse();
+                result += `Reversed: [${reversed.join(', ')}]\n\n`;
+                
+                // Slicing examples
+                result += `First 3: [${numbers.slice(0, 3).join(', ')}]\n`;
+                result += `Last 2: [${numbers.slice(-2).join(', ')}]\n`;
+                result += `Every 2nd: [${numbers.filter((_, i) => i % 2 === 0).join(', ')}]\n\n`;
+                
+                // Search example
+                const target = numbers[0];
+                const index = numbers.indexOf(target);
+                result += `Index of ${target}: ${index}\n`;
+                result += `Contains ${target}? ${numbers.includes(target)}\n`;
+                
+                output.textContent = result;
+                
+            } catch (error) {
+                output.textContent = `Error: ${error.message}`;
+            }
+        }
+
+        function clearListDemo() {
+            document.getElementById('listInput').value = '';
+            document.getElementById('listOutput').textContent = 'Enter some numbers to see list operations in action!\n\nTry: 5,2,8,1,9,3\nThis will demonstrate: creation, sorting, slicing, searching, and more...';
+        }
+
+        // String Demo Functions
+        function processStringDemo() {
+            const input = document.getElementById('stringInput').value;
+            const output = document.getElementById('stringOutput');
+            
+            if (!input) {
+                output.textContent = 'Please enter a string first!';
+                return;
+            }
+
+            try {
+                let result = `Original string: "${input}"\n\n`;
+                
+                // Basic properties
+                result += `Length: ${input.length}\n`;
+                result += `First character: "${input[0] || 'N/A'}"\n`;
+                result += `Last character: "${input[input.length - 1] || 'N/A'}"\n\n`;
+                
+                // Case operations
+                result += `Uppercase: "${input.toUpperCase()}"\n`;
+                result += `Lowercase: "${input.toLowerCase()}"\n`;
+                result += `Title case: "${input.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ')}"\n\n`;
+                
+                // Checks
+                result += `Contains digits? ${/\d/.test(input)}\n`;
+                result += `Contains letters? ${/[a-zA-Z]/.test(input)}\n`;
+                result += `Contains spaces? ${input.includes(' ')}\n`;
+                result += `Is palindrome? ${isPalindrome(input)}\n\n`;
+                
+                // Word analysis
+                const words = input.trim().split(/\s+/).filter(word => word.length > 0);
+                result += `Word count: ${words.length}\n`;
+                if (words.length > 0) {
+                    result += `Words: [${words.join(', ')}]\n`;
+                    result += `Longest word: "${words.reduce((a, b) => a.length > b.length ? a : b)}"\n`;
+                    result += `Shortest word: "${words.reduce((a, b) => a.length < b.length ? a : b)}"\n`;
+                }
+                
+                // Character frequency
+                const charCount = {};
+                for (let char of input.toLowerCase()) {
+                    if (char !== ' ') {
+                        charCount[char] = (charCount[char] || 0) + 1;
+                    }
+                }
+                result += `\nCharacter frequency (ignoring spaces):\n`;
+                Object.entries(charCount)
+                    .sort(([,a], [,b]) => b - a)
+                    .slice(0, 5)
+                    .forEach(([char, count]) => {
+                        result += `  "${char}": ${count}\n`;
+                    });
+                
+                output.textContent = result;
+                
+            } catch (error) {
+                output.textContent = `Error: ${error.message}`;
+            }
+        }
+
+        function isPalindrome(str) {
+            const cleaned = str.toLowerCase().replace(/[^a-z0-9]/g, '');
+            return cleaned === cleaned.split('').reverse().join('');
+        }
+
+        function clearStringDemo() {
+            document.getElementById('stringInput').value = '';
+            document.getElementById('stringOutput').textContent = 'Enter a string to see various string operations and analysis!\n\nTry: "Hello World 123" or "A man a plan a canal Panama"';
+        }
+
+        // Tuple Demo Functions
+        function processTupleDemo() {
+            const input = document.getElementById('tupleInput').value.trim();
+            const output = document.getElementById('tupleOutput');
+            
+            if (!input) {
+                output.textContent = 'Please enter tuple elements first!';
+                return;
+            }
+
+            try {
+                // Parse input - handle both numbers and strings
+                const elements = input.split(',').map(x => {
+                    const trimmed = x.trim();
+                    // Try to parse as number, keep as string if it fails
+                    const num = parseFloat(trimmed);
+                    return isNaN(num) ? trimmed : num;
+                });
+                
+                let result = `Original tuple: (${elements.map(e => typeof e === 'string' ? `"${e}"` : e).join(', ')})\n\n`;
+                
+                // Basic properties
+                result += `Length: ${elements.length}\n`;
+                if (elements.length > 0) {
+                    result += `First element: ${typeof elements[0] === 'string' ? `"${elements[0]}"` : elements[0]}\n`;
+                    result += `Last element: ${typeof elements[elements.length-1] === 'string' ? `"${elements[elements.length-1]}"` : elements[elements.length-1]}\n`;
+                }
+                
+                // Unpacking demonstration
+                result += `\nUnpacking examples:\n`;
+                if (elements.length === 2) {
+                    result += `x, y = (${elements[0]}, ${elements[1]})\n`;
+                } else if (elements.length === 3) {
+                    result += `first, second, third = ${elements.map(e => typeof e === 'string' ? `"${e}"` : e).join(', ')}\n`;
+                } else if (elements.length > 3) {
+                    result += `first, *middle, last = tuple\n`;
+                    result += `first = ${typeof elements[0] === 'string' ? `"${elements[0]}"` : elements[0]}\n`;
+                    result += `middle = [${elements.slice(1, -1).map(e => typeof e === 'string' ? `"${e}"` : e).join(', ')}]\n`;
+                    result += `last = ${typeof elements[elements.length-1] === 'string' ? `"${elements[elements.length-1]}"` : elements[elements.length-1]}\n`;
+                }
+                
+                // Check if it could be coordinates
+                if (elements.length === 2 && elements.every(e => typeof e === 'number')) {
+                    result += `\nAs coordinates: Point(x=${elements[0]}, y=${elements[1]})\n`;
+                    result += `Distance from origin: ${Math.sqrt(elements[0]**2 + elements[1]**2).toFixed(2)}\n`;
+                }
+                
+                // Check if it could be RGB
+                if (elements.length === 3 && elements.every(e => typeof e === 'number' && e >= 0 && e <= 255)) {
+                    result += `\nAs RGB color: rgb(${elements.join(', ')})\n`;
+                    result += `Hex representation: #${elements.map(x => Math.round(x).toString(16).padStart(2, '0')).join('')}\n`;
+                }
+                
+                // Sorting demonstration
+                result += `\nSorted tuple: (${[...elements].sort().map(e => typeof e === 'string' ? `"${e}"` : e).join(', ')})\n`;
+                
+                output.textContent = result;
+                
+            } catch (error) {
+                output.textContent = `Error: ${error.message}`;
+            }
+        }
+
+        function clearTupleDemo() {
+            document.getElementById('tupleInput').value = '';
+            document.getElementById('tupleOutput').textContent = 'Enter tuple elements to see tuple operations!\n\nTry: 10,20,30 or Alice,25,Engineer';
+        }
+
+        // Dictionary Demo Functions
+        function processDictDemo() {
+            const input = document.getElementById('dictInput').value.trim();
+            const output = document.getElementById('dictOutput');
+            
+            if (!input) {
+                output.textContent = 'Please enter key:value pairs first!';
+                return;
+            }
+
+            try {
+                // Parse input into dictionary
+                const dict = {};
+                const pairs = input.split(',');
+                
+                for (let pair of pairs) {
+                    const [key, value] = pair.split(':').map(x => x.trim());
+                    if (key && value !== undefined) {
+                        // Try to parse value as number, keep as string if it fails
+                        const numValue = parseFloat(value);
+                        dict[key] = isNaN(numValue) ? value : numValue;
+                    }
+                }
+                
+                let result = `Dictionary: {\n`;
+                for (let [key, value] of Object.entries(dict)) {
+                    const valueStr = typeof value === 'string' ? `"${value}"` : value;
+                    result += `  "${key}": ${valueStr},\n`;
+                }
+                result += `}\n\n`;
+                
+                // Basic properties
+                result += `Number of keys: ${Object.keys(dict).length}\n`;
+                result += `Keys: [${Object.keys(dict).map(k => `"${k}"`).join(', ')}]\n`;
+                result += `Values: [${Object.values(dict).map(v => typeof v === 'string' ? `"${v}"` : v).join(', ')}]\n\n`;
+                
+                // Iteration examples
+                result += `Iteration examples:\n`;
+                result += `for key in dict:\n`;
+                for (let key of Object.keys(dict)) {
+                    result += `  "${key}" -> ${typeof dict[key] === 'string' ? `"${dict[key]}"` : dict[key]}\n`;
+                }
+                
+                result += `\nfor key, value in dict.items():\n`;
+                for (let [key, value] of Object.entries(dict)) {
+                    const valueStr = typeof value === 'string' ? `"${value}"` : value;
+                    result += `  "${key}": ${valueStr}\n`;
+                }
+                
+                // Data analysis
+                const stringValues = Object.values(dict).filter(v => typeof v === 'string');
+                const numberValues = Object.values(dict).filter(v => typeof v === 'number');
+                
+                if (numberValues.length > 0) {
+                    result += `\nNumeric values analysis:\n`;
+                    result += `  Sum: ${numberValues.reduce((a, b) => a + b, 0)}\n`;
+                    result += `  Average: ${(numberValues.reduce((a, b) => a + b, 0) / numberValues.length).toFixed(2)}\n`;
+                    result += `  Max: ${Math.max(...numberValues)}\n`;
+                    result += `  Min: ${Math.min(...numberValues)}\n`;
+                }
+                
+                if (stringValues.length > 0) {
+                    result += `\nString values: [${stringValues.map(s => `"${s}"`).join(', ')}]\n`;
+                    result += `Longest string: "${stringValues.reduce((a, b) => a.length > b.length ? a : b)}"\n`;
+                }
+                
+                output.textContent = result;
+                
+            } catch (error) {
+                output.textContent = `Error parsing input. Use format: key1:value1,key2:value2`;
+            }
+        }
+
+        function clearDictDemo() {
+            document.getElementById('dictInput').value = '';
+            document.getElementById('dictOutput').textContent = 'Enter key:value pairs to see dictionary operations!\n\nTry: name:Alice,age:25,city:NYC';
+        }
+    </script>
+</body>
+</html>

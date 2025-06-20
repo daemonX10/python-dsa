@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dictionaries - Python DSA Reference</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="nav-back">
+            ← Back to Main Menu
+        </a>
+        
+        <div class="content-wrapper">
+            <h1 class="section-title">
+                <span>📚</span>
+                Dictionaries
+            </h1>
+
+            <div class="subsection">
+                <h3>Dictionary Creation</h3>
+                <div class="code-block">
+<span class="comment"># Creating dictionaries</span>
+empty_dict = {}
+empty_dict2 = dict()
+
+person = {
+    "name": "Alice",
+    "age": 30,
+    "city": "New York"
+}
+
+<span class="comment"># Dictionary comprehension</span>
+squares = {x: x**2 for x in range(1, 6)}  <span class="comment"># {1: 1, 2: 4, 3: 9, 4: 16, 5: 25}</span>
+
+<span class="comment"># From lists</span>
+keys = ["a", "b", "c"]
+values = [1, 2, 3]
+dict_from_zip = dict(zip(keys, values))  <span class="comment"># {'a': 1, 'b': 2, 'c': 3}</span>
+
+<span class="comment"># Using dict() constructor</span>
+person2 = dict(name="Bob", age=25, city="Boston")
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>Essential Dictionary Methods</h3>
+                <div class="method-grid">
+                    <div class="method-card">
+                        <h4>d[key] <span class="complexity-badge complexity-o1">O(1) avg</span></h4>
+                        <p>Get/Set value by key</p>
+                        <div class="code-block">
+d = {"name": "Alice", "age": 30}
+name = d["name"]  <span class="comment"># "Alice"</span>
+d["age"] = 31     <span class="comment"># Set new value</span>
+d["city"] = "NYC" <span class="comment"># Add new key-value</span>
+                        </div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>d.get(key, default) <span class="complexity-badge complexity-o1">O(1) avg</span></h4>
+                        <p>Safe get with default value</p>
+                        <div class="code-block">
+d = {"name": "Alice", "age": 30}
+name = d.get("name", "Unknown")     <span class="comment"># "Alice"</span>
+country = d.get("country", "USA")   <span class="comment"># "USA"</span>
+                        </div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>d.keys() / d.values() / d.items() <span class="complexity-badge complexity-o1">O(1)</span></h4>
+                        <p>Get dictionary views</p>
+                        <div class="code-block">
+d = {"a": 1, "b": 2, "c": 3}
+keys = list(d.keys())      <span class="comment"># ['a', 'b', 'c']</span>
+values = list(d.values())  <span class="comment"># [1, 2, 3]</span>
+items = list(d.items())    <span class="comment"># [('a', 1), ('b', 2), ('c', 3)]</span>
+                        </div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>d.pop(key, default) <span class="complexity-badge complexity-o1">O(1) avg</span></h4>
+                        <p>Remove and return value</p>
+                        <div class="code-block">
+d = {"a": 1, "b": 2, "c": 3}
+value = d.pop("b")         <span class="comment"># 2, d = {"a": 1, "c": 3}</span>
+value = d.pop("x", 0)      <span class="comment"># 0 (default)</span>
+                        </div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>d.update(other) <span class="complexity-badge complexity-on">O(k)</span></h4>
+                        <p>Update with another dict</p>
+                        <div class="code-block">
+d1 = {"a": 1, "b": 2}
+d2 = {"b": 3, "c": 4}
+d1.update(d2)  <span class="comment"># d1 = {"a": 1, "b": 3, "c": 4}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>d.setdefault(key, default) <span class="complexity-badge complexity-o1">O(1) avg</span></h4>
+                        <p>Get or set default value</p>
+                        <div class="code-block">
+d = {"a": 1}
+value = d.setdefault("b", 2)  <span class="comment"># 2, d = {"a": 1, "b": 2}</span>
+value = d.setdefault("a", 3)  <span class="comment"># 1 (existing value)</span>
+                        </div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>len(d) <span class="complexity-badge complexity-o1">O(1)</span></h4>
+                        <p>Get number of key-value pairs</p>
+                        <div class="code-block">
+d = {"a": 1, "b": 2, "c": 3}
+size = len(d)  <span class="comment"># 3</span>
+                        </div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>key in d <span class="complexity-badge complexity-o1">O(1) avg</span></h4>
+                        <p>Check if key exists</p>
+                        <div class="code-block">
+d = {"a": 1, "b": 2, "c": 3}
+has_a = "a" in d     <span class="comment"># True</span>
+has_x = "x" in d     <span class="comment"># False</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>Dictionary Iteration</h3>
+                <div class="code-block">
+person = {"name": "Alice", "age": 30, "city": "New York"}
+
+<span class="comment"># Iterate over keys</span>
+<span class="keyword">for</span> key <span class="keyword">in</span> person:
+    print(key, person[key])
+
+<span class="comment"># Iterate over values</span>
+<span class="keyword">for</span> value <span class="keyword">in</span> person.values():
+    print(value)
+
+<span class="comment"># Iterate over key-value pairs</span>
+<span class="keyword">for</span> key, value <span class="keyword">in</span> person.items():
+    print(f"{key}: {value}")
+
+<span class="comment"># With enumerate for indexing</span>
+<span class="keyword">for</span> i, (key, value) <span class="keyword">in</span> enumerate(person.items()):
+    print(f"{i}: {key} = {value}")
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>Interactive Demo</h3>
+                <div class="demo-section">
+                    <h4>Try Dictionary Operations</h4>
+                    <div class="demo-controls">
+                        <input type="text" id="keyInput" class="demo-input" placeholder="Key" value="name">
+                        <input type="text" id="valueInput" class="demo-input" placeholder="Value" value="Alice">
+                        <input type="text" id="defaultInput" class="demo-input" placeholder="Default value" value="Unknown">
+                        <button class="demo-button" onclick="addPair()">Add/Update</button>
+                        <button class="demo-button" onclick="getValue()">Get</button>
+                        <button class="demo-button" onclick="getWithDefault()">Get with Default</button>
+                        <button class="demo-button" onclick="removePair()">Remove</button>
+                        <button class="demo-button" onclick="checkKey()">Check Key</button>
+                        <button class="demo-button" onclick="clearDict()">Clear</button>
+                    </div>
+                    <div id="dictOutput" class="demo-output">Current dictionary: {}</div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>Advanced Dictionary Patterns</h3>
+                
+                <h4>defaultdict for Grouping</h4>
+                <div class="code-block">
+<span class="keyword">from</span> collections <span class="keyword">import</span> defaultdict
+
+<span class="comment"># Group words by first letter</span>
+words = ["apple", "banana", "cherry", "avocado", "blueberry"]
+grouped = defaultdict(list)
+
+<span class="keyword">for</span> word <span class="keyword">in</span> words:
+    grouped[word[0]].append(word)
+
+<span class="comment"># Result: {'a': ['apple', 'avocado'], 'b': ['banana', 'blueberry'], 'c': ['cherry']}</span>
+
+<span class="comment"># Count occurrences</span>
+text = "hello world"
+char_count = defaultdict(int)
+<span class="keyword">for</span> char <span class="keyword">in</span> text:
+    char_count[char] += 1
+                </div>
+
+                <h4>Counter for Frequency Analysis</h4>
+                <div class="code-block">
+<span class="keyword">from</span> collections <span class="keyword">import</span> Counter
+
+<span class="comment"># Count elements</span>
+numbers = [1, 2, 3, 2, 1, 3, 3, 2]
+counter = Counter(numbers)  <span class="comment"># Counter({3: 3, 2: 3, 1: 2})</span>
+
+<span class="comment"># Most common elements</span>
+most_common = counter.most_common(2)  <span class="comment"># [(3, 3), (2, 3)]</span>
+
+<span class="comment"># Word frequency</span>
+text = "the quick brown fox jumps over the lazy dog"
+words = text.split()
+word_freq = Counter(words)
+print(word_freq.most_common(3))  <span class="comment"># [('the', 2), ...]</span>
+                </div>
+
+                <h4>Dictionary as Cache/Memoization</h4>
+                <div class="code-block">
+<span class="comment"># Fibonacci with memoization</span>
+<span class="keyword">def</span> <span class="function">fibonacci_memo</span>(n, memo={}):
+    <span class="keyword">if</span> n <span class="keyword">in</span> memo:
+        <span class="keyword">return</span> memo[n]
+    
+    <span class="keyword">if</span> n <= 1:
+        result = n
+    <span class="keyword">else</span>:
+        result = fibonacci_memo(n - 1, memo) + fibonacci_memo(n - 2, memo)
+    
+    memo[n] = result
+    <span class="keyword">return</span> result
+
+<span class="comment"># Using functools.lru_cache (Python 3.2+)</span>
+<span class="keyword">from</span> functools <span class="keyword">import</span> lru_cache
+
+@lru_cache(maxsize=128)
+<span class="keyword">def</span> <span class="function">fibonacci_lru</span>(n):
+    <span class="keyword">if</span> n <= 1:
+        <span class="keyword">return</span> n
+    <span class="keyword">return</span> fibonacci_lru(n - 1) + fibonacci_lru(n - 2)
+                </div>
+
+                <h4>Two Sum Problem with Dictionary</h4>
+                <div class="code-block">
+<span class="keyword">def</span> <span class="function">two_sum</span>(nums, target):
+    <span class="string">"""Find two numbers that add up to target using hash map"""</span>
+    seen = {}  <span class="comment"># value -> index</span>
+    
+    <span class="keyword">for</span> i, num <span class="keyword">in</span> enumerate(nums):
+        complement = target - num
+        <span class="keyword">if</span> complement <span class="keyword">in</span> seen:
+            <span class="keyword">return</span> [seen[complement], i]
+        seen[num] = i
+    
+    <span class="keyword">return</span> []
+
+<span class="comment"># Example</span>
+nums = [2, 7, 11, 15]
+target = 9
+result = two_sum(nums, target)  <span class="comment"># [0, 1] (indices of 2 and 7)</span>
+                </div>
+            </div>
+
+            <div class="note">
+                <strong>💡 Pro Tips:</strong>
+                <ul>
+                    <li>Dictionaries maintain insertion order (Python 3.7+)</li>
+                    <li>Use get() to avoid KeyError exceptions</li>
+                    <li>Dictionary comprehensions are efficient and readable</li>
+                    <li>Keys must be immutable (hashable) objects</li>
+                </ul>
+            </div>
+
+            <div class="tip">
+                <strong>🚀 Performance Tips:</strong>
+                <ul>
+                    <li>Average O(1) lookup time makes dicts perfect for caching</li>
+                    <li>Use defaultdict to avoid checking if keys exist</li>
+                    <li>Counter is optimized for counting operations</li>
+                    <li>dict.setdefault() is more efficient than get() + assignment</li>
+                </ul>
+            </div>
+
+            <div class="warning">
+                <strong>⚠️ Common Pitfalls:</strong>
+                <ul>
+                    <li>Modifying dictionary while iterating can cause RuntimeError</li>
+                    <li>Mutable default arguments create shared state</li>
+                    <li>Large dictionaries can have significant memory overhead</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentDict = {};
+        
+        function updateOutput() {
+            const output = JSON.stringify(currentDict, null, 2);
+            document.getElementById('dictOutput').textContent = `Current dictionary: ${output}`;
+        }
+        
+        function addPair() {
+            const key = document.getElementById('keyInput').value.trim();
+            const value = document.getElementById('valueInput').value.trim();
+            if (key) {
+                // Try to parse as number, otherwise keep as string
+                const numValue = Number(value);
+                currentDict[key] = isNaN(numValue) ? value : numValue;
+                updateOutput();
+            }
+        }
+        
+        function getValue() {
+            const key = document.getElementById('keyInput').value.trim();
+            if (key in currentDict) {
+                document.getElementById('dictOutput').textContent = 
+                    `Value for "${key}": ${JSON.stringify(currentDict[key])}`;
+            } else {
+                document.getElementById('dictOutput').textContent = 
+                    `Key "${key}" not found`;
+            }
+        }
+        
+        function getWithDefault() {
+            const key = document.getElementById('keyInput').value.trim();
+            const defaultValue = document.getElementById('defaultInput').value.trim();
+            const value = currentDict.hasOwnProperty(key) ? currentDict[key] : defaultValue;
+            document.getElementById('dictOutput').textContent = 
+                `Value for "${key}" (with default): ${JSON.stringify(value)}`;
+        }
+        
+        function removePair() {
+            const key = document.getElementById('keyInput').value.trim();
+            if (key in currentDict) {
+                delete currentDict[key];
+                updateOutput();
+            } else {
+                document.getElementById('dictOutput').textContent = 
+                    `Key "${key}" not found`;
+            }
+        }
+        
+        function checkKey() {
+            const key = document.getElementById('keyInput').value.trim();
+            const exists = key in currentDict;
+            document.getElementById('dictOutput').textContent = 
+                `Key "${key}" ${exists ? 'exists' : 'does not exist'} in dictionary`;
+        }
+        
+        function clearDict() {
+            currentDict = {};
+            updateOutput();
+        }
+        
+        // Initialize with some sample data
+        currentDict = {
+            "name": "Alice",
+            "age": 30,
+            "city": "New York"
+        };
+        updateOutput();
+    </script>
+</body>
+</html>

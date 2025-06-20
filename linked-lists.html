@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linked Lists - Python DSA Reference</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="nav-back">
+            ← Back to Main Menu
+        </a>
+        
+        <div class="content-wrapper">
+            <h1 class="section-title">
+                <span>🔗</span>
+                Linked Lists
+            </h1>
+
+            <div class="subsection">
+                <h3>Singly Linked List Implementation</h3>
+                <div class="code-block">class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+    
+    def __str__(self):
+        return str(self.val)
+
+class SinglyLinkedList:
+    def __init__(self):
+        self.head = None
+        self.size = 0
+    
+    def append(self, val):
+        """Add element to end of list - O(n)"""
+        new_node = ListNode(val)
+        if not self.head:
+            self.head = new_node
+        else:
+            current = self.head
+            while current.next:
+                current = current.next
+            current.next = new_node
+        self.size += 1
+    
+    def prepend(self, val):
+        """Add element to beginning of list - O(1)"""
+        new_node = ListNode(val)
+        new_node.next = self.head
+        self.head = new_node
+        self.size += 1
+    
+    def delete(self, val):
+        """Delete first occurrence of value - O(n)"""
+        if not self.head:
+            return False
+        
+        if self.head.val == val:
+            self.head = self.head.next
+            self.size -= 1
+            return True
+        
+        current = self.head
+        while current.next:
+            if current.next.val == val:
+                current.next = current.next.next
+                self.size -= 1
+                return True
+            current = current.next
+        return False
+    
+    def find(self, val):
+        """Search for value - O(n)"""
+        current = self.head
+        index = 0
+        while current:
+            if current.val == val:
+                return index
+            current = current.next
+            index += 1
+        return -1
+    
+    def display(self):
+        """Display list as string"""
+        if not self.head:
+            return "Empty list"
+        
+        result = []
+        current = self.head
+        while current:
+            result.append(str(current.val))
+            current = current.next
+        return " -> ".join(result) + " -> None"</div>
+            </div>
+
+            <div class="subsection">
+                <h3>Doubly Linked List Implementation</h3>
+                <div class="code-block">class DoublyListNode:
+    def __init__(self, val=0, prev=None, next=None):
+        self.val = val
+        self.prev = prev
+        self.next = next
+
+class DoublyLinkedList:
+    def __init__(self):
+        self.head = None
+        self.tail = None
+        self.size = 0
+    
+    def append(self, val):
+        """Add element to end - O(1)"""
+        new_node = DoublyListNode(val)
+        if not self.head:
+            self.head = self.tail = new_node
+        else:
+            new_node.prev = self.tail
+            self.tail.next = new_node
+            self.tail = new_node
+        self.size += 1
+    
+    def prepend(self, val):
+        """Add element to beginning - O(1)"""
+        new_node = DoublyListNode(val)
+        if not self.head:
+            self.head = self.tail = new_node
+        else:
+            new_node.next = self.head
+            self.head.prev = new_node
+            self.head = new_node
+        self.size += 1
+    
+    def delete(self, val):
+        """Delete first occurrence - O(n)"""
+        current = self.head
+        while current:
+            if current.val == val:
+                # Update previous node
+                if current.prev:
+                    current.prev.next = current.next
+                else:
+                    self.head = current.next
+                
+                # Update next node
+                if current.next:
+                    current.next.prev = current.prev
+                else:
+                    self.tail = current.prev
+                
+                self.size -= 1
+                return True
+            current = current.next
+        return False</div>
+            </div>
+
+            <div class="subsection">
+                <h3>Common Linked List Operations</h3>
+                <div class="method-grid">
+                    <div class="method-card">
+                        <h4>Traverse <span class="complexity-badge complexity-on">O(n)</span></h4>
+                        <p>Visit all nodes</p>
+                        <div class="code-block">def traverse(head):
+    current = head
+    while current:
+        print(current.val)
+        current = current.next</div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>Insert at Position <span class="complexity-badge complexity-on">O(n)</span></h4>
+                        <p>Insert at specific index</p>
+                        <div class="code-block">def insert_at(head, index, val):
+    if index == 0:
+        new_node = ListNode(val)
+        new_node.next = head
+        return new_node
+    
+    current = head
+    for i in range(index - 1):
+        if current:
+            current = current.next
+    
+    if current:
+        new_node = ListNode(val)
+        new_node.next = current.next
+        current.next = new_node
+    
+    return head</div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>Reverse List <span class="complexity-badge complexity-on">O(n)</span></h4>
+                        <p>Reverse the linked list</p>
+                        <div class="code-block">def reverse_list(head):
+    prev = None
+    current = head
+    
+    while current:
+        next_temp = current.next
+        current.next = prev
+        prev = current
+        current = next_temp
+    
+    return prev</div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>Find Middle <span class="complexity-badge complexity-on">O(n)</span></h4>
+                        <p>Two pointer technique</p>
+                        <div class="code-block">def find_middle(head):
+    if not head:
+        return None
+    
+    slow = fast = head
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+    
+    return slow</div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>Detect Cycle <span class="complexity-badge complexity-on">O(n)</span></h4>
+                        <p>Floyd's cycle detection</p>
+                        <div class="code-block">def has_cycle(head):
+    if not head or not head.next:
+        return False
+    
+    slow = fast = head
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+        if slow == fast:
+            return True
+    
+    return False</div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>Merge Two Lists <span class="complexity-badge complexity-on">O(n+m)</span></h4>
+                        <p>Merge sorted lists</p>
+                        <div class="code-block">def merge_lists(l1, l2):
+    dummy = ListNode(0)
+    current = dummy
+    
+    while l1 and l2:
+        if l1.val <= l2.val:
+            current.next = l1
+            l1 = l1.next
+        else:
+            current.next = l2
+            l2 = l2.next
+        current = current.next
+    
+    current.next = l1 or l2
+    return dummy.next</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>Interactive Demo</h3>
+                <div class="demo-section">
+                    <h4>Try Linked List Operations</h4>
+                    <div class="demo-controls">
+                        <input type="number" id="valueInput" class="demo-input" placeholder="Value" value="5">
+                        <input type="number" id="positionInput" class="demo-input" placeholder="Position" value="0">
+                        <button class="demo-button" onclick="appendValue()">Append</button>
+                        <button class="demo-button" onclick="prependValue()">Prepend</button>
+                        <button class="demo-button" onclick="insertAt()">Insert At</button>
+                        <button class="demo-button" onclick="deleteValue()">Delete</button>
+                        <button class="demo-button" onclick="reverseList()">Reverse</button>
+                        <button class="demo-button" onclick="clearList()">Clear</button>
+                    </div>
+                    <div id="listOutput" class="demo-output">Current list: Empty</div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>Advanced Linked List Problems</h3>
+                
+                <h4>Remove Nth Node from End</h4>
+                <div class="code-block">def remove_nth_from_end(head, n):
+    """Remove nth node from end using two pointers"""
+    dummy = ListNode(0)
+    dummy.next = head
+    first = second = dummy
+    
+    # Move first pointer n+1 steps ahead
+    for i in range(n + 1):
+        first = first.next
+    
+    # Move both pointers until first reaches end
+    while first:
+        first = first.next
+        second = second.next
+    
+    # Remove the nth node
+    second.next = second.next.next
+    return dummy.next</div>
+
+                <h4>Intersection of Two Lists</h4>
+                <div class="code-block">def get_intersection(headA, headB):
+    """Find intersection point of two linked lists"""
+    if not headA or not headB:
+        return None
+    
+    pointerA, pointerB = headA, headB
+    
+    while pointerA != pointerB:
+        # When reaching end, switch to other list's head
+        pointerA = pointerA.next if pointerA else headB
+        pointerB = pointerB.next if pointerB else headA
+    
+    return pointerA  # Either intersection or None</div>
+
+                <h4>Add Two Numbers</h4>
+                <div class="code-block">def add_two_numbers(l1, l2):
+    """Add two numbers represented as linked lists"""
+    dummy = ListNode(0)
+    current = dummy
+    carry = 0
+    
+    while l1 or l2 or carry:
+        val1 = l1.val if l1 else 0
+        val2 = l2.val if l2 else 0
+        
+        total = val1 + val2 + carry
+        carry = total // 10
+        digit = total % 10
+        
+        current.next = ListNode(digit)
+        current = current.next
+        
+        l1 = l1.next if l1 else None
+        l2 = l2.next if l2 else None
+    
+    return dummy.next</div>
+            </div>
+
+            <div class="note">
+                <strong>💡 Linked List Characteristics:</strong>
+                <ul>
+                    <li>Dynamic size - grows and shrinks during runtime</li>
+                    <li>Efficient insertion/deletion at any position</li>
+                    <li>Sequential access only (no random access)</li>
+                    <li>Extra memory overhead for storing pointers</li>
+                </ul>
+            </div>
+
+            <div class="tip">
+                <strong>🚀 Common Techniques:</strong>
+                <ul>
+                    <li><strong>Two Pointers:</strong> Fast/slow for cycle detection, middle finding</li>
+                    <li><strong>Dummy Node:</strong> Simplifies edge cases in insertion/deletion</li>
+                    <li><strong>Recursion:</strong> Natural for many linked list problems</li>
+                    <li><strong>Stack:</strong> For problems requiring reverse order processing</li>
+                </ul>
+            </div>
+
+            <div class="warning">
+                <strong>⚠️ Watch Out For:</strong>
+                <ul>
+                    <li>Null pointer exceptions when traversing</li>
+                    <li>Memory leaks in languages without garbage collection</li>
+                    <li>Losing references when rearranging nodes</li>
+                    <li>Off-by-one errors in position-based operations</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class LinkedListNode {
+            constructor(val) {
+                this.val = val;
+                this.next = null;
+            }
+        }
+        
+        class LinkedListDemo {
+            constructor() {
+                this.head = null;
+                this.size = 0;
+            }
+            
+            append(val) {
+                const newNode = new LinkedListNode(val);
+                if (!this.head) {
+                    this.head = newNode;
+                } else {
+                    let current = this.head;
+                    while (current.next) {
+                        current = current.next;
+                    }
+                    current.next = newNode;
+                }
+                this.size++;
+            }
+            
+            prepend(val) {
+                const newNode = new LinkedListNode(val);
+                newNode.next = this.head;
+                this.head = newNode;
+                this.size++;
+            }
+            
+            insertAt(index, val) {
+                if (index === 0) {
+                    this.prepend(val);
+                    return;
+                }
+                
+                const newNode = new LinkedListNode(val);
+                let current = this.head;
+                for (let i = 0; i < index - 1 && current; i++) {
+                    current = current.next;
+                }
+                
+                if (current) {
+                    newNode.next = current.next;
+                    current.next = newNode;
+                    this.size++;
+                }
+            }
+            
+            delete(val) {
+                if (!this.head) return false;
+                
+                if (this.head.val === val) {
+                    this.head = this.head.next;
+                    this.size--;
+                    return true;
+                }
+                
+                let current = this.head;
+                while (current.next) {
+                    if (current.next.val === val) {
+                        current.next = current.next.next;
+                        this.size--;
+                        return true;
+                    }
+                    current = current.next;
+                }
+                return false;
+            }
+            
+            reverse() {
+                let prev = null;
+                let current = this.head;
+                
+                while (current) {
+                    let nextTemp = current.next;
+                    current.next = prev;
+                    prev = current;
+                    current = nextTemp;
+                }
+                
+                this.head = prev;
+            }
+            
+            display() {
+                if (!this.head) return "Empty";
+                
+                const values = [];
+                let current = this.head;
+                while (current) {
+                    values.push(current.val);
+                    current = current.next;
+                }
+                return values.join(" -> ") + " -> null";
+            }
+            
+            clear() {
+                this.head = null;
+                this.size = 0;
+            }
+        }
+        
+        const linkedList = new LinkedListDemo();
+        
+        function updateOutput() {
+            document.getElementById('listOutput').textContent = 
+                `Current list: ${linkedList.display()} (Size: ${linkedList.size})`;
+        }
+        
+        function appendValue() {
+            const value = parseInt(document.getElementById('valueInput').value);
+            if (!isNaN(value)) {
+                linkedList.append(value);
+                updateOutput();
+            }
+        }
+        
+        function prependValue() {
+            const value = parseInt(document.getElementById('valueInput').value);
+            if (!isNaN(value)) {
+                linkedList.prepend(value);
+                updateOutput();
+            }
+        }
+        
+        function insertAt() {
+            const value = parseInt(document.getElementById('valueInput').value);
+            const position = parseInt(document.getElementById('positionInput').value);
+            if (!isNaN(value) && !isNaN(position)) {
+                linkedList.insertAt(position, value);
+                updateOutput();
+            }
+        }
+        
+        function deleteValue() {
+            const value = parseInt(document.getElementById('valueInput').value);
+            if (!isNaN(value)) {
+                const deleted = linkedList.delete(value);
+                updateOutput();
+                if (!deleted) {
+                    alert(`Value ${value} not found in the list`);
+                }
+            }
+        }
+        
+        function reverseList() {
+            linkedList.reverse();
+            updateOutput();
+        }
+        
+        function clearList() {
+            linkedList.clear();
+            updateOutput();
+        }
+        
+        // Initialize with some sample data
+        linkedList.append(1);
+        linkedList.append(2);
+        linkedList.append(3);
+        updateOutput();
+    </script>
+</body>
+</html>

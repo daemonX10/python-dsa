@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Formatting Test</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="content-wrapper">
+            <h1>Python Code Formatting Test</h1>
+            
+            <h3>This is how your code should look:</h3>
+            <div class="code-block"># Creating lists
+empty_list = []
+numbers = [1, 2, 3, 4, 5]
+mixed = [1, "hello", 3.14, True]
+from_range = list(range(10))  # [0, 1, 2, ..., 9]
+
+# List comprehensions
+squares = [x**2 for x in range(10)]
+evens = [x for x in range(20) if x % 2 == 0]
+nested = [[i*j for j in range(3)] for i in range(3)]
+
+# Function example
+def two_sum(nums, target):
+    """Find two numbers that add up to target"""
+    left, right = 0, len(nums) - 1
+    
+    while left < right:
+        current_sum = nums[left] + nums[right]
+        if current_sum == target:
+            return [left, right]
+        elif current_sum < target:
+            left += 1
+        else:
+            right -= 1
+    
+    return []</div>
+
+            <h3>Method Card Example:</h3>
+            <div class="method-card">
+                <h4>append(item)</h4>
+                <p>Add item to end of list</p>
+                <div class="code-block">lst = [1, 2, 3]
+lst.append(4)  # [1, 2, 3, 4]</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

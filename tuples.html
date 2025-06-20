@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tuples - Python DSA Reference</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="nav-back">
+            ← Back to Main Menu
+        </a>
+        
+        <div class="content-wrapper">
+            <h1 class="section-title">
+                <span>📦</span>
+                Tuples
+            </h1>
+
+            <div class="subsection">
+                <h3>Tuple Creation and Characteristics</h3>
+                <div class="code-block">
+<span class="comment"># Creating tuples</span>
+empty_tuple = ()
+empty_tuple2 = tuple()
+single_item = (42,)  <span class="comment"># Note the comma for single item</span>
+coordinates = (10, 20)
+person = ("Alice", 30, "Engineer")
+
+<span class="comment"># Tuple unpacking</span>
+name, age, job = person
+x, y = coordinates
+
+<span class="comment"># Multiple assignment</span>
+a, b = 1, 2  <span class="comment"># Actually creates a tuple (1, 2)</span>
+
+<span class="comment"># Nested tuples</span>
+nested = ((1, 2), (3, 4), (5, 6))
+                </div>
+                
+                <div class="note">
+                    <strong>🔒 Immutability:</strong> Tuples are immutable - once created, you cannot modify their contents. This makes them hashable and suitable as dictionary keys.
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>Essential Tuple Operations</h3>
+                <div class="method-grid">
+                    <div class="method-card">
+                        <h4>len(t) <span class="complexity-badge complexity-o1">O(1)</span></h4>
+                        <p>Get tuple length</p>
+                        <div class="code-block">
+t = (1, 2, 3, 4, 5)
+length = len(t)  <span class="comment"># 5</span>
+                        </div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>t[index] <span class="complexity-badge complexity-o1">O(1)</span></h4>
+                        <p>Access by index</p>
+                        <div class="code-block">
+t = ("a", "b", "c", "d")
+first = t[0]   <span class="comment"># "a"</span>
+last = t[-1]   <span class="comment"># "d"</span>
+                        </div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>t.count(item) <span class="complexity-badge complexity-on">O(n)</span></h4>
+                        <p>Count occurrences</p>
+                        <div class="code-block">
+t = (1, 2, 3, 2, 4, 2)
+count = t.count(2)  <span class="comment"># 3</span>
+                        </div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>t.index(item) <span class="complexity-badge complexity-on">O(n)</span></h4>
+                        <p>Find first index</p>
+                        <div class="code-block">
+t = ("a", "b", "c", "b")
+index = t.index("b")  <span class="comment"># 1</span>
+                        </div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>item in t <span class="complexity-badge complexity-on">O(n)</span></h4>
+                        <p>Check membership</p>
+                        <div class="code-block">
+t = (1, 2, 3, 4, 5)
+has_3 = 3 in t     <span class="comment"># True</span>
+has_6 = 6 in t     <span class="comment"># False</span>
+                        </div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>t1 + t2 <span class="complexity-badge complexity-on">O(n+m)</span></h4>
+                        <p>Concatenate tuples</p>
+                        <div class="code-block">
+t1 = (1, 2, 3)
+t2 = (4, 5, 6)
+combined = t1 + t2  <span class="comment"># (1, 2, 3, 4, 5, 6)</span>
+                        </div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>t * n <span class="complexity-badge complexity-on">O(n*k)</span></h4>
+                        <p>Repeat tuple</p>
+                        <div class="code-block">
+t = (1, 2)
+repeated = t * 3  <span class="comment"># (1, 2, 1, 2, 1, 2)</span>
+                        </div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>t[start:end] <span class="complexity-badge complexity-on">O(k)</span></h4>
+                        <p>Slice tuple</p>
+                        <div class="code-block">
+t = (0, 1, 2, 3, 4, 5)
+subset = t[1:4]  <span class="comment"># (1, 2, 3)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>Tuple Unpacking and Assignment</h3>
+                <div class="code-block">
+<span class="comment"># Basic unpacking</span>
+point = (3, 4)
+x, y = point
+
+<span class="comment"># Swapping variables</span>
+a, b = 10, 20
+a, b = b, a  <span class="comment"># Now a=20, b=10</span>
+
+<span class="comment"># Extended unpacking (Python 3+)</span>
+numbers = (1, 2, 3, 4, 5)
+first, *middle, last = numbers  <span class="comment"># first=1, middle=[2,3,4], last=5</span>
+first, second, *rest = numbers  <span class="comment"># first=1, second=2, rest=[3,4,5]</span>
+
+<span class="comment"># Function returns</span>
+<span class="keyword">def</span> <span class="function">get_name_age</span>():
+    <span class="keyword">return</span> "Alice", 30
+
+name, age = get_name_age()  <span class="comment"># Unpacking return tuple</span>
+
+<span class="comment"># Enumerate unpacking</span>
+items = ["apple", "banana", "cherry"]
+<span class="keyword">for</span> index, value <span class="keyword">in</span> enumerate(items):
+    print(f"{index}: {value}")
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>Interactive Demo</h3>
+                <div class="demo-section">
+                    <h4>Try Tuple Operations</h4>
+                    <div class="demo-controls">
+                        <input type="text" id="tupleInput" class="demo-input" placeholder="Enter comma-separated values" value="1,2,3,4,5">
+                        <input type="text" id="searchInput" class="demo-input" placeholder="Search item" value="3">
+                        <input type="number" id="indexInput" class="demo-input" placeholder="Index" value="0">
+                        <button class="demo-button" onclick="accessByIndex()">Access Index</button>
+                        <button class="demo-button" onclick="countItem()">Count Item</button>
+                        <button class="demo-button" onclick="findIndex()">Find Index</button>
+                        <button class="demo-button" onclick="checkMembership()">Check In</button>
+                        <button class="demo-button" onclick="sliceTuple()">Slice [1:4]</button>
+                        <button class="demo-button" onclick="repeatTuple()">Repeat x2</button>
+                    </div>
+                    <div id="tupleOutput" class="demo-output">Current tuple: (1, 2, 3, 4, 5)</div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>Named Tuples</h3>
+                <div class="code-block">
+<span class="keyword">from</span> collections <span class="keyword">import</span> namedtuple
+
+<span class="comment"># Define a named tuple</span>
+Point = namedtuple('Point', ['x', 'y'])
+Person = namedtuple('Person', 'name age city')  <span class="comment"># Can use string</span>
+
+<span class="comment"># Create instances</span>
+p1 = Point(3, 4)
+p2 = Point(x=10, y=20)
+
+person = Person("Alice", 30, "New York")
+
+<span class="comment"># Access by name or index</span>
+x_coord = p1.x        <span class="comment"># 3</span>
+x_coord = p1[0]       <span class="comment"># 3 (same as above)</span>
+name = person.name    <span class="comment"># "Alice"</span>
+
+<span class="comment"># Named tuple methods</span>
+fields = person._fields          <span class="comment"># ('name', 'age', 'city')</span>
+as_dict = person._asdict()       <span class="comment"># OrderedDict</span>
+new_person = person._replace(age=31)  <span class="comment"># Create new with updated age</span>
+
+<span class="comment"># Create from iterable</span>
+data = ["Bob", 25, "Boston"]
+person2 = Person._make(data)
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>Common Use Cases</h3>
+                
+                <h4>Coordinates and Points</h4>
+                <div class="code-block">
+<span class="comment"># 2D points</span>
+points = [(0, 0), (1, 1), (2, 4), (3, 9)]
+
+<span class="comment"># Calculate distance between points</span>
+<span class="keyword">def</span> <span class="function">distance</span>(p1, p2):
+    x1, y1 = p1
+    x2, y2 = p2
+    <span class="keyword">return</span> ((x2 - x1)**2 + (y2 - y1)**2)**0.5
+
+dist = distance((0, 0), (3, 4))  <span class="comment"># 5.0</span>
+
+<span class="comment"># Sort points by distance from origin</span>
+origin = (0, 0)
+sorted_points = sorted(points, key=<span class="keyword">lambda</span> p: distance(origin, p))
+                </div>
+
+                <h4>Database Records</h4>
+                <div class="code-block">
+<span class="comment"># Representing database rows</span>
+Student = namedtuple('Student', 'id name grade gpa')
+
+students = [
+    Student(1, "Alice", "A", 3.8),
+    Student(2, "Bob", "B", 3.2),
+    Student(3, "Charlie", "A", 3.9)
+]
+
+<span class="comment"># Find students with high GPA</span>
+high_achievers = [s <span class="keyword">for</span> s <span class="keyword">in</span> students <span class="keyword">if</span> s.gpa >= 3.5]
+
+<span class="comment"># Sort by GPA</span>
+sorted_students = sorted(students, key=<span class="keyword">lambda</span> s: s.gpa, reverse=True)
+                </div>
+
+                <h4>Configuration and Constants</h4>
+                <div class="code-block">
+<span class="comment"># Color constants</span>
+RGB = namedtuple('RGB', 'red green blue')
+
+RED = RGB(255, 0, 0)
+GREEN = RGB(0, 255, 0)
+BLUE = RGB(0, 0, 255)
+WHITE = RGB(255, 255, 255)
+
+<span class="comment"># API endpoints</span>
+Endpoint = namedtuple('Endpoint', 'method url headers')
+
+ENDPOINTS = {
+    'users': Endpoint('GET', '/api/users', {'Content-Type': 'application/json'}),
+    'login': Endpoint('POST', '/api/auth/login', {'Content-Type': 'application/json'})
+}
+                </div>
+            </div>
+
+            <div class="note">
+                <strong>💡 Pro Tips:</strong>
+                <ul>
+                    <li>Use tuples for immutable sequences of related data</li>
+                    <li>Tuples are hashable and can be used as dictionary keys</li>
+                    <li>Named tuples provide the benefits of both tuples and classes</li>
+                    <li>Tuple unpacking makes code more readable and pythonic</li>
+                </ul>
+            </div>
+
+            <div class="tip">
+                <strong>🚀 Performance Tips:</strong>
+                <ul>
+                    <li>Tuples are more memory-efficient than lists</li>
+                    <li>Tuple creation is faster than list creation</li>
+                    <li>Use tuples for fixed-size collections</li>
+                    <li>Named tuples are faster than regular classes for simple data</li>
+                </ul>
+            </div>
+
+            <div class="warning">
+                <strong>⚠️ When to Use Tuples vs Lists:</strong>
+                <ul>
+                    <li><strong>Tuples:</strong> Fixed data, coordinates, database records, function returns</li>
+                    <li><strong>Lists:</strong> Dynamic collections, when you need to modify contents</li>
+                    <li><strong>Named Tuples:</strong> Structured data without needing full class functionality</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function getCurrentTuple() {
+            const input = document.getElementById('tupleInput').value;
+            return input.split(',').map(item => {
+                const trimmed = item.trim();
+                const num = Number(trimmed);
+                return isNaN(num) ? trimmed : num;
+            });
+        }
+        
+        function updateOutput(message) {
+            document.getElementById('tupleOutput').textContent = message;
+        }
+        
+        function accessByIndex() {
+            const tuple = getCurrentTuple();
+            const index = parseInt(document.getElementById('indexInput').value);
+            if (index >= 0 && index < tuple.length) {
+                updateOutput(`tuple[${index}] = ${JSON.stringify(tuple[index])}`);
+            } else {
+                updateOutput(`Index ${index} is out of range (0-${tuple.length-1})`);
+            }
+        }
+        
+        function countItem() {
+            const tuple = getCurrentTuple();
+            const searchItem = document.getElementById('searchInput').value.trim();
+            const num = Number(searchItem);
+            const target = isNaN(num) ? searchItem : num;
+            const count = tuple.filter(item => item === target).length;
+            updateOutput(`Count of ${JSON.stringify(target)}: ${count}`);
+        }
+        
+        function findIndex() {
+            const tuple = getCurrentTuple();
+            const searchItem = document.getElementById('searchInput').value.trim();
+            const num = Number(searchItem);
+            const target = isNaN(num) ? searchItem : num;
+            const index = tuple.indexOf(target);
+            if (index !== -1) {
+                updateOutput(`First index of ${JSON.stringify(target)}: ${index}`);
+            } else {
+                updateOutput(`${JSON.stringify(target)} not found in tuple`);
+            }
+        }
+        
+        function checkMembership() {
+            const tuple = getCurrentTuple();
+            const searchItem = document.getElementById('searchInput').value.trim();
+            const num = Number(searchItem);
+            const target = isNaN(num) ? searchItem : num;
+            const exists = tuple.includes(target);
+            updateOutput(`${JSON.stringify(target)} ${exists ? 'is' : 'is not'} in tuple`);
+        }
+        
+        function sliceTuple() {
+            const tuple = getCurrentTuple();
+            const sliced = tuple.slice(1, 4);
+            updateOutput(`Slice [1:4]: (${sliced.map(x => JSON.stringify(x)).join(', ')})`);
+        }
+        
+        function repeatTuple() {
+            const tuple = getCurrentTuple();
+            const repeated = [...tuple, ...tuple];
+            updateOutput(`Repeated x2: (${repeated.map(x => JSON.stringify(x)).join(', ')})`);
+        }
+        
+        // Initialize
+        updateOutput(`Current tuple: (${getCurrentTuple().map(x => JSON.stringify(x)).join(', ')})`);
+    </script>
+</body>
+</html>

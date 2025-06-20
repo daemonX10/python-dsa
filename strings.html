@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strings - Python DSA Reference</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="nav-back">
+            ← Back to Main Menu
+        </a>
+        
+        <div class="content-wrapper">
+            <h1 class="section-title">
+                <span>🔤</span>
+                Strings
+            </h1>
+
+            <div class="subsection">                <h3>String Creation and Basic Operations</h3>
+                <div class="code-block">
+<span class="comment"># String creation</span>
+single_quotes = 'Hello World'
+double_quotes = "Hello World"
+triple_quotes = """Multi-line
+string content"""
+raw_string = r"C:\Users\path\to\file"    <span class="comment"># Raw string (no escape)</span>
+f_string = f"Hello {name}"               <span class="comment"># Formatted string</span>
+
+<span class="comment"># String concatenation</span>
+result = "Hello" + " " + "World"
+repeated = "Python " * 3  <span class="comment"># "Python Python Python "</span>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>Essential String Methods</h3>
+                <div class="method-grid">
+                    <div class="method-card">
+                        <h4>len(s) <span class="complexity-badge complexity-o1">O(1)</span></h4>
+                        <p>Get string length</p>
+                        <div class="code-block">
+s = "Hello"
+length = len(s)    <span class="comment"># 5</span>
+                        </div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>s.lower() / s.upper() <span class="complexity-badge complexity-on">O(n)</span></h4>
+                        <p>Change case</p>
+                        <div class="code-block">
+s = "Hello World"
+lower = s.lower()      <span class="comment"># "hello world"</span>
+upper = s.upper()      <span class="comment"># "HELLO WORLD"</span>
+title = s.title()      <span class="comment"># "Hello World"</span>
+                        </div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>s.strip() <span class="complexity-badge complexity-on">O(n)</span></h4>
+                        <p>Remove whitespace</p>                        <div class="code-block">
+s = "  hello  "
+clean = s.strip()      <span class="comment"># "hello"</span>
+left = s.lstrip()      <span class="comment"># "hello  "</span>
+right = s.rstrip()     <span class="comment"># "  hello"</span>
+                        </div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>s.split() <span class="complexity-badge complexity-on">O(n)</span></h4>                        <p>Split into list</p>
+                        <div class="code-block">
+s = "apple,banana,orange"
+fruits = s.split(',')             <span class="comment"># ['apple', 'banana', 'orange']</span>
+words = "hello world".split()     <span class="comment"># ['hello', 'world']</span>
+                        </div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>s.join(iterable) <span class="complexity-badge complexity-on">O(n)</span></h4>
+                        <p>Join list with separator</p>                <div class="code-block">
+fruits = ['apple', 'banana', 'orange']
+result = ', '.join(fruits)  <span class="comment"># "apple, banana, orange"</span>
+                </div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>s.replace() <span class="complexity-badge complexity-on">O(n)</span></h4>
+                        <p>Replace substring</p>
+                        <div class="code-block">
+s = "Hello World"
+new = s.replace("World", "Python")  <span class="comment"># "Hello Python"</span>
+                        </div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>s.find() / s.index() <span class="complexity-badge complexity-on">O(n)</span></h4>
+                        <p>Find substring position</p>
+                        <div class="code-block">
+s = "Hello World"
+pos = s.find("World")    <span class="comment"># 6 (or -1 if not found)</span>
+pos = s.index("World")   <span class="comment"># 6 (raises ValueError if not found)</span>
+                        </div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>s.startswith() / s.endswith() <span class="complexity-badge complexity-on">O(k)</span></h4>
+                        <p>Check prefix/suffix</p>
+                        <div class="code-block">
+s = "Hello World"
+starts = s.startswith("Hello")  <span class="comment"># True</span>
+ends = s.endswith("World")      <span class="comment"># True</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>String Formatting</h3>
+                <div class="code-block">
+name = "Alice"
+age = 30
+score = 95.5
+
+<span class="comment"># f-strings (Python 3.6+)</span>
+message = f"Hello {name}, you are {age} years old"
+formatted = f"Score: {score:.1f}%"  <span class="comment"># "Score: 95.5%"</span>
+
+<span class="comment"># .format() method</span>
+message = "Hello {}, you are {} years old".format(name, age)
+message = "Hello {name}, you are {age} years old".format(name=name, age=age)
+
+<span class="comment"># % formatting (older style)</span>
+message = "Hello %s, you are %d years old" % (name, age)
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>String Indexing and Slicing</h3>
+                <div class="code-block">
+s = "Python Programming"
+
+<span class="comment"># Indexing</span>
+first = s[0]        <span class="comment"># 'P'</span>
+last = s[-1]        <span class="comment"># 'g'</span>
+char = s[7]         <span class="comment"># 'P'</span>
+
+<span class="comment"># Slicing</span>
+substring = s[0:6]  <span class="comment"># 'Python'</span>
+reverse = s[::-1]   <span class="comment"># 'gnimmargorP nohtyP'</span>
+every_other = s[::2]  <span class="comment"># 'Pto rgamn'</span>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>Interactive Demo</h3>
+                <div class="demo-section">
+                    <h4>Try String Operations</h4>
+                    <div class="demo-controls">
+                        <input type="text" id="stringInput" class="demo-input" placeholder="Enter a string" value="Hello World Python">
+                        <input type="text" id="searchInput" class="demo-input" placeholder="Search/Replace text" value="World">
+                        <input type="text" id="replaceInput" class="demo-input" placeholder="Replacement text" value="Universe">
+                        <button class="demo-button" onclick="upperCase()">Upper</button>
+                        <button class="demo-button" onclick="lowerCase()">Lower</button>
+                        <button class="demo-button" onclick="titleCase()">Title</button>
+                        <button class="demo-button" onclick="reverseString()">Reverse</button>
+                        <button class="demo-button" onclick="findText()">Find</button>
+                        <button class="demo-button" onclick="replaceText()">Replace</button>
+                        <button class="demo-button" onclick="splitString()">Split</button>
+                    </div>
+                    <div id="stringOutput" class="demo-output">Original: "Hello World Python"</div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>Common String Algorithms</h3>
+                
+                <h4>Palindrome Check</h4>
+                <div class="code-block">
+<span class="keyword">def</span> <span class="function">is_palindrome</span>(s):
+    <span class="string">"""Check if string is a palindrome"""</span>
+    <span class="comment"># Clean the string: remove non-alphanumeric and convert to lowercase</span>
+    cleaned = ''.join(char.lower() <span class="keyword">for</span> char <span class="keyword">in</span> s <span class="keyword">if</span> char.isalnum())
+    
+    <span class="comment"># Two pointer approach</span>
+    left, right = 0, len(cleaned) - 1
+    <span class="keyword">while</span> left < right:
+        <span class="keyword">if</span> cleaned[left] != cleaned[right]:
+            <span class="keyword">return</span> False
+        left += 1
+        right -= 1
+    
+    <span class="keyword">return</span> True
+
+<span class="comment"># Examples</span>
+print(is_palindrome("A man a plan a canal Panama"))  <span class="comment"># True</span>
+print(is_palindrome("race a car"))  <span class="comment"># False</span>
+                </div>
+
+                <h4>Anagram Check</h4>
+                <div class="code-block">
+<span class="keyword">def</span> <span class="function">are_anagrams</span>(s1, s2):
+    <span class="string">"""Check if two strings are anagrams"""</span>
+    <span class="comment"># Method 1: Sort and compare</span>
+    <span class="keyword">return</span> sorted(s1.lower()) == sorted(s2.lower())
+
+<span class="keyword">def</span> <span class="function">are_anagrams_optimal</span>(s1, s2):
+    <span class="string">"""Optimal anagram check using character count"""</span>
+    <span class="keyword">if</span> len(s1) != len(s2):
+        <span class="keyword">return</span> False
+    
+    char_count = {}
+    
+    <span class="comment"># Count characters in first string</span>
+    <span class="keyword">for</span> char <span class="keyword">in</span> s1.lower():
+        char_count[char] = char_count.get(char, 0) + 1
+    
+    <span class="comment"># Subtract characters from second string</span>
+    <span class="keyword">for</span> char <span class="keyword">in</span> s2.lower():
+        <span class="keyword">if</span> char <span class="keyword">not</span> <span class="keyword">in</span> char_count:
+            <span class="keyword">return</span> False
+        char_count[char] -= 1
+        <span class="keyword">if</span> char_count[char] == 0:
+            <span class="keyword">del</span> char_count[char]
+    
+    <span class="keyword">return</span> len(char_count) == 0
+                </div>
+
+                <h4>Pattern Matching (KMP Algorithm)</h4>
+                <div class="code-block">
+<span class="keyword">def</span> <span class="function">kmp_search</span>(text, pattern):
+    <span class="string">"""Find all occurrences of pattern in text using KMP algorithm"""</span>
+    <span class="keyword">def</span> <span class="function">compute_lps</span>(pattern):
+        <span class="string">"""Compute Longest Proper Prefix which is also Suffix array"""</span>
+        lps = [0] * len(pattern)
+        length = 0
+        i = 1
+        
+        <span class="keyword">while</span> i < len(pattern):
+            <span class="keyword">if</span> pattern[i] == pattern[length]:
+                length += 1
+                lps[i] = length
+                i += 1
+            <span class="keyword">else</span>:
+                <span class="keyword">if</span> length != 0:
+                    length = lps[length - 1]
+                <span class="keyword">else</span>:
+                    lps[i] = 0
+                    i += 1
+        
+        <span class="keyword">return</span> lps
+    
+    matches = []
+    lps = compute_lps(pattern)
+    i = j = 0
+    
+    <span class="keyword">while</span> i < len(text):
+        <span class="keyword">if</span> pattern[j] == text[i]:
+            i += 1
+            j += 1
+        
+        <span class="keyword">if</span> j == len(pattern):
+            matches.append(i - j)
+            j = lps[j - 1]
+        <span class="keyword">elif</span> i < len(text) <span class="keyword">and</span> pattern[j] != text[i]:
+            <span class="keyword">if</span> j != 0:
+                j = lps[j - 1]
+            <span class="keyword">else</span>:
+                i += 1
+    
+    <span class="keyword">return</span> matches
+                </div>
+            </div>
+
+            <div class="note">
+                <strong>💡 Pro Tips:</strong>
+                <ul>
+                    <li>Strings are immutable in Python - operations create new strings</li>
+                    <li>Use f-strings for readable string formatting</li>
+                    <li>join() is more efficient than concatenation for multiple strings</li>
+                    <li>Use raw strings (r"") for regex patterns and file paths</li>
+                </ul>
+            </div>
+
+            <div class="tip">
+                <strong>🚀 Performance Tips:</strong>
+                <ul>
+                    <li>Use list comprehensions with join() for building strings</li>
+                    <li>str.translate() is faster than multiple replace() calls</li>
+                    <li>Use sets for character membership testing</li>
+                    <li>Consider using StringBuilder pattern for many concatenations</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function getString() {
+            return document.getElementById('stringInput').value;
+        }
+        
+        function updateOutput(result) {
+            document.getElementById('stringOutput').textContent = result;
+        }
+        
+        function upperCase() {
+            const s = getString();
+            updateOutput(`Upper: "${s.toUpperCase()}"`);
+        }
+        
+        function lowerCase() {
+            const s = getString();
+            updateOutput(`Lower: "${s.toLowerCase()}"`);
+        }
+        
+        function titleCase() {
+            const s = getString();
+            const title = s.replace(/\w\S*/g, (txt) => 
+                txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+            updateOutput(`Title: "${title}"`);
+        }
+        
+        function reverseString() {
+            const s = getString();
+            const reversed = s.split('').reverse().join('');
+            updateOutput(`Reversed: "${reversed}"`);
+        }
+        
+        function findText() {
+            const s = getString();
+            const search = document.getElementById('searchInput').value;
+            const index = s.indexOf(search);
+            if (index !== -1) {
+                updateOutput(`Found "${search}" at index ${index}`);
+            } else {
+                updateOutput(`"${search}" not found`);
+            }
+        }
+        
+        function replaceText() {
+            const s = getString();
+            const search = document.getElementById('searchInput').value;
+            const replace = document.getElementById('replaceInput').value;
+            const result = s.replace(new RegExp(search, 'g'), replace);
+            updateOutput(`Replaced: "${result}"`);
+        }
+        
+        function splitString() {
+            const s = getString();
+            const parts = s.split(' ');
+            updateOutput(`Split by spaces: [${parts.map(p => `"${p}"`).join(', ')}]`);
+        }
+        
+        // Initialize
+        updateOutput(`Original: "${getString()}"`);
+    </script>
+</body>
+</html>

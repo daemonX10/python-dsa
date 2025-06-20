@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sets - Python DSA Reference</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="nav-back">
+            ← Back to Main Menu
+        </a>
+        
+        <div class="content-wrapper">
+            <h1 class="section-title">
+                <span>🎯</span>
+                Sets
+            </h1>
+
+            <div class="subsection">
+                <h3>Set Creation and Characteristics</h3>
+                <div class="code-block">
+<span class="comment"># Creating sets</span>
+empty_set = set()  <span class="comment"># Note: {} creates an empty dict, not set</span>
+numbers = {1, 2, 3, 4, 5}
+from_list = set([1, 2, 3, 2, 1])  <span class="comment"># {1, 2, 3} - duplicates removed</span>
+from_string = set("hello")  <span class="comment"># {'h', 'e', 'l', 'o'}</span>
+
+<span class="comment"># Set comprehension</span>
+squares = {x**2 for x in range(1, 6)}  <span class="comment"># {1, 4, 9, 16, 25}</span>
+evens = {x for x in range(10) if x % 2 == 0}  <span class="comment"># {0, 2, 4, 6, 8}</span>
+                </div>
+                
+                <div class="note">
+                    <strong>🎯 Unique Elements:</strong> Sets automatically remove duplicates and store only unique elements. Elements must be hashable (immutable).
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>Essential Set Operations</h3>
+                <div class="method-grid">
+                    <div class="method-card">
+                        <h4>s.add(item) <span class="complexity-badge complexity-o1">O(1) avg</span></h4>
+                        <p>Add single element</p>
+                        <div class="code-block">
+s = {1, 2, 3}
+s.add(4)  <span class="comment"># {1, 2, 3, 4}</span>
+s.add(2)  <span class="comment"># {1, 2, 3, 4} - no change</span>
+                        </div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>s.update(iterable) <span class="complexity-badge complexity-on">O(k)</span></h4>
+                        <p>Add multiple elements</p>
+                        <div class="code-block">
+s = {1, 2, 3}
+s.update([4, 5, 6])  <span class="comment"># {1, 2, 3, 4, 5, 6}</span>
+s.update("abc")      <span class="comment"># Adds 'a', 'b', 'c'</span>
+                        </div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>s.remove(item) <span class="complexity-badge complexity-o1">O(1) avg</span></h4>
+                        <p>Remove element (raises KeyError if not found)</p>
+                        <div class="code-block">
+s = {1, 2, 3, 4}
+s.remove(3)  <span class="comment"># {1, 2, 4}</span>
+<span class="comment"># s.remove(5)  # KeyError!</span>
+                        </div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>s.discard(item) <span class="complexity-badge complexity-o1">O(1) avg</span></h4>
+                        <p>Remove element (no error if not found)</p>
+                        <div class="code-block">
+s = {1, 2, 3, 4}
+s.discard(3)  <span class="comment"># {1, 2, 4}</span>
+s.discard(5)  <span class="comment"># No error, set unchanged</span>
+                        </div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>s.pop() <span class="complexity-badge complexity-o1">O(1)</span></h4>
+                        <p>Remove and return arbitrary element</p>
+                        <div class="code-block">
+s = {1, 2, 3}
+item = s.pop()  <span class="comment"># Returns and removes random element</span>
+<span class="comment"># Empty set: s.pop() raises KeyError</span>
+                        </div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>s.clear() <span class="complexity-badge complexity-o1">O(1)</span></h4>
+                        <p>Remove all elements</p>
+                        <div class="code-block">
+s = {1, 2, 3, 4, 5}
+s.clear()  <span class="comment"># set()</span>
+                        </div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>len(s) <span class="complexity-badge complexity-o1">O(1)</span></h4>
+                        <p>Get number of elements</p>
+                        <div class="code-block">
+s = {1, 2, 3, 4, 5}
+size = len(s)  <span class="comment"># 5</span>
+                        </div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>item in s <span class="complexity-badge complexity-o1">O(1) avg</span></h4>
+                        <p>Check membership (very fast!)</p>
+                        <div class="code-block">
+s = {1, 2, 3, 4, 5}
+has_3 = 3 in s     <span class="comment"># True</span>
+has_6 = 6 in s     <span class="comment"># False</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>Set Mathematical Operations</h3>
+                <div class="code-block">
+set1 = {1, 2, 3, 4, 5}
+set2 = {4, 5, 6, 7, 8}
+
+<span class="comment"># Union (combine all unique elements)</span>
+union1 = set1 | set2           <span class="comment"># {1, 2, 3, 4, 5, 6, 7, 8}</span>
+union2 = set1.union(set2)      <span class="comment"># Same as above</span>
+
+<span class="comment"># Intersection (common elements)</span>
+intersection1 = set1 & set2              <span class="comment"># {4, 5}</span>
+intersection2 = set1.intersection(set2)  <span class="comment"># Same as above</span>
+
+<span class="comment"># Difference (elements in first but not second)</span>
+difference1 = set1 - set2              <span class="comment"># {1, 2, 3}</span>
+difference2 = set1.difference(set2)    <span class="comment"># Same as above</span>
+
+<span class="comment"># Symmetric difference (elements in either but not both)</span>
+sym_diff1 = set1 ^ set2                        <span class="comment"># {1, 2, 3, 6, 7, 8}</span>
+sym_diff2 = set1.symmetric_difference(set2)    <span class="comment"># Same as above</span>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>Set Comparison Operations</h3>
+                <div class="code-block">
+set1 = {1, 2, 3}
+set2 = {1, 2, 3, 4, 5}
+set3 = {1, 2, 3}
+
+<span class="comment"># Subset checks</span>
+is_subset1 = set1 <= set2         <span class="comment"># True (set1 is subset of set2)</span>
+is_subset2 = set1.issubset(set2)  <span class="comment"># True (same as above)</span>
+
+<span class="comment"># Superset checks</span>
+is_superset1 = set2 >= set1          <span class="comment"># True (set2 is superset of set1)</span>
+is_superset2 = set2.issuperset(set1) <span class="comment"># True (same as above)</span>
+
+<span class="comment"># Disjoint check (no common elements)</span>
+set4 = {6, 7, 8}
+are_disjoint = set1.isdisjoint(set4)  <span class="comment"># True</span>
+
+<span class="comment"># Equality</span>
+are_equal = set1 == set3  <span class="comment"># True</span>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>Interactive Demo</h3>
+                <div class="demo-section">
+                    <h4>Try Set Operations</h4>
+                    <div class="demo-controls">
+                        <input type="text" id="set1Input" class="demo-input" placeholder="Set 1 (comma-separated)" value="1,2,3,4,5">
+                        <input type="text" id="set2Input" class="demo-input" placeholder="Set 2 (comma-separated)" value="4,5,6,7,8">
+                        <input type="text" id="itemInput" class="demo-input" placeholder="Item to add/remove" value="9">
+                        <button class="demo-button" onclick="showUnion()">Union</button>
+                        <button class="demo-button" onclick="showIntersection()">Intersection</button>
+                        <button class="demo-button" onclick="showDifference()">Difference</button>
+                        <button class="demo-button" onclick="showSymmetricDiff()">Symmetric Diff</button>
+                        <button class="demo-button" onclick="addItem()">Add Item</button>
+                        <button class="demo-button" onclick="removeItem()">Remove Item</button>
+                        <button class="demo-button" onclick="checkMembership()">Check In Set1</button>
+                    </div>
+                    <div id="setOutput" class="demo-output">Set 1: {1, 2, 3, 4, 5}
+Set 2: {4, 5, 6, 7, 8}</div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>Common Set Patterns</h3>
+                
+                <h4>Remove Duplicates from List</h4>
+                <div class="code-block">
+<span class="comment"># Quick way to remove duplicates (loses order)</span>
+numbers = [1, 2, 3, 2, 4, 1, 5, 3]
+unique_numbers = list(set(numbers))  <span class="comment"># Order may change</span>
+
+<span class="comment"># Preserve order while removing duplicates</span>
+<span class="keyword">def</span> <span class="function">remove_duplicates_ordered</span>(lst):
+    seen = set()
+    result = []
+    <span class="keyword">for</span> item <span class="keyword">in</span> lst:
+        <span class="keyword">if</span> item <span class="keyword">not</span> <span class="keyword">in</span> seen:
+            seen.add(item)
+            result.append(item)
+    <span class="keyword">return</span> result
+
+ordered_unique = remove_duplicates_ordered(numbers)  <span class="comment"># [1, 2, 3, 4, 5]</span>
+                </div>
+
+                <h4>Find Common Elements</h4>
+                <div class="code-block">
+<span class="comment"># Find common elements between multiple lists</span>
+list1 = [1, 2, 3, 4, 5]
+list2 = [4, 5, 6, 7, 8]
+list3 = [5, 6, 7, 8, 9]
+
+common = set(list1) & set(list2) & set(list3)  <span class="comment"># {5}</span>
+
+<span class="comment"># Find elements present in any list</span>
+all_elements = set(list1) | set(list2) | set(list3)
+
+<span class="comment"># Find elements unique to first list</span>
+unique_to_first = set(list1) - set(list2) - set(list3)
+                </div>
+
+                <h4>Efficient Membership Testing</h4>
+                <div class="code-block">
+<span class="comment"># Instead of checking membership in list (O(n))</span>
+vowels_list = ['a', 'e', 'i', 'o', 'u']
+
+<span class="keyword">def</span> <span class="function">is_vowel_slow</span>(char):
+    <span class="keyword">return</span> char.lower() <span class="keyword">in</span> vowels_list  <span class="comment"># O(n) for each check</span>
+
+<span class="comment"># Use set for O(1) membership testing</span>
+vowels_set = {'a', 'e', 'i', 'o', 'u'}
+
+<span class="keyword">def</span> <span class="function">is_vowel_fast</span>(char):
+    <span class="keyword">return</span> char.lower() <span class="keyword">in</span> vowels_set  <span class="comment"># O(1) for each check</span>
+
+<span class="comment"># Count vowels in text</span>
+text = "Hello World"
+vowel_count = sum(1 <span class="keyword">for</span> char <span class="keyword">in</span> text <span class="keyword">if</span> is_vowel_fast(char))
+                </div>
+
+                <h4>Set-based Algorithms</h4>
+                <div class="code-block">
+<span class="comment"># Check if two strings are anagrams</span>
+<span class="keyword">def</span> <span class="function">are_anagrams_set</span>(s1, s2):
+    <span class="keyword">return</span> set(s1.lower()) == set(s2.lower())
+
+<span class="comment"># Find all unique characters in text</span>
+<span class="keyword">def</span> <span class="function">unique_chars</span>(text):
+    <span class="keyword">return</span> set(text.lower().replace(" ", ""))
+
+<span class="comment"># Check if string has all unique characters</span>
+<span class="keyword">def</span> <span class="function">has_unique_chars</span>(s):
+    <span class="keyword">return</span> len(s) == len(set(s))
+
+<span class="comment"># Find missing numbers in sequence</span>
+<span class="keyword">def</span> <span class="function">find_missing_numbers</span>(nums, start, end):
+    expected = set(range(start, end + 1))
+    actual = set(nums)
+    <span class="keyword">return</span> sorted(expected - actual)
+
+missing = find_missing_numbers([1, 3, 5, 7], 1, 10)  <span class="comment"># [2, 4, 6, 8, 9, 10]</span>
+                </div>
+            </div>
+
+            <div class="note">
+                <strong>💡 Pro Tips:</strong>
+                <ul>
+                    <li>Sets provide O(1) average-case membership testing</li>
+                    <li>Use sets when you need unique elements and fast lookups</li>
+                    <li>Set operations (union, intersection) are very efficient</li>
+                    <li>Only hashable (immutable) objects can be set elements</li>
+                </ul>
+            </div>
+
+            <div class="tip">
+                <strong>🚀 Performance Tips:</strong>
+                <ul>
+                    <li>Convert lists to sets for fast membership testing</li>
+                    <li>Use set comprehensions for filtering unique elements</li>
+                    <li>Set operations are implemented in C and very fast</li>
+                    <li>frozenset for immutable sets that can be set elements</li>
+                </ul>
+            </div>
+
+            <div class="warning">
+                <strong>⚠️ Set Limitations:</strong>
+                <ul>
+                    <li>Sets are unordered (before Python 3.7) or insertion-ordered</li>
+                    <li>Cannot contain mutable objects (lists, dicts, sets)</li>
+                    <li>No indexing - can't access elements by position</li>
+                    <li>Use frozenset if you need a hashable set</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function parseSet(input) {
+            return new Set(input.split(',').map(item => {
+                const trimmed = item.trim();
+                const num = Number(trimmed);
+                return isNaN(num) ? trimmed : num;
+            }));
+        }
+        
+        function setToString(set) {
+            return `{${[...set].map(x => JSON.stringify(x)).join(', ')}}`;
+        }
+        
+        function updateOutput(message) {
+            document.getElementById('setOutput').textContent = message;
+        }
+        
+        function showUnion() {
+            const set1 = parseSet(document.getElementById('set1Input').value);
+            const set2 = parseSet(document.getElementById('set2Input').value);
+            const union = new Set([...set1, ...set2]);
+            updateOutput(`Union: ${setToString(union)}`);
+        }
+        
+        function showIntersection() {
+            const set1 = parseSet(document.getElementById('set1Input').value);
+            const set2 = parseSet(document.getElementById('set2Input').value);
+            const intersection = new Set([...set1].filter(x => set2.has(x)));
+            updateOutput(`Intersection: ${setToString(intersection)}`);
+        }
+        
+        function showDifference() {
+            const set1 = parseSet(document.getElementById('set1Input').value);
+            const set2 = parseSet(document.getElementById('set2Input').value);
+            const difference = new Set([...set1].filter(x => !set2.has(x)));
+            updateOutput(`Set1 - Set2: ${setToString(difference)}`);
+        }
+        
+        function showSymmetricDiff() {
+            const set1 = parseSet(document.getElementById('set1Input').value);
+            const set2 = parseSet(document.getElementById('set2Input').value);
+            const diff1 = new Set([...set1].filter(x => !set2.has(x)));
+            const diff2 = new Set([...set2].filter(x => !set1.has(x)));
+            const symDiff = new Set([...diff1, ...diff2]);
+            updateOutput(`Symmetric Difference: ${setToString(symDiff)}`);
+        }
+        
+        function addItem() {
+            const set1 = parseSet(document.getElementById('set1Input').value);
+            const item = document.getElementById('itemInput').value.trim();
+            const num = Number(item);
+            const target = isNaN(num) ? item : num;
+            set1.add(target);
+            updateOutput(`After adding ${JSON.stringify(target)}: ${setToString(set1)}`);
+        }
+        
+        function removeItem() {
+            const set1 = parseSet(document.getElementById('set1Input').value);
+            const item = document.getElementById('itemInput').value.trim();
+            const num = Number(item);
+            const target = isNaN(num) ? item : num;
+            const had = set1.has(target);
+            set1.delete(target);
+            updateOutput(`After removing ${JSON.stringify(target)}: ${setToString(set1)} ${had ? '' : '(item was not in set)'}`);
+        }
+        
+        function checkMembership() {
+            const set1 = parseSet(document.getElementById('set1Input').value);
+            const item = document.getElementById('itemInput').value.trim();
+            const num = Number(item);
+            const target = isNaN(num) ? item : num;
+            const exists = set1.has(target);
+            updateOutput(`${JSON.stringify(target)} ${exists ? 'is' : 'is not'} in Set1`);
+        }
+        
+        // Initialize
+        updateOutput(`Set 1: ${setToString(parseSet(document.getElementById('set1Input').value))}
+Set 2: ${setToString(parseSet(document.getElementById('set2Input').value))}`);
+    </script>
+</body>
+</html>

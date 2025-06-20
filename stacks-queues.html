@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stacks & Queues - Python DSA Reference</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="nav-back">
+            ← Back to Main Menu
+        </a>
+        
+        <div class="content-wrapper">
+            <h1 class="section-title">
+                <span>📚</span>
+                Stacks & Queues
+            </h1>
+
+            <div class="subsection">
+                <h3>Stack (LIFO - Last In, First Out)</h3>
+                <div class="code-block">
+<span class="comment"># Using list as stack</span>
+stack = []
+
+<span class="comment"># Push operations (add to top)</span>
+stack.append(1)  <span class="comment"># [1]</span>
+stack.append(2)  <span class="comment"># [1, 2]</span>
+stack.append(3)  <span class="comment"># [1, 2, 3]</span>
+
+<span class="comment"># Pop operations (remove from top)</span>
+top = stack.pop()  <span class="comment"># 3, stack = [1, 2]</span>
+top = stack.pop()  <span class="comment"># 2, stack = [1]</span>
+
+<span class="comment"># Peek at top without removing</span>
+<span class="keyword">if</span> stack:
+    top = stack[-1]  <span class="comment"># 1</span>
+
+<span class="comment"># Check if empty</span>
+is_empty = len(stack) == 0
+                </div>
+                
+                <div class="note">
+                    <strong>📚 Stack Concept:</strong> A stack follows LIFO principle - the last element added is the first one removed. Think of a stack of plates!
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>Stack Implementation</h3>
+                <div class="code-block">
+<span class="keyword">class</span> <span class="function">Stack</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(self):
+        self.items = []
+    
+    <span class="keyword">def</span> <span class="function">push</span>(self, item):
+        <span class="string">"""Add item to top of stack"""</span>
+        self.items.append(item)
+    
+    <span class="keyword">def</span> <span class="function">pop</span>(self):
+        <span class="string">"""Remove and return top item"""</span>
+        <span class="keyword">if</span> self.is_empty():
+            <span class="keyword">raise</span> IndexError("pop from empty stack")
+        <span class="keyword">return</span> self.items.pop()
+    
+    <span class="keyword">def</span> <span class="function">peek</span>(self):
+        <span class="string">"""Return top item without removing"""</span>
+        <span class="keyword">if</span> self.is_empty():
+            <span class="keyword">raise</span> IndexError("peek from empty stack")
+        <span class="keyword">return</span> self.items[-1]
+    
+    <span class="keyword">def</span> <span class="function">is_empty</span>(self):
+        <span class="string">"""Check if stack is empty"""</span>
+        <span class="keyword">return</span> len(self.items) == 0
+    
+    <span class="keyword">def</span> <span class="function">size</span>(self):
+        <span class="string">"""Return number of items"""</span>
+        <span class="keyword">return</span> len(self.items)
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>Queue (FIFO - First In, First Out)</h3>
+                <div class="code-block">
+<span class="keyword">from</span> collections <span class="keyword">import</span> deque
+
+<span class="comment"># Using deque for efficient queue operations</span>
+queue = deque()
+
+<span class="comment"># Enqueue operations (add to rear)</span>
+queue.append(1)     <span class="comment"># deque([1])</span>
+queue.append(2)     <span class="comment"># deque([1, 2])</span>
+queue.append(3)     <span class="comment"># deque([1, 2, 3])</span>
+
+<span class="comment"># Dequeue operations (remove from front)</span>
+front = queue.popleft()  <span class="comment"># 1, queue = deque([2, 3])</span>
+front = queue.popleft()  <span class="comment"># 2, queue = deque([3])</span>
+
+<span class="comment"># Peek at front without removing</span>
+<span class="keyword">if</span> queue:
+    front = queue[0]  <span class="comment"># 3</span>
+
+<span class="comment"># Check if empty</span>
+is_empty = len(queue) == 0
+                </div>
+                
+                <div class="note">
+                    <strong>🎯 Queue Concept:</strong> A queue follows FIFO principle - the first element added is the first one removed. Like a line at a store!
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>Queue Implementation</h3>
+                <div class="code-block">
+<span class="keyword">from</span> collections <span class="keyword">import</span> deque
+
+<span class="keyword">class</span> <span class="function">Queue</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(self):
+        self.items = deque()
+    
+    <span class="keyword">def</span> <span class="function">enqueue</span>(self, item):
+        <span class="string">"""Add item to rear of queue"""</span>
+        self.items.append(item)
+    
+    <span class="keyword">def</span> <span class="function">dequeue</span>(self):
+        <span class="string">"""Remove and return front item"""</span>
+        <span class="keyword">if</span> self.is_empty():
+            <span class="keyword">raise</span> IndexError("dequeue from empty queue")
+        <span class="keyword">return</span> self.items.popleft()
+    
+    <span class="keyword">def</span> <span class="function">front</span>(self):
+        <span class="string">"""Return front item without removing"""</span>
+        <span class="keyword">if</span> self.is_empty():
+            <span class="keyword">raise</span> IndexError("front from empty queue")
+        <span class="keyword">return</span> self.items[0]
+    
+    <span class="keyword">def</span> <span class="function">is_empty</span>(self):
+        <span class="string">"""Check if queue is empty"""</span>
+        <span class="keyword">return</span> len(self.items) == 0
+    
+    <span class="keyword">def</span> <span class="function">size</span>(self):
+        <span class="string">"""Return number of items"""</span>
+        <span class="keyword">return</span> len(self.items)
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>Time Complexities</h3>
+                <div class="method-grid">
+                    <div class="method-card">
+                        <h4>Stack Operations</h4>
+                        <ul>
+                            <li>Push: <span class="complexity-badge complexity-o1">O(1)</span></li>
+                            <li>Pop: <span class="complexity-badge complexity-o1">O(1)</span></li>
+                            <li>Peek: <span class="complexity-badge complexity-o1">O(1)</span></li>
+                            <li>Search: <span class="complexity-badge complexity-on">O(n)</span></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>Queue Operations (deque)</h4>
+                        <ul>
+                            <li>Enqueue: <span class="complexity-badge complexity-o1">O(1)</span></li>
+                            <li>Dequeue: <span class="complexity-badge complexity-o1">O(1)</span></li>
+                            <li>Front: <span class="complexity-badge complexity-o1">O(1)</span></li>
+                            <li>Search: <span class="complexity-badge complexity-on">O(n)</span></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>Queue Operations (list)</h4>
+                        <ul>
+                            <li>Enqueue (append): <span class="complexity-badge complexity-o1">O(1)</span></li>
+                            <li>Dequeue (pop(0)): <span class="complexity-badge complexity-on">O(n)</span></li>
+                            <li>Front: <span class="complexity-badge complexity-o1">O(1)</span></li>
+                        </ul>
+                        <div class="warning">
+                            <strong>⚠️</strong> Don't use list.pop(0) for queues - it's O(n)!
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>Interactive Demo</h3>
+                <div class="demo-section">
+                    <h4>Try Stack and Queue Operations</h4>
+                    <div class="demo-controls">
+                        <input type="text" id="itemInput" class="demo-input" placeholder="Item to add" value="5">
+                        <button class="demo-button" onclick="pushStack()">Push to Stack</button>
+                        <button class="demo-button" onclick="popStack()">Pop from Stack</button>
+                        <button class="demo-button" onclick="peekStack()">Peek Stack</button>
+                        <button class="demo-button" onclick="enqueueQueue()">Enqueue</button>
+                        <button class="demo-button" onclick="dequeueQueue()">Dequeue</button>
+                        <button class="demo-button" onclick="frontQueue()">Front Queue</button>
+                        <button class="demo-button" onclick="clearAll()">Clear All</button>
+                    </div>
+                    <div id="stackQueueOutput" class="demo-output">Stack: []
+Queue: []</div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>Common Stack Applications</h3>
+                
+                <h4>Balanced Parentheses</h4>
+                <div class="code-block">
+<span class="keyword">def</span> <span class="function">is_balanced</span>(expression):
+    <span class="string">"""Check if parentheses are balanced"""</span>
+    stack = []
+    pairs = {'(': ')', '[': ']', '{': '}'}
+    
+    <span class="keyword">for</span> char <span class="keyword">in</span> expression:
+        <span class="keyword">if</span> char <span class="keyword">in</span> pairs:  <span class="comment"># Opening bracket</span>
+            stack.append(char)
+        <span class="keyword">elif</span> char <span class="keyword">in</span> pairs.values():  <span class="comment"># Closing bracket</span>
+            <span class="keyword">if</span> <span class="keyword">not</span> stack:
+                <span class="keyword">return</span> False
+            <span class="keyword">if</span> pairs[stack.pop()] != char:
+                <span class="keyword">return</span> False
+    
+    <span class="keyword">return</span> len(stack) == 0
+
+<span class="comment"># Examples</span>
+print(is_balanced("()[]{}"))     <span class="comment"># True</span>
+print(is_balanced("([{}])"))     <span class="comment"># True</span>
+print(is_balanced("([)]"))       <span class="comment"># False</span>
+                </div>
+
+                <h4>Infix to Postfix Conversion</h4>
+                <div class="code-block">
+<span class="keyword">def</span> <span class="function">infix_to_postfix</span>(expression):
+    <span class="string">"""Convert infix notation to postfix"""</span>
+    precedence = {'+': 1, '-': 1, '*': 2, '/': 2, '^': 3}
+    stack = []
+    postfix = []
+    
+    <span class="keyword">for</span> char <span class="keyword">in</span> expression:
+        <span class="keyword">if</span> char.isalnum():  <span class="comment"># Operand</span>
+            postfix.append(char)
+        <span class="keyword">elif</span> char == '(':
+            stack.append(char)
+        <span class="keyword">elif</span> char == ')':
+            <span class="keyword">while</span> stack <span class="keyword">and</span> stack[-1] != '(':
+                postfix.append(stack.pop())
+            stack.pop()  <span class="comment"># Remove '('</span>
+        <span class="keyword">elif</span> char <span class="keyword">in</span> precedence:  <span class="comment"># Operator</span>
+            <span class="keyword">while</span> (stack <span class="keyword">and</span> stack[-1] != '(' <span class="keyword">and</span>
+                   stack[-1] <span class="keyword">in</span> precedence <span class="keyword">and</span>
+                   precedence[stack[-1]] >= precedence[char]):
+                postfix.append(stack.pop())
+            stack.append(char)
+    
+    <span class="keyword">while</span> stack:
+        postfix.append(stack.pop())
+    
+    <span class="keyword">return</span> ''.join(postfix)
+
+<span class="comment"># Example: "a+b*c" -> "abc*+"</span>
+result = infix_to_postfix("a+b*c")
+                </div>
+
+                <h4>Function Call Stack Simulation</h4>
+                <div class="code-block">
+<span class="keyword">def</span> <span class="function">factorial_iterative</span>(n):
+    <span class="string">"""Calculate factorial using stack (simulating recursion)"""</span>
+    <span class="keyword">if</span> n <= 1:
+        <span class="keyword">return</span> 1
+    
+    stack = []
+    result = 1
+    
+    <span class="comment"># Push all numbers onto stack</span>
+    <span class="keyword">for</span> i <span class="keyword">in</span> range(2, n + 1):
+        stack.append(i)
+    
+    <span class="comment"># Pop and multiply</span>
+    <span class="keyword">while</span> stack:
+        result *= stack.pop()
+    
+    <span class="keyword">return</span> result
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>Common Queue Applications</h3>
+                
+                <h4>Breadth-First Search (BFS)</h4>
+                <div class="code-block">
+<span class="keyword">from</span> collections <span class="keyword">import</span> deque
+
+<span class="keyword">def</span> <span class="function">bfs_tree</span>(root):
+    <span class="string">"""Breadth-first traversal of binary tree"""</span>
+    <span class="keyword">if</span> <span class="keyword">not</span> root:
+        <span class="keyword">return</span> []
+    
+    result = []
+    queue = deque([root])
+    
+    <span class="keyword">while</span> queue:
+        node = queue.popleft()
+        result.append(node.value)
+        
+        <span class="keyword">if</span> node.left:
+            queue.append(node.left)
+        <span class="keyword">if</span> node.right:
+            queue.append(node.right)
+    
+    <span class="keyword">return</span> result
+
+<span class="keyword">def</span> <span class="function">bfs_graph</span>(graph, start):
+    <span class="string">"""Breadth-first search in graph"""</span>
+    visited = set()
+    queue = deque([start])
+    result = []
+    
+    <span class="keyword">while</span> queue:
+        vertex = queue.popleft()
+        <span class="keyword">if</span> vertex <span class="keyword">not</span> <span class="keyword">in</span> visited:
+            visited.add(vertex)
+            result.append(vertex)
+            
+            <span class="keyword">for</span> neighbor <span class="keyword">in</span> graph[vertex]:
+                <span class="keyword">if</span> neighbor <span class="keyword">not</span> <span class="keyword">in</span> visited:
+                    queue.append(neighbor)
+    
+    <span class="keyword">return</span> result
+                </div>
+
+                <h4>Level Order Traversal</h4>
+                <div class="code-block">
+<span class="keyword">def</span> <span class="function">level_order_traversal</span>(root):
+    <span class="string">"""Return nodes grouped by level"""</span>
+    <span class="keyword">if</span> <span class="keyword">not</span> root:
+        <span class="keyword">return</span> []
+    
+    result = []
+    queue = deque([(root, 0)])  <span class="comment"># (node, level)</span>
+    
+    <span class="keyword">while</span> queue:
+        node, level = queue.popleft()
+        
+        <span class="comment"># Add new level if needed</span>
+        <span class="keyword">if</span> level >= len(result):
+            result.append([])
+        
+        result[level].append(node.value)
+        
+        <span class="keyword">if</span> node.left:
+            queue.append((node.left, level + 1))
+        <span class="keyword">if</span> node.right:
+            queue.append((node.right, level + 1))
+    
+    <span class="keyword">return</span> result
+                </div>
+
+                <h4>Sliding Window Maximum</h4>
+                <div class="code-block">
+<span class="keyword">from</span> collections <span class="keyword">import</span> deque
+
+<span class="keyword">def</span> <span class="function">sliding_window_maximum</span>(nums, k):
+    <span class="string">"""Find maximum in each sliding window of size k"""</span>
+    <span class="keyword">if</span> <span class="keyword">not</span> nums <span class="keyword">or</span> k <= 0:
+        <span class="keyword">return</span> []
+    
+    dq = deque()  <span class="comment"># Store indices</span>
+    result = []
+    
+    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):
+        <span class="comment"># Remove indices outside current window</span>
+        <span class="keyword">while</span> dq <span class="keyword">and</span> dq[0] <= i - k:
+            dq.popleft()
+        
+        <span class="comment"># Remove indices of smaller elements</span>
+        <span class="keyword">while</span> dq <span class="keyword">and</span> nums[dq[-1]] <= nums[i]:
+            dq.pop()
+        
+        dq.append(i)
+        
+        <span class="comment"># Add to result when window is complete</span>
+        <span class="keyword">if</span> i >= k - 1:
+            result.append(nums[dq[0]])
+    
+    <span class="keyword">return</span> result
+
+<span class="comment"># Example: nums = [1,3,-1,-3,5,3,6,7], k = 3</span>
+<span class="comment"># Result: [3, 3, 5, 5, 6, 7]</span>
+                </div>
+            </div>
+
+            <div class="note">
+                <strong>💡 When to Use:</strong>
+                <ul>
+                    <li><strong>Stacks:</strong> Function calls, expression evaluation, undo operations, backtracking</li>
+                    <li><strong>Queues:</strong> BFS, task scheduling, buffering, handling requests in order</li>
+                    <li><strong>Deque:</strong> When you need efficient operations at both ends</li>
+                </ul>
+            </div>
+
+            <div class="tip">
+                <strong>🚀 Python Implementation Tips:</strong>
+                <ul>
+                    <li>Use list for stacks (append/pop at end)</li>
+                    <li>Use collections.deque for queues (append/popleft)</li>
+                    <li>Avoid list.pop(0) for queues - it's O(n)</li>
+                    <li>Consider queue.Queue for thread-safe operations</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let stack = [];
+        let queue = [];
+        
+        function updateOutput() {
+            document.getElementById('stackQueueOutput').textContent = 
+                `Stack: [${stack.join(', ')}]\nQueue: [${queue.join(', ')}]`;
+        }
+        
+        function getItem() {
+            const input = document.getElementById('itemInput').value.trim();
+            const num = Number(input);
+            return isNaN(num) ? input : num;
+        }
+        
+        function pushStack() {
+            const item = getItem();
+            stack.push(item);
+            updateOutput();
+        }
+        
+        function popStack() {
+            if (stack.length === 0) {
+                document.getElementById('stackQueueOutput').textContent = 
+                    'Error: Cannot pop from empty stack\n' + 
+                    `Stack: [${stack.join(', ')}]\nQueue: [${queue.join(', ')}]`;
+            } else {
+                const popped = stack.pop();
+                document.getElementById('stackQueueOutput').textContent = 
+                    `Popped: ${JSON.stringify(popped)}\n` +
+                    `Stack: [${stack.join(', ')}]\nQueue: [${queue.join(', ')}]`;
+            }
+        }
+        
+        function peekStack() {
+            if (stack.length === 0) {
+                document.getElementById('stackQueueOutput').textContent = 
+                    'Error: Cannot peek empty stack\n' + 
+                    `Stack: [${stack.join(', ')}]\nQueue: [${queue.join(', ')}]`;
+            } else {
+                const top = stack[stack.length - 1];
+                document.getElementById('stackQueueOutput').textContent = 
+                    `Top: ${JSON.stringify(top)}\n` +
+                    `Stack: [${stack.join(', ')}]\nQueue: [${queue.join(', ')}]`;
+            }
+        }
+        
+        function enqueueQueue() {
+            const item = getItem();
+            queue.push(item);
+            updateOutput();
+        }
+        
+        function dequeueQueue() {
+            if (queue.length === 0) {
+                document.getElementById('stackQueueOutput').textContent = 
+                    'Error: Cannot dequeue from empty queue\n' + 
+                    `Stack: [${stack.join(', ')}]\nQueue: [${queue.join(', ')}]`;
+            } else {
+                const dequeued = queue.shift();
+                document.getElementById('stackQueueOutput').textContent = 
+                    `Dequeued: ${JSON.stringify(dequeued)}\n` +
+                    `Stack: [${stack.join(', ')}]\nQueue: [${queue.join(', ')}]`;
+            }
+        }
+        
+        function frontQueue() {
+            if (queue.length === 0) {
+                document.getElementById('stackQueueOutput').textContent = 
+                    'Error: Cannot peek empty queue\n' + 
+                    `Stack: [${stack.join(', ')}]\nQueue: [${queue.join(', ')}]`;
+            } else {
+                const front = queue[0];
+                document.getElementById('stackQueueOutput').textContent = 
+                    `Front: ${JSON.stringify(front)}\n` +
+                    `Stack: [${stack.join(', ')}]\nQueue: [${queue.join(', ')}]`;
+            }
+        }
+        
+        function clearAll() {
+            stack = [];
+            queue = [];
+            updateOutput();
+        }
+        
+        // Initialize with some sample data
+        stack = [1, 2, 3];
+        queue = [4, 5, 6];
+        updateOutput();
+    </script>
+</body>
+</html>

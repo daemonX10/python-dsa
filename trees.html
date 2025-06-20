@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trees - Python DSA Reference</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="nav-back">
+            ← Back to Main Menu
+        </a>
+        
+        <div class="content-wrapper">
+            <h1 class="section-title">
+                <span>🌳</span>
+                Trees
+            </h1>
+
+            <div class="subsection">
+                <h3>Binary Tree Implementation</h3>
+                <div class="code-block">class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+    
+    def __str__(self):
+        return str(self.val)
+
+class BinaryTree:
+    def __init__(self):
+        self.root = None
+    
+    def insert(self, val):
+        """Insert value into binary search tree"""
+        if not self.root:
+            self.root = TreeNode(val)
+        else:
+            self._insert_recursive(self.root, val)
+    
+    def _insert_recursive(self, node, val):
+        if val < node.val:
+            if not node.left:
+                node.left = TreeNode(val)
+            else:
+                self._insert_recursive(node.left, val)
+        else:
+            if not node.right:
+                node.right = TreeNode(val)
+            else:
+                self._insert_recursive(node.right, val)
+    
+    def search(self, val):
+        """Search for value in BST - O(log n) average"""
+        return self._search_recursive(self.root, val)
+    
+    def _search_recursive(self, node, val):
+        if not node or node.val == val:
+            return node
+        
+        if val < node.val:
+            return self._search_recursive(node.left, val)
+        else:
+            return self._search_recursive(node.right, val)</div>
+            </div>
+
+            <div class="subsection">
+                <h3>Tree Traversal Methods</h3>
+                <div class="method-grid">
+                    <div class="method-card">
+                        <h4>Inorder Traversal <span class="complexity-badge complexity-on">O(n)</span></h4>
+                        <p>Left → Root → Right</p>
+                        <div class="code-block">def inorder(root):
+    """Returns sorted order for BST"""
+    result = []
+    
+    def traverse(node):
+        if node:
+            traverse(node.left)
+            result.append(node.val)
+            traverse(node.right)
+    
+    traverse(root)
+    return result</div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>Preorder Traversal <span class="complexity-badge complexity-on">O(n)</span></h4>
+                        <p>Root → Left → Right</p>
+                        <div class="code-block">def preorder(root):
+    """Good for copying tree structure"""
+    result = []
+    
+    def traverse(node):
+        if node:
+            result.append(node.val)
+            traverse(node.left)
+            traverse(node.right)
+    
+    traverse(root)
+    return result</div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>Postorder Traversal <span class="complexity-badge complexity-on">O(n)</span></h4>
+                        <p>Left → Right → Root</p>
+                        <div class="code-block">def postorder(root):
+    """Good for deleting nodes safely"""
+    result = []
+    
+    def traverse(node):
+        if node:
+            traverse(node.left)
+            traverse(node.right)
+            result.append(node.val)
+    
+    traverse(root)
+    return result</div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>Level Order Traversal <span class="complexity-badge complexity-on">O(n)</span></h4>
+                        <p>Breadth-First Search</p>
+                        <div class="code-block">def level_order(root):
+    """Traverse level by level"""
+    if not root:
+        return []
+    
+    result = []
+    queue = [root]
+    
+    while queue:
+        level_size = len(queue)
+        level = []
+        
+        for _ in range(level_size):
+            node = queue.pop(0)
+            level.append(node.val)
+            
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+        
+        result.append(level)
+    
+    return result</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>Common Tree Operations</h3>
+                
+                <h4>Tree Height and Depth</h4>
+                <div class="code-block">def max_depth(root):
+    """Maximum depth/height of tree"""
+    if not root:
+        return 0
+    
+    left_depth = max_depth(root.left)
+    right_depth = max_depth(root.right)
+    
+    return 1 + max(left_depth, right_depth)
+
+def min_depth(root):
+    """Minimum depth to a leaf node"""
+    if not root:
+        return 0
+    
+    if not root.left and not root.right:
+        return 1
+    
+    if not root.left:
+        return 1 + min_depth(root.right)
+    if not root.right:
+        return 1 + min_depth(root.left)
+    
+    return 1 + min(min_depth(root.left), min_depth(root.right))</div>
+
+                <h4>Validate Binary Search Tree</h4>
+                <div class="code-block">def is_valid_bst(root):
+    """Check if tree is a valid BST"""
+    def validate(node, min_val, max_val):
+        if not node:
+            return True
+        
+        if node.val <= min_val or node.val >= max_val:
+            return False
+        
+        return (validate(node.left, min_val, node.val) and 
+                validate(node.right, node.val, max_val))
+    
+    return validate(root, float('-inf'), float('inf'))</div>
+
+                <h4>Lowest Common Ancestor</h4>
+                <div class="code-block">def lowest_common_ancestor(root, p, q):
+    """Find LCA in binary tree"""
+    if not root or root == p or root == q:
+        return root
+    
+    left = lowest_common_ancestor(root.left, p, q)
+    right = lowest_common_ancestor(root.right, p, q)
+    
+    if left and right:
+        return root
+    
+    return left if left else right
+
+def lca_bst(root, p, q):
+    """LCA in BST - more efficient"""
+    while root:
+        if p.val < root.val and q.val < root.val:
+            root = root.left
+        elif p.val > root.val and q.val > root.val:
+            root = root.right
+        else:
+            return root</div>
+            </div>
+
+            <div class="subsection">
+                <h3>Binary Search Tree Operations</h3>
+                <div class="code-block">def insert_bst(root, val):
+    """Insert value into BST"""
+    if not root:
+        return TreeNode(val)
+    
+    if val < root.val:
+        root.left = insert_bst(root.left, val)
+    else:
+        root.right = insert_bst(root.right, val)
+    
+    return root
+
+def delete_bst(root, val):
+    """Delete value from BST"""
+    if not root:
+        return root
+    
+    if val < root.val:
+        root.left = delete_bst(root.left, val)
+    elif val > root.val:
+        root.right = delete_bst(root.right, val)
+    else:
+        # Node to delete found
+        if not root.left:
+            return root.right
+        elif not root.right:
+            return root.left
+        
+        # Node has two children
+        # Find inorder successor (smallest in right subtree)
+        min_node = root.right
+        while min_node.left:
+            min_node = min_node.left
+        
+        # Replace root's value with successor's value
+        root.val = min_node.val
+        
+        # Delete the successor
+        root.right = delete_bst(root.right, min_node.val)
+    
+    return root
+
+def find_min(root):
+    """Find minimum value in BST"""
+    while root.left:
+        root = root.left
+    return root.val
+
+def find_max(root):
+    """Find maximum value in BST"""
+    while root.right:
+        root = root.right
+    return root.val</div>
+            </div>
+
+            <div class="subsection">
+                <h3>Interactive Demo</h3>
+                <div class="demo-section">
+                    <h4>Try Binary Search Tree Operations</h4>
+                    <div class="demo-controls">
+                        <input type="number" id="valueInput" class="demo-input" placeholder="Value" value="5">
+                        <button class="demo-button" onclick="insertValue()">Insert</button>
+                        <button class="demo-button" onclick="searchValue()">Search</button>
+                        <button class="demo-button" onclick="deleteValue()">Delete</button>
+                        <button class="demo-button" onclick="showInorder()">Inorder</button>
+                        <button class="demo-button" onclick="showPreorder()">Preorder</button>
+                        <button class="demo-button" onclick="showPostorder()">Postorder</button>
+                        <button class="demo-button" onclick="clearTree()">Clear</button>
+                    </div>
+                    <div id="treeOutput" class="demo-output">Current tree: Empty</div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>Advanced Tree Problems</h3>
+                
+                <h4>Serialize and Deserialize Tree</h4>
+                <div class="code-block">def serialize(root):
+    """Serialize tree to string"""
+    def preorder(node):
+        if not node:
+            vals.append("null")
+        else:
+            vals.append(str(node.val))
+            preorder(node.left)
+            preorder(node.right)
+    
+    vals = []
+    preorder(root)
+    return ','.join(vals)
+
+def deserialize(data):
+    """Deserialize string to tree"""
+    def build():
+        val = next(vals)
+        if val == "null":
+            return None
+        
+        node = TreeNode(int(val))
+        node.left = build()
+        node.right = build()
+        return node
+    
+    vals = iter(data.split(','))
+    return build()</div>
+
+                <h4>Path Sum Problems</h4>
+                <div class="code-block">def has_path_sum(root, target_sum):
+    """Check if path from root to leaf equals target"""
+    if not root:
+        return False
+    
+    if not root.left and not root.right:
+        return root.val == target_sum
+    
+    remaining = target_sum - root.val
+    return (has_path_sum(root.left, remaining) or 
+            has_path_sum(root.right, remaining))
+
+def path_sum_all(root, target_sum):
+    """Find all root-to-leaf paths that sum to target"""
+    def dfs(node, path, remaining):
+        if not node:
+            return
+        
+        path.append(node.val)
+        
+        if not node.left and not node.right and remaining == node.val:
+            result.append(path[:])
+        else:
+            dfs(node.left, path, remaining - node.val)
+            dfs(node.right, path, remaining - node.val)
+        
+        path.pop()
+    
+    result = []
+    dfs(root, [], target_sum)
+    return result</div>
+            </div>
+
+            <div class="note">
+                <strong>💡 Tree Types:</strong>
+                <ul>
+                    <li><strong>Binary Tree:</strong> Each node has at most 2 children</li>
+                    <li><strong>Binary Search Tree:</strong> Left < Root < Right property</li>
+                    <li><strong>Complete Tree:</strong> All levels filled except possibly last</li>
+                    <li><strong>Full Tree:</strong> Every node has 0 or 2 children</li>
+                    <li><strong>Perfect Tree:</strong> All internal nodes have 2 children, all leaves at same level</li>
+                </ul>
+            </div>
+
+            <div class="tip">
+                <strong>🚀 Tree Algorithms:</strong>
+                <ul>
+                    <li><strong>DFS:</strong> Use recursion or stack for deep traversal</li>
+                    <li><strong>BFS:</strong> Use queue for level-by-level traversal</li>
+                    <li><strong>BST Operations:</strong> O(log n) average, O(n) worst case</li>
+                    <li><strong>Balanced Trees:</strong> AVL, Red-Black maintain O(log n)</li>
+                </ul>
+            </div>
+
+            <div class="warning">
+                <strong>⚠️ Common Issues:</strong>
+                <ul>
+                    <li>Stack overflow with very deep trees in recursive solutions</li>
+                    <li>Unbalanced BSTs can degrade to O(n) operations</li>
+                    <li>Memory usage grows with tree size</li>
+                    <li>Need to handle null nodes carefully</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class TreeNodeJS {
+            constructor(val) {
+                this.val = val;
+                this.left = null;
+                this.right = null;
+            }
+        }
+        
+        class BSTDemo {
+            constructor() {
+                this.root = null;
+            }
+            
+            insert(val) {
+                this.root = this._insertNode(this.root, val);
+            }
+            
+            _insertNode(node, val) {
+                if (!node) {
+                    return new TreeNodeJS(val);
+                }
+                
+                if (val < node.val) {
+                    node.left = this._insertNode(node.left, val);
+                } else {
+                    node.right = this._insertNode(node.right, val);
+                }
+                
+                return node;
+            }
+            
+            search(val) {
+                return this._searchNode(this.root, val);
+            }
+            
+            _searchNode(node, val) {
+                if (!node || node.val === val) {
+                    return node;
+                }
+                
+                if (val < node.val) {
+                    return this._searchNode(node.left, val);
+                } else {
+                    return this._searchNode(node.right, val);
+                }
+            }
+            
+            delete(val) {
+                this.root = this._deleteNode(this.root, val);
+            }
+            
+            _deleteNode(node, val) {
+                if (!node) return node;
+                
+                if (val < node.val) {
+                    node.left = this._deleteNode(node.left, val);
+                } else if (val > node.val) {
+                    node.right = this._deleteNode(node.right, val);
+                } else {
+                    if (!node.left) return node.right;
+                    if (!node.right) return node.left;
+                    
+                    let minNode = node.right;
+                    while (minNode.left) {
+                        minNode = minNode.left;
+                    }
+                    
+                    node.val = minNode.val;
+                    node.right = this._deleteNode(node.right, minNode.val);
+                }
+                
+                return node;
+            }
+            
+            inorder() {
+                const result = [];
+                this._inorderTraversal(this.root, result);
+                return result;
+            }
+            
+            _inorderTraversal(node, result) {
+                if (node) {
+                    this._inorderTraversal(node.left, result);
+                    result.push(node.val);
+                    this._inorderTraversal(node.right, result);
+                }
+            }
+            
+            preorder() {
+                const result = [];
+                this._preorderTraversal(this.root, result);
+                return result;
+            }
+            
+            _preorderTraversal(node, result) {
+                if (node) {
+                    result.push(node.val);
+                    this._preorderTraversal(node.left, result);
+                    this._preorderTraversal(node.right, result);
+                }
+            }
+            
+            postorder() {
+                const result = [];
+                this._postorderTraversal(this.root, result);
+                return result;
+            }
+            
+            _postorderTraversal(node, result) {
+                if (node) {
+                    this._postorderTraversal(node.left, result);
+                    this._postorderTraversal(node.right, result);
+                    result.push(node.val);
+                }
+            }
+            
+            clear() {
+                this.root = null;
+            }
+            
+            isEmpty() {
+                return this.root === null;
+            }
+        }
+        
+        const bst = new BSTDemo();
+        
+        function updateOutput(message = null) {
+            if (message) {
+                document.getElementById('treeOutput').textContent = message;
+            } else if (bst.isEmpty()) {
+                document.getElementById('treeOutput').textContent = "Current tree: Empty";
+            } else {
+                const inorder = bst.inorder();
+                document.getElementById('treeOutput').textContent = 
+                    `Current tree (inorder): [${inorder.join(', ')}]`;
+            }
+        }
+        
+        function insertValue() {
+            const value = parseInt(document.getElementById('valueInput').value);
+            if (!isNaN(value)) {
+                bst.insert(value);
+                updateOutput();
+            }
+        }
+        
+        function searchValue() {
+            const value = parseInt(document.getElementById('valueInput').value);
+            if (!isNaN(value)) {
+                const found = bst.search(value);
+                updateOutput(found ? `Found ${value} in tree` : `${value} not found in tree`);
+            }
+        }
+        
+        function deleteValue() {
+            const value = parseInt(document.getElementById('valueInput').value);
+            if (!isNaN(value)) {
+                bst.delete(value);
+                updateOutput();
+            }
+        }
+        
+        function showInorder() {
+            const result = bst.inorder();
+            updateOutput(`Inorder traversal: [${result.join(', ')}]`);
+        }
+        
+        function showPreorder() {
+            const result = bst.preorder();
+            updateOutput(`Preorder traversal: [${result.join(', ')}]`);
+        }
+        
+        function showPostorder() {
+            const result = bst.postorder();
+            updateOutput(`Postorder traversal: [${result.join(', ')}]`);
+        }
+        
+        function clearTree() {
+            bst.clear();
+            updateOutput();
+        }
+        
+        // Initialize with some sample data
+        [8, 3, 10, 1, 6, 14, 4, 7, 13].forEach(val => bst.insert(val));
+        updateOutput();
+    </script>
+</body>
+</html>

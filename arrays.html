@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrays/Lists - Python DSA Reference</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="nav-back">
+            ← Back to Main Menu
+        </a>
+        
+        <div class="content-wrapper">
+            <h1 class="section-title">
+                <span>📋</span>
+                Arrays/Lists
+            </h1>
+
+            <div class="subsection">
+                <h3>List Creation and Basic Operations</h3>                <div class="code-block">
+<span class="comment"># Creating lists</span>
+empty_list = []
+numbers = [1, 2, 3, 4, 5]
+mixed = [1, "hello", 3.14, True]
+from_range = list(range(10))  <span class="comment"># [0, 1, 2, ..., 9]</span>
+
+<span class="comment"># List comprehensions</span>
+squares = [x ** 2 for x in range(10)]
+evens = [x for x in range(20) if x % 2 == 0]
+nested = [[i * j for j in range(3)] for i in range(3)]
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>Essential List Methods</h3>
+                <div class="method-grid">
+                    <div class="method-card">
+                        <h4>append(item) <span class="complexity-badge complexity-o1">O(1)</span></h4>
+                        <p>Add item to end of list</p>
+                        <div class="code-block">
+lst = [1, 2, 3]
+lst.append(4)    <span class="comment"># [1, 2, 3, 4]</span>
+                        </div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>insert(index, item) <span class="complexity-badge complexity-on">O(n)</span></h4>
+                        <p>Insert item at specific index</p>
+                        <div class="code-block">
+lst = [1, 2, 3]
+lst.insert(1, 'new')    <span class="comment"># [1, 'new', 2, 3]</span>
+                        </div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>remove(item) <span class="complexity-badge complexity-on">O(n)</span></h4>
+                        <p>Remove first occurrence of item</p>
+                        <div class="code-block">
+lst = [1, 2, 3, 2]
+lst.remove(2)    <span class="comment"># [1, 3, 2]</span>
+                        </div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>pop(index) <span class="complexity-badge complexity-o1">O(1) end, O(n) middle</span></h4>                        <p>Remove and return item at index</p>
+                        <div class="code-block">
+lst = [1, 2, 3]
+item = lst.pop()      <span class="comment"># item = 3, lst = [1, 2]</span>
+item = lst.pop(0)     <span class="comment"># item = 1, lst = [2]</span>
+                        </div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>extend(iterable) <span class="complexity-badge complexity-on">O(k)</span></h4>
+                        <p>Add all items from iterable</p>                        <div class="code-block">
+lst1 = [1, 2, 3]
+lst2 = [4, 5, 6]
+lst1.extend(lst2)    <span class="comment"># [1, 2, 3, 4, 5, 6]</span>
+                        </div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>sort() <span class="complexity-badge complexity-on">O(n log n)</span></h4>                        <p>Sort list in place</p>
+                        <div class="code-block">
+lst = [3, 1, 4, 1, 5]
+lst.sort()                     <span class="comment"># [1, 1, 3, 4, 5]</span>
+lst.sort(reverse=True)         <span class="comment"># [5, 4, 3, 1, 1]</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>Indexing and Slicing</h3>
+                <div class="code-block">
+lst = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+<span class="comment"># Basic indexing</span>
+first = lst[0]          <span class="comment"># 0</span>
+last = lst[-1]          <span class="comment"># 9</span>
+second_last = lst[-2]   <span class="comment"># 8</span>
+
+<span class="comment"># Slicing [start:end:step]</span>
+subset = lst[2:7]       <span class="comment"># [2, 3, 4, 5, 6]</span>
+evens = lst[::2]        <span class="comment"># [0, 2, 4, 6, 8]</span>
+odds = lst[1::2]        <span class="comment"># [1, 3, 5, 7, 9]</span>
+reverse = lst[::-1]     <span class="comment"># [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]</span>
+copy = lst[:]           <span class="comment"># Creates a shallow copy</span>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>Interactive Demo</h3>
+                <div class="demo-section">
+                    <h4>Try List Operations</h4>
+                    <div class="demo-controls">
+                        <input type="text" id="listInput" class="demo-input" placeholder="Enter comma-separated values" value="1,2,3,4,5">
+                        <input type="text" id="itemInput" class="demo-input" placeholder="Item to add/remove" value="6">
+                        <input type="number" id="indexInput" class="demo-input" placeholder="Index" value="0">
+                        <button class="demo-button" onclick="appendItem()">Append</button>
+                        <button class="demo-button" onclick="insertItem()">Insert</button>
+                        <button class="demo-button" onclick="removeItem()">Remove</button>
+                        <button class="demo-button" onclick="popItem()">Pop</button>
+                        <button class="demo-button" onclick="sortList()">Sort</button>
+                        <button class="demo-button" onclick="reverseList()">Reverse</button>
+                    </div>
+                    <div id="listOutput" class="demo-output">Current list: [1, 2, 3, 4, 5]</div>
+                </div>
+            </div>
+
+            <div class="subsection">                <h3>Common Patterns</h3>
+                
+                <h4>Two Pointers</h4>
+                <div class="code-block">
+<span class="keyword">def</span> <span class="function">two_sum</span>(nums, target):
+    <span class="string">"""Find two numbers that add up to target"""</span>
+    left, right = 0, len(nums) - 1
+    
+    <span class="keyword">while</span> left < right:
+        current_sum = nums[left] + nums[right]
+        <span class="keyword">if</span> current_sum == target:
+            <span class="keyword">return</span> [left, right]
+        <span class="keyword">elif</span> current_sum < target:
+            left += 1
+        <span class="keyword">else</span>:
+            right -= 1
+    
+    <span class="keyword">return</span> []                </div>
+                
+                <h4>Sliding Window</h4>
+                <div class="code-block">
+<span class="keyword">def</span> <span class="function">max_sum_subarray</span>(nums, k):
+    <span class="string">"""Find maximum sum of k consecutive elements"""</span>
+    <span class="keyword">if</span> len(nums) < k:
+        <span class="keyword">return</span> 0
+    
+    <span class="comment"># Calculate sum of first window</span>
+    window_sum = sum(nums[:k])
+    max_sum = window_sum
+    
+    <span class="comment"># Slide the window</span>
+    <span class="keyword">for</span> i <span class="keyword">in</span> range(k, len(nums)):
+        window_sum = window_sum - nums[i - k] + nums[i]
+        max_sum = max(max_sum, window_sum)
+    
+    <span class="keyword">return</span> max_sum
+                </div>
+            </div>
+
+            <div class="note">
+                <strong>💡 Pro Tips:</strong>
+                <ul>
+                    <li>Use list comprehensions for readable code</li>
+                    <li>Remember that lists are mutable and passed by reference</li>
+                    <li>Use enumerate() when you need both index and value</li>
+                    <li>Use zip() to iterate over multiple lists simultaneously</li>
+                </ul>
+            </div>
+
+            <div class="tip">
+                <strong>🚀 Performance Tips:</strong>
+                <ul>
+                    <li>append() is O(1), insert(0, item) is O(n)</li>
+                    <li>Use collections.deque for frequent insertions at both ends</li>
+                    <li>List comprehensions are generally faster than for loops</li>
+                    <li>Use set() for O(1) membership testing instead of "in" on lists</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentList = [1, 2, 3, 4, 5];
+        
+        function updateOutput() {
+            document.getElementById('listOutput').textContent = `Current list: [${currentList.join(', ')}]`;
+        }
+        
+        function getInputList() {
+            const input = document.getElementById('listInput').value;
+            currentList = input.split(',').map(item => {
+                const trimmed = item.trim();
+                const num = Number(trimmed);
+                return isNaN(num) ? trimmed : num;
+            });
+            updateOutput();
+        }
+        
+        function appendItem() {
+            getInputList();
+            const item = document.getElementById('itemInput').value.trim();
+            const num = Number(item);
+            currentList.push(isNaN(num) ? item : num);
+            updateOutput();
+        }
+        
+        function insertItem() {
+            getInputList();
+            const item = document.getElementById('itemInput').value.trim();
+            const index = parseInt(document.getElementById('indexInput').value) || 0;
+            const num = Number(item);
+            currentList.splice(index, 0, isNaN(num) ? item : num);
+            updateOutput();
+        }
+        
+        function removeItem() {
+            getInputList();
+            const item = document.getElementById('itemInput').value.trim();
+            const num = Number(item);
+            const target = isNaN(num) ? item : num;
+            const index = currentList.indexOf(target);
+            if (index !== -1) {
+                currentList.splice(index, 1);
+            }
+            updateOutput();
+        }
+        
+        function popItem() {
+            getInputList();
+            const index = parseInt(document.getElementById('indexInput').value);
+            if (isNaN(index)) {
+                currentList.pop();
+            } else {
+                currentList.splice(index, 1);
+            }
+            updateOutput();
+        }
+        
+        function sortList() {
+            getInputList();
+            currentList.sort((a, b) => {
+                if (typeof a === 'number' && typeof b === 'number') {
+                    return a - b;
+                }
+                return String(a).localeCompare(String(b));
+            });
+            updateOutput();
+        }
+        
+        function reverseList() {
+            getInputList();
+            currentList.reverse();
+            updateOutput();
+        }
+        
+        // Initialize
+        updateOutput();
+    </script>
+</body>
+</html>
