@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heaps - Python DSA Reference</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="nav-back">
+            ← Back to Main Menu
+        </a>
+        
+        <div class="content-wrapper">
+            <h1 class="section-title">
+                <span>⛰️</span>
+                Heaps
+            </h1>
+
+            <div class="subsection">
+                <h3>Heap Implementation</h3>
+                <div class="code-block">import heapq
+
+class MinHeap:
+    def __init__(self):
+        self.heap = []
+    
+    def push(self, val):
+        """Insert element - O(log n)"""
+        heapq.heappush(self.heap, val)
+    
+    def pop(self):
+        """Remove and return minimum - O(log n)"""
+        if self.heap:
+            return heapq.heappop(self.heap)
+        return None
+    
+    def peek(self):
+        """Get minimum without removing - O(1)"""
+        return self.heap[0] if self.heap else None
+    
+    def size(self):
+        """Get heap size - O(1)"""
+        return len(self.heap)
+    
+    def is_empty(self):
+        """Check if heap is empty - O(1)"""
+        return len(self.heap) == 0
+
+class MaxHeap:
+    def __init__(self):
+        self.heap = []
+    
+    def push(self, val):
+        """Insert element - O(log n)"""
+        heapq.heappush(self.heap, -val)  # Negate for max heap
+    
+    def pop(self):
+        """Remove and return maximum - O(log n)"""
+        if self.heap:
+            return -heapq.heappop(self.heap)  # Negate back
+        return None
+    
+    def peek(self):
+        """Get maximum without removing - O(1)"""
+        return -self.heap[0] if self.heap else None</div>
+            </div>
+
+            <div class="subsection">
+                <h3>Custom Heap Implementation</h3>
+                <div class="code-block">class Heap:
+    def __init__(self, is_min_heap=True):
+        self.heap = []
+        self.is_min_heap = is_min_heap
+    
+    def _parent(self, i):
+        return (i - 1) // 2
+    
+    def _left_child(self, i):
+        return 2 * i + 1
+    
+    def _right_child(self, i):
+        return 2 * i + 2
+    
+    def _compare(self, i, j):
+        """Compare elements based on heap type"""
+        if self.is_min_heap:
+            return self.heap[i] < self.heap[j]
+        else:
+            return self.heap[i] > self.heap[j]
+    
+    def _heapify_up(self, i):
+        """Maintain heap property upward"""
+        while i > 0:
+            parent = self._parent(i)
+            if self._compare(i, parent):
+                self.heap[i], self.heap[parent] = self.heap[parent], self.heap[i]
+                i = parent
+            else:
+                break
+    
+    def _heapify_down(self, i):
+        """Maintain heap property downward"""
+        while True:
+            target = i
+            left = self._left_child(i)
+            right = self._right_child(i)
+            
+            if left < len(self.heap) and self._compare(left, target):
+                target = left
+            
+            if right < len(self.heap) and self._compare(right, target):
+                target = right
+            
+            if target != i:
+                self.heap[i], self.heap[target] = self.heap[target], self.heap[i]
+                i = target
+            else:
+                break
+    
+    def insert(self, val):
+        """Insert element"""
+        self.heap.append(val)
+        self._heapify_up(len(self.heap) - 1)
+    
+    def extract(self):
+        """Remove and return root element"""
+        if not self.heap:
+            return None
+        
+        if len(self.heap) == 1:
+            return self.heap.pop()
+        
+        root = self.heap[0]
+        self.heap[0] = self.heap.pop()
+        self._heapify_down(0)
+        return root
+    
+    def peek(self):
+        """Get root element without removing"""
+        return self.heap[0] if self.heap else None</div>
+            </div>
+
+            <div class="subsection">
+                <h3>Heap Operations</h3>
+                <div class="method-grid">
+                    <div class="method-card">
+                        <h4>Heapify Array <span class="complexity-badge complexity-on">O(n)</span></h4>
+                        <p>Convert array to heap</p>
+                        <div class="code-block">def heapify(arr):
+    """Convert array to min heap in-place"""
+    heapq.heapify(arr)
+    return arr
+
+def build_max_heap(arr):
+    """Build max heap from array"""
+    # Negate all elements for max heap
+    neg_arr = [-x for x in arr]
+    heapq.heapify(neg_arr)
+    return [-x for x in neg_arr]</div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>K Largest Elements <span class="complexity-badge complexity-on">O(n log k)</span></h4>
+                        <p>Find k largest elements</p>
+                        <div class="code-block">def k_largest(arr, k):
+    """Find k largest elements using min heap"""
+    return heapq.nlargest(k, arr)
+
+def k_largest_manual(arr, k):
+    """Manual implementation"""
+    min_heap = []
+    
+    for num in arr:
+        if len(min_heap) < k:
+            heapq.heappush(min_heap, num)
+        elif num > min_heap[0]:
+            heapq.heapreplace(min_heap, num)
+    
+    return sorted(min_heap, reverse=True)</div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>K Smallest Elements <span class="complexity-badge complexity-on">O(n log k)</span></h4>
+                        <p>Find k smallest elements</p>
+                        <div class="code-block">def k_smallest(arr, k):
+    """Find k smallest elements using max heap"""
+    return heapq.nsmallest(k, arr)
+
+def k_smallest_manual(arr, k):
+    """Manual implementation"""
+    max_heap = []
+    
+    for num in arr:
+        if len(max_heap) < k:
+            heapq.heappush(max_heap, -num)
+        elif num < -max_heap[0]:
+            heapq.heapreplace(max_heap, -num)
+    
+    return sorted([-x for x in max_heap])</div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>Heap Sort <span class="complexity-badge complexity-on">O(n log n)</span></h4>
+                        <p>Sort using heap</p>
+                        <div class="code-block">def heap_sort(arr):
+    """Sort array using heap sort"""
+    result = []
+    heap = arr[:]
+    heapq.heapify(heap)
+    
+    while heap:
+        result.append(heapq.heappop(heap))
+    
+    return result
+
+def heap_sort_inplace(arr):
+    """In-place heap sort"""
+    # Build max heap
+    n = len(arr)
+    for i in range(n // 2 - 1, -1, -1):
+        heapify_down(arr, n, i)
+    
+    # Extract elements one by one
+    for i in range(n - 1, 0, -1):
+        arr[0], arr[i] = arr[i], arr[0]
+        heapify_down(arr, i, 0)
+
+def heapify_down(arr, n, i):
+    largest = i
+    left = 2 * i + 1
+    right = 2 * i + 2
+    
+    if left < n and arr[left] > arr[largest]:
+        largest = left
+    
+    if right < n and arr[right] > arr[largest]:
+        largest = right
+    
+    if largest != i:
+        arr[i], arr[largest] = arr[largest], arr[i]
+        heapify_down(arr, n, largest)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>Priority Queue Applications</h3>
+                
+                <h4>Merge K Sorted Lists</h4>
+                <div class="code-block">def merge_k_sorted_lists(lists):
+    """Merge k sorted lists using heap"""
+    import heapq
+    
+    heap = []
+    result = []
+    
+    # Initialize heap with first element from each list
+    for i, lst in enumerate(lists):
+        if lst:
+            heapq.heappush(heap, (lst[0], i, 0))
+    
+    while heap:
+        val, list_idx, elem_idx = heapq.heappop(heap)
+        result.append(val)
+        
+        # Add next element from the same list
+        if elem_idx + 1 < len(lists[list_idx]):
+            next_val = lists[list_idx][elem_idx + 1]
+            heapq.heappush(heap, (next_val, list_idx, elem_idx + 1))
+    
+    return result</div>
+
+                <h4>Find Median from Data Stream</h4>
+                <div class="code-block">class MedianFinder:
+    """Find median of numbers from data stream"""
+    
+    def __init__(self):
+        self.small = []  # Max heap (negated values)
+        self.large = []  # Min heap
+    
+    def addNum(self, num):
+        """Add number to data stream"""
+        # Add to max heap (small numbers)
+        heapq.heappush(self.small, -num)
+        
+        # Balance heaps: move largest from small to large
+        if self.small and self.large and (-self.small[0] > self.large[0]):
+            val = -heapq.heappop(self.small)
+            heapq.heappush(self.large, val)
+        
+        # Balance sizes
+        if len(self.small) > len(self.large) + 1:
+            val = -heapq.heappop(self.small)
+            heapq.heappush(self.large, val)
+        
+        if len(self.large) > len(self.small) + 1:
+            val = heapq.heappop(self.large)
+            heapq.heappush(self.small, -val)
+    
+    def findMedian(self):
+        """Find median of current numbers"""
+        if len(self.small) > len(self.large):
+            return -self.small[0]
+        elif len(self.large) > len(self.small):
+            return self.large[0]
+        else:
+            return (-self.small[0] + self.large[0]) / 2.0</div>
+
+                <h4>Top K Frequent Elements</h4>
+                <div class="code-block">def top_k_frequent(nums, k):
+    """Find k most frequent elements"""
+    from collections import Counter
+    
+    # Count frequencies
+    count = Counter(nums)
+    
+    # Use heap to find k most frequent
+    return heapq.nlargest(k, count.keys(), key=count.get)
+
+def top_k_frequent_manual(nums, k):
+    """Manual implementation using min heap"""
+    from collections import Counter
+    
+    count = Counter(nums)
+    heap = []
+    
+    for num, freq in count.items():
+        if len(heap) < k:
+            heapq.heappush(heap, (freq, num))
+        elif freq > heap[0][0]:
+            heapq.heapreplace(heap, (freq, num))
+    
+    return [num for freq, num in sorted(heap, reverse=True)]</div>
+            </div>
+
+            <div class="subsection">
+                <h3>Interactive Demo</h3>
+                <div class="demo-section">
+                    <h4>Try Heap Operations</h4>
+                    <div class="demo-controls">
+                        <input type="number" id="valueInput" class="demo-input" placeholder="Value" value="5">
+                        <select id="heapType" class="demo-input">
+                            <option value="min">Min Heap</option>
+                            <option value="max">Max Heap</option>
+                        </select>
+                        <button class="demo-button" onclick="insertValue()">Insert</button>
+                        <button class="demo-button" onclick="extractValue()">Extract</button>
+                        <button class="demo-button" onclick="peekValue()">Peek</button>
+                        <button class="demo-button" onclick="heapifyArray()">Heapify Array</button>
+                        <button class="demo-button" onclick="clearHeap()">Clear</button>
+                    </div>
+                    <div id="heapOutput" class="demo-output">Current heap: Empty</div>
+                </div>
+            </div>
+
+            <div class="note">
+                <strong>💡 Heap Properties:</strong>
+                <ul>
+                    <li><strong>Complete Binary Tree:</strong> All levels filled except possibly last</li>
+                    <li><strong>Heap Property:</strong> Parent ≤ children (min heap) or Parent ≥ children (max heap)</li>
+                    <li><strong>Array Representation:</strong> Parent at i, children at 2i+1 and 2i+2</li>
+                    <li><strong>Efficient Operations:</strong> Insert, extract, peek operations</li>
+                </ul>
+            </div>
+
+            <div class="tip">
+                <strong>🚀 Common Use Cases:</strong>
+                <ul>
+                    <li><strong>Priority Queues:</strong> Task scheduling, event simulation</li>
+                    <li><strong>Heap Sort:</strong> In-place sorting with O(n log n) time</li>
+                    <li><strong>Finding Extremes:</strong> K largest/smallest elements</li>
+                    <li><strong>Graph Algorithms:</strong> Dijkstra's, Prim's MST</li>
+                </ul>
+            </div>
+
+            <div class="warning">
+                <strong>⚠️ Watch Out For:</strong>
+                <ul>
+                    <li>Python's heapq only provides min heap (negate for max heap)</li>
+                    <li>Heapify is O(n) but building heap by insertions is O(n log n)</li>
+                    <li>Heap doesn't support arbitrary deletion efficiently</li>
+                    <li>Random access to heap elements is not supported</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class HeapDemo {
+            constructor() {
+                this.minHeap = [];
+                this.maxHeap = [];
+            }
+            
+            insert(val, isMin = true) {
+                if (isMin) {
+                    this.minHeap.push(val);
+                    this.heapifyUp(this.minHeap, this.minHeap.length - 1, true);
+                } else {
+                    this.maxHeap.push(val);
+                    this.heapifyUp(this.maxHeap, this.maxHeap.length - 1, false);
+                }
+            }
+            
+            extract(isMin = true) {
+                const heap = isMin ? this.minHeap : this.maxHeap;
+                if (heap.length === 0) return null;
+                
+                if (heap.length === 1) return heap.pop();
+                
+                const root = heap[0];
+                heap[0] = heap.pop();
+                this.heapifyDown(heap, 0, isMin);
+                return root;
+            }
+            
+            peek(isMin = true) {
+                const heap = isMin ? this.minHeap : this.maxHeap;
+                return heap.length > 0 ? heap[0] : null;
+            }
+            
+            heapifyUp(heap, index, isMin) {
+                while (index > 0) {
+                    const parentIndex = Math.floor((index - 1) / 2);
+                    const shouldSwap = isMin ? 
+                        heap[index] < heap[parentIndex] : 
+                        heap[index] > heap[parentIndex];
+                    
+                    if (shouldSwap) {
+                        [heap[index], heap[parentIndex]] = [heap[parentIndex], heap[index]];
+                        index = parentIndex;
+                    } else {
+                        break;
+                    }
+                }
+            }
+            
+            heapifyDown(heap, index, isMin) {
+                while (true) {
+                    let target = index;
+                    const leftChild = 2 * index + 1;
+                    const rightChild = 2 * index + 2;
+                    
+                    if (leftChild < heap.length) {
+                        const shouldSwap = isMin ? 
+                            heap[leftChild] < heap[target] : 
+                            heap[leftChild] > heap[target];
+                        if (shouldSwap) target = leftChild;
+                    }
+                    
+                    if (rightChild < heap.length) {
+                        const shouldSwap = isMin ? 
+                            heap[rightChild] < heap[target] : 
+                            heap[rightChild] > heap[target];
+                        if (shouldSwap) target = rightChild;
+                    }
+                    
+                    if (target !== index) {
+                        [heap[index], heap[target]] = [heap[target], heap[index]];
+                        index = target;
+                    } else {
+                        break;
+                    }
+                }
+            }
+            
+            heapifyArray(arr, isMin = true) {
+                const heap = [...arr];
+                for (let i = Math.floor(heap.length / 2) - 1; i >= 0; i--) {
+                    this.heapifyDown(heap, i, isMin);
+                }
+                
+                if (isMin) {
+                    this.minHeap = heap;
+                } else {
+                    this.maxHeap = heap;
+                }
+                return heap;
+            }
+            
+            clear() {
+                this.minHeap = [];
+                this.maxHeap = [];
+            }
+            
+            display(isMin = true) {
+                const heap = isMin ? this.minHeap : this.maxHeap;
+                return heap.length > 0 ? `[${heap.join(', ')}]` : 'Empty';
+            }
+        }
+        
+        const heap = new HeapDemo();
+        
+        function updateOutput(message = null) {
+            const isMin = document.getElementById('heapType').value === 'min';
+            if (message) {
+                document.getElementById('heapOutput').textContent = message;
+            } else {
+                const heapType = isMin ? 'Min' : 'Max';
+                document.getElementById('heapOutput').textContent = 
+                    `Current ${heapType} heap: ${heap.display(isMin)}`;
+            }
+        }
+        
+        function insertValue() {
+            const value = parseInt(document.getElementById('valueInput').value);
+            const isMin = document.getElementById('heapType').value === 'min';
+            
+            if (!isNaN(value)) {
+                heap.insert(value, isMin);
+                updateOutput();
+            }
+        }
+        
+        function extractValue() {
+            const isMin = document.getElementById('heapType').value === 'min';
+            const extracted = heap.extract(isMin);
+            
+            if (extracted !== null) {
+                updateOutput(`Extracted: ${extracted}`);
+            } else {
+                updateOutput('Heap is empty');
+            }
+        }
+        
+        function peekValue() {
+            const isMin = document.getElementById('heapType').value === 'min';
+            const peeked = heap.peek(isMin);
+            
+            if (peeked !== null) {
+                updateOutput(`Peek: ${peeked}`);
+            } else {
+                updateOutput('Heap is empty');
+            }
+        }
+        
+        function heapifyArray() {
+            const isMin = document.getElementById('heapType').value === 'min';
+            const sampleArray = [4, 10, 3, 5, 1, 15, 2, 7, 8, 6];
+            
+            heap.heapifyArray(sampleArray, isMin);
+            updateOutput(`Heapified array: ${heap.display(isMin)}`);
+        }
+        
+        function clearHeap() {
+            heap.clear();
+            updateOutput();
+        }
+        
+        // Initialize with some sample data
+        [15, 10, 20, 8, 25].forEach(val => heap.insert(val, true));
+        updateOutput();
+    </script>
+</body>
+</html>
