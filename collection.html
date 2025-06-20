@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collections - Python DSA Reference</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="nav-back">
+            ← Back to Main Menu
+        </a>
+        
+        <div class="content-wrapper">
+            <h1 class="section-title">
+                <span>📦</span>
+                Python Collections
+            </h1>
+
+            <!-- Built-in Collections -->
+            <div class="subsection">
+                <h2>Built-in Collections</h2>
+                
+                <h3>1. List</h3>
+                <div class="code-block">
+# List - Ordered, mutable collection that allows duplicates
+numbers = [1, 2, 3, 4, 5]
+mixed = [1, "hello", 3.14, True]
+nested = [[1, 2], [3, 4], [5, 6]]
+
+# Common operations
+numbers.append(6)              # Add to end
+numbers.insert(0, 0)          # Insert at index
+numbers.extend([7, 8])        # Add multiple elements
+numbers.remove(3)             # Remove first occurrence
+popped = numbers.pop()        # Remove and return last
+popped_index = numbers.pop(1) # Remove and return at index
+
+# List comprehension
+squares = [x**2 for x in range(10)]
+evens = [x for x in range(20) if x % 2 == 0]
+matrix = [[i*j for j in range(3)] for i in range(3)]
+
+# Slicing
+first_three = numbers[:3]
+last_three = numbers[-3:]
+reversed_list = numbers[::-1]
+
+print(f"Numbers: {numbers}")
+print(f"Squares: {squares}")
+print(f"Matrix: {matrix}")
+                </div>
+
+                <h3>2. Tuple</h3>
+                <div class="code-block">
+# Tuple - Ordered, immutable collection that allows duplicates
+coordinates = (3, 4)
+rgb = (255, 128, 0)
+empty_tuple = ()
+single_item = (42,)  # Note the comma for single item
+
+# Named tuple-like behavior
+point = (10, 20)
+x, y = point  # Unpacking
+
+# Tuple methods
+numbers = (1, 2, 3, 2, 4, 2)
+count_of_2 = numbers.count(2)  # Count occurrences
+index_of_3 = numbers.index(3)  # Find first index
+
+# Nested tuples
+nested = ((1, 2), (3, 4), (5, 6))
+
+# Multiple assignment
+a, b, c = (1, 2, 3)
+
+# Tuple as dictionary key (immutable)
+locations = {
+    (0, 0): "origin",
+    (1, 1): "northeast",
+    (-1, -1): "southwest"
+}
+
+print(f"Coordinates: {coordinates}")
+print(f"Count of 2: {count_of_2}")
+print(f"Locations: {locations}")
+                </div>
+
+                <h3>3. Set</h3>
+                <div class="code-block">
+# Set - Unordered collection of unique elements
+fruits = {"apple", "banana", "cherry"}
+numbers = {1, 2, 3, 4, 5}
+empty_set = set()  # Note: {} creates empty dict, not set
+
+# Set operations
+fruits.add("orange")
+fruits.remove("banana")    # Raises KeyError if not found
+fruits.discard("grape")    # Does not raise error if not found
+popped = fruits.pop()      # Remove and return arbitrary element
+
+# Set mathematics
+set1 = {1, 2, 3, 4, 5}
+set2 = {4, 5, 6, 7, 8}
+
+union = set1 | set2           # Union: {1, 2, 3, 4, 5, 6, 7, 8}
+intersection = set1 & set2    # Intersection: {4, 5}
+difference = set1 - set2      # Difference: {1, 2, 3}
+symmetric_diff = set1 ^ set2  # Symmetric difference: {1, 2, 3, 6, 7, 8}
+
+# Set methods
+is_subset = set1.issubset(set2)
+is_superset = set1.issuperset({1, 2})
+is_disjoint = set1.isdisjoint({9, 10})
+
+# Remove duplicates from list
+duplicates = [1, 2, 2, 3, 3, 3, 4, 4, 4, 4]
+unique = list(set(duplicates))
+
+print(f"Fruits: {fruits}")
+print(f"Union: {union}")
+print(f"Unique: {unique}")
+                </div>
+
+                <h3>4. Dictionary</h3>
+                <div class="code-block">
+# Dictionary - Ordered (Python 3.7+), mutable collection of key-value pairs
+student = {
+    "name": "Alice",
+    "age": 20,
+    "grade": "A",
+    "courses": ["Math", "Physics"]
+}
+
+# Access and modify
+name = student["name"]              # Direct access
+age = student.get("age", 0)         # Safe access with default
+student["email"] = "alice@edu.com"  # Add new key
+student["age"] = 21                 # Update existing
+
+# Dictionary methods
+keys = student.keys()           # dict_keys view
+values = student.values()       # dict_values view
+items = student.items()         # dict_items view
+
+# Iteration
+for key in student:
+    print(f"{key}: {student[key]}")
+
+for key, value in student.items():
+    print(f"{key} -> {value}")
+
+# Dictionary comprehension
+squares = {x: x**2 for x in range(6)}
+filtered = {k: v for k, v in squares.items() if v > 10}
+
+# Merge dictionaries (Python 3.9+)
+dict1 = {"a": 1, "b": 2}
+dict2 = {"c": 3, "d": 4}
+merged = dict1 | dict2
+
+# Update and pop
+student.update({"major": "Computer Science", "year": 2})
+removed_grade = student.pop("grade", None)
+
+print(f"Student: {student}")
+print(f"Squares: {squares}")
+print(f"Merged: {merged}")
+                </div>
+
+                <h3>5. String</h3>
+                <div class="code-block">
+# String - Ordered, immutable sequence of characters
+text = "Hello, World!"
+multiline = """This is a
+multiline string
+with multiple lines"""
+
+# String methods
+upper = text.upper()
+lower = text.lower()
+title = text.title()
+words = text.split(", ")
+joined = "-".join(["a", "b", "c"])
+
+# String formatting
+name = "Alice"
+age = 25
+formatted1 = f"Name: {name}, Age: {age}"                    # f-strings
+formatted2 = "Name: {}, Age: {}".format(name, age)         # format()
+formatted3 = "Name: %(name)s, Age: %(age)d" % {"name": name, "age": age}
+
+# String operations
+contains = "World" in text
+starts = text.startswith("Hello")
+ends = text.endswith("!")
+index = text.find("World")
+
+# String slicing
+first_five = text[:5]
+last_six = text[-6:]
+every_second = text[::2]
+
+# Character operations
+chars = list(text)
+unique_chars = set(text.lower())
+
+print(f"Text: {text}")
+print(f"Words: {words}")
+print(f"Formatted: {formatted1}")
+print(f"Unique chars: {unique_chars}")
+                </div>
+
+                <h3>6. Range</h3>
+                <div class="code-block">
+# Range - Immutable sequence of numbers
+basic_range = range(10)        # 0 to 9
+start_stop = range(1, 11)      # 1 to 10
+with_step = range(0, 20, 2)    # 0, 2, 4, ..., 18
+negative = range(10, 0, -1)    # 10, 9, 8, ..., 1
+
+# Range operations
+length = len(basic_range)
+contains = 5 in basic_range
+index = basic_range.index(7)
+
+# Convert to list
+numbers = list(range(5))       # [0, 1, 2, 3, 4]
+evens = list(range(0, 10, 2))  # [0, 2, 4, 6, 8]
+
+# Memory efficient iteration
+for i in range(1000000):  # Doesn't create million integers in memory
+    if i > 5:
+        break
+    print(i)
+
+# Range with negative step
+countdown = list(range(10, 0, -1))
+reverse_alphabet = list(range(ord('z'), ord('a')-1, -1))
+
+print(f"Numbers: {numbers}")
+print(f"Countdown: {countdown}")
+print(f"Range length: {length}")
+                </div>
+            </div>
+
+            <!-- Collections Module -->
+            <div class="subsection">
+                <h2>Collections Module</h2>
+                
+                <h3>1. Counter</h3>
+                <div class="code-block">
+from collections import Counter
+
+# Counter - Dict subclass for counting hashable objects
+text = "hello world"
+letter_count = Counter(text)
+
+numbers = [1, 2, 3, 1, 2, 1, 4, 5, 4]
+number_count = Counter(numbers)
+
+words = ["apple", "banana", "apple", "cherry", "banana", "apple"]
+word_count = Counter(words)
+
+# Counter methods
+most_common = letter_count.most_common(3)    # 3 most common
+total = sum(letter_count.values())           # Total count
+elements = list(letter_count.elements())     # All elements
+
+# Counter arithmetic
+counter1 = Counter(['a', 'b', 'c', 'a'])
+counter2 = Counter(['a', 'b', 'b', 'd'])
+
+addition = counter1 + counter2      # Add counts
+subtraction = counter1 - counter2   # Subtract counts
+intersection = counter1 & counter2  # Minimum counts
+union = counter1 | counter2         # Maximum counts
+
+# Update counter
+counter1.update(['e', 'f', 'a'])
+counter1.subtract(['a', 'b'])
+
+# Missing keys return 0
+missing_count = counter1['z']  # Returns 0, not KeyError
+
+print(f"Letter count: {letter_count}")
+print(f"Most common: {most_common}")
+print(f"Counter arithmetic: {addition}")
+                </div>
+
+                <h3>2. DefaultDict</h3>
+                <div class="code-block">
+from collections import defaultdict
+
+# DefaultDict - Dict that provides default values for missing keys
+dd_list = defaultdict(list)
+dd_int = defaultdict(int)
+dd_set = defaultdict(set)
+
+# Grouping items
+students = [
+    ("Alice", "Math"),
+    ("Bob", "Physics"),
+    ("Alice", "Chemistry"),
+    ("Charlie", "Math"),
+    ("Bob", "Math")
+]
+
+# Group by student
+by_student = defaultdict(list)
+for student, subject in students:
+    by_student[student].append(subject)
+
+# Count occurrences
+text = "hello world"
+char_count = defaultdict(int)
+for char in text:
+    char_count[char] += 1
+
+# Nested defaultdict
+nested = defaultdict(lambda: defaultdict(int))
+nested['fruits']['apple'] = 5
+nested['fruits']['banana'] = 3
+nested['vegetables']['carrot'] = 2
+
+# Convert back to regular dict
+regular_dict = dict(by_student)
+
+# Custom default factory
+def default_value():
+    return "N/A"
+
+dd_custom = defaultdict(default_value)
+dd_custom['existing'] = "exists"
+missing = dd_custom['missing']  # Returns "N/A"
+
+print(f"By student: {dict(by_student)}")
+print(f"Char count: {dict(char_count)}")
+print(f"Nested: {dict(nested)}")
+                </div>
+
+                <h3>3. OrderedDict</h3>
+                <div class="code-block">
+from collections import OrderedDict
+
+# OrderedDict - Dict that remembers insertion order (less needed in Python 3.7+)
+od = OrderedDict()
+od['first'] = 1
+od['second'] = 2
+od['third'] = 3
+
+# Move to end
+od.move_to_end('first')      # Move to end
+od.move_to_end('second', last=False)  # Move to beginning
+
+# Pop items
+last_item = od.popitem()         # Remove and return last item
+first_item = od.popitem(last=False)  # Remove and return first item
+
+# Equality comparison (order matters)
+od1 = OrderedDict([('a', 1), ('b', 2)])
+od2 = OrderedDict([('b', 2), ('a', 1)])
+are_equal = od1 == od2  # False - different order
+
+# Regular dict comparison (order doesn't matter in equality)
+dict1 = {'a': 1, 'b': 2}
+dict2 = {'b': 2, 'a': 1}
+are_equal_dict = dict1 == dict2  # True
+
+# LRU Cache simulation
+class LRUCache:
+    def __init__(self, capacity):
+        self.capacity = capacity
+        self.cache = OrderedDict()
+    
+    def get(self, key):
+        if key in self.cache:
+            self.cache.move_to_end(key)  # Mark as recently used
+            return self.cache[key]
+        return None
+    
+    def put(self, key, value):
+        if key in self.cache:
+            self.cache.move_to_end(key)
+        self.cache[key] = value
+        if len(self.cache) > self.capacity:
+            self.cache.popitem(last=False)  # Remove least recently used
+
+lru = LRUCache(3)
+lru.put('a', 1)
+lru.put('b', 2)
+lru.put('c', 3)
+
+print(f"OrderedDict: {od}")
+print(f"Equality: {are_equal}")
+                </div>
+
+                <h3>4. NamedTuple</h3>
+                <div class="code-block">
+from collections import namedtuple
+
+# NamedTuple - Tuple subclass with named fields
+Point = namedtuple('Point', ['x', 'y'])
+Color = namedtuple('Color', 'red green blue')  # Space-separated string
+Person = namedtuple('Person', ['name', 'age', 'city'])
+
+# Create instances
+p1 = Point(10, 20)
+p2 = Point(x=30, y=40)
+color = Color(255, 128, 0)
+person = Person("Alice", 25, "New York")
+
+# Access fields
+x_coord = p1.x
+y_coord = p1.y
+name = person.name
+
+# Tuple-like behavior
+x, y = p1  # Unpacking
+first_element = p1[0]
+
+# Named tuple methods
+point_dict = p1._asdict()           # Convert to dict
+new_point = p1._replace(x=100)      # Create new instance with changed values
+fields = Point._fields              # Get field names
+
+# Using in data structures
+points = [Point(1, 2), Point(3, 4), Point(5, 6)]
+by_x = sorted(points, key=lambda p: p.x)
+
+# Nested named tuples
+Car = namedtuple('Car', ['make', 'model', 'color'])
+Owner = namedtuple('Owner', ['name', 'car'])
+
+car = Car("Toyota", "Camry", Color(255, 255, 255))
+owner = Owner("John", car)
+
+# Default values (Python 3.7+)
+Employee = namedtuple('Employee', ['name', 'department', 'salary'])
+Employee.__new__.__defaults__ = (None, 50000)  # Default department and salary
+
+emp1 = Employee("Alice")
+emp2 = Employee("Bob", "Engineering")
+emp3 = Employee("Charlie", "HR", 60000)
+
+print(f"Point: {p1}")
+print(f"Point dict: {point_dict}")
+print(f"Employee: {emp1}")
+                </div>
+
+                <h3>5. Deque</h3>
+                <div class="code-block">
+from collections import deque
+
+# Deque - Double-ended queue with O(1) appends and pops from both ends
+dq = deque([1, 2, 3, 4, 5])
+dq_empty = deque()
+dq_maxlen = deque(maxlen=3)  # Fixed-size deque
+
+# Adding elements
+dq.append(6)        # Add to right end
+dq.appendleft(0)    # Add to left end
+dq.extend([7, 8])   # Extend right
+dq.extendleft([-2, -1])  # Extend left (order reversed)
+
+# Removing elements
+right = dq.pop()         # Remove from right
+left = dq.popleft()      # Remove from left
+
+# Rotation
+dq.rotate(2)    # Rotate right by 2
+dq.rotate(-1)   # Rotate left by 1
+
+# Other operations
+dq.reverse()
+count = dq.count(3)
+dq.remove(4)    # Remove first occurrence
+
+# Fixed-size deque (circular buffer)
+buffer = deque(maxlen=5)
+for i in range(10):
+    buffer.append(i)  # Automatically removes from left when full
+
+# Use cases
+# 1. Moving average
+def moving_average(data, window_size):
+    window = deque(maxlen=window_size)
+    averages = []
+    
+    for value in data:
+        window.append(value)
+        if len(window) == window_size:
+            averages.append(sum(window) / window_size)
+    
+    return averages
+
+# 2. Palindrome checker
+def is_palindrome(s):
+    dq = deque(s.lower())
+    while len(dq) > 1:
+        if dq.popleft() != dq.pop():
+            return False
+    return True
+
+# 3. Breadth-first search
+def bfs(graph, start):
+    visited = set()
+    queue = deque([start])
+    
+    while queue:
+        vertex = queue.popleft()
+        if vertex not in visited:
+            visited.add(vertex)
+            queue.extend(graph[vertex] - visited)
+    
+    return visited
+
+data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+avg = moving_average(data, 3)
+
+print(f"Deque: {dq}")
+print(f"Buffer: {buffer}")
+print(f"Moving average: {avg}")
+print(f"Is 'racecar' palindrome: {is_palindrome('racecar')}")
+                </div>
+
+                <h3>6. ChainMap</h3>
+                <div class="code-block">
+from collections import ChainMap
+
+# ChainMap - Groups multiple dicts into single, updateable view
+dict1 = {'a': 1, 'b': 2}
+dict2 = {'b': 3, 'c': 4}
+dict3 = {'c': 5, 'd': 6}
+
+# Create chain map
+cm = ChainMap(dict1, dict2, dict3)
+
+# Access (searches from first to last)
+value_a = cm['a']  # From dict1: 1
+value_b = cm['b']  # From dict1: 2 (not dict2)
+value_c = cm['c']  # From dict2: 4 (not dict3)
+
+# All keys and values
+all_keys = list(cm.keys())
+all_values = list(cm.values())
+all_items = list(cm.items())
+
+# Updates go to first dict
+cm['e'] = 7  # Added to dict1
+cm['a'] = 10  # Updated in dict1
+
+# Chain map methods
+maps = cm.maps           # List of underlying dicts
+new_child = cm.new_child()  # New ChainMap with empty dict as first
+parents = cm.parents     # ChainMap without first dict
+
+# Use case: Configuration with defaults
+defaults = {'host': 'localhost', 'port': 8000, 'debug': False}
+user_config = {'port': 3000, 'debug': True}
+env_config = {'host': '0.0.0.0'}
+
+# Priority: env_config > user_config > defaults
+config = ChainMap(env_config, user_config, defaults)
+
+print(f"Config host: {config['host']}")    # From env_config
+print(f"Config port: {config['port']}")    # From user_config
+print(f"Config debug: {config['debug']}")  # From user_config
+
+# Context management for temporary updates
+original_debug = config['debug']
+config = config.new_child({'debug': False})  # Temporary override
+# ... do something with debug=False
+config = config.parents  # Restore original
+
+print(f"ChainMap: {dict(cm)}")
+print(f"All keys: {all_keys}")
+print(f"Final config: {dict(config)}")
+                </div>
+
+                <h3>7. UserDict, UserList, UserString</h3>
+                <div class="code-block">
+from collections import UserDict, UserList, UserString
+
+# UserDict - Wrapper around dict for easier subclassing
+class CaseInsensitiveDict(UserDict):
+    """Dictionary with case-insensitive keys"""
+    
+    def __setitem__(self, key, value):
+        if isinstance(key, str):
+            key = key.lower()
+        super().__setitem__(key, value)
+    
+    def __getitem__(self, key):
+        if isinstance(key, str):
+            key = key.lower()
+        return super().__getitem__(key)
+    
+    def __contains__(self, key):
+        if isinstance(key, str):
+            key = key.lower()
+        return super().__contains__(key)
+
+# UserList - Wrapper around list for easier subclassing
+class UniqueList(UserList):
+    """List that automatically removes duplicates"""
+    
+    def append(self, item):
+        if item not in self.data:
+            super().append(item)
+    
+    def extend(self, items):
+        for item in items:
+            self.append(item)
+
+# UserString - Wrapper around string for easier subclassing
+class PrefixedString(UserString):
+    """String that automatically adds prefix"""
+    
+    def __init__(self, data, prefix=">>> "):
+        super().__init__(prefix + str(data))
+        self.prefix = prefix
+    
+    def __add__(self, other):
+        return PrefixedString(str(self.data) + str(other), "")
+
+# Usage examples
+ci_dict = CaseInsensitiveDict()
+ci_dict['Name'] = 'Alice'
+ci_dict['AGE'] = 25
+print(ci_dict['name'])  # Works: 'Alice'
+print(ci_dict['age'])   # Works: 25
+
+unique_list = UniqueList([1, 2, 3])
+unique_list.append(2)   # Won't add duplicate
+unique_list.extend([4, 5, 3, 6])  # Only 4, 5, 6 added
+print(f"Unique list: {unique_list}")
+
+prefixed = PrefixedString("Hello World")
+print(prefixed)  # ">>> Hello World"
+
+# Accessing underlying data
+print(f"UserDict data: {ci_dict.data}")
+print(f"UserList data: {unique_list.data}")
+print(f"UserString data: {prefixed.data}")
+                </div>
+            </div>
+
+            <!-- Advanced Collections -->
+            <div class="subsection">
+                <h2>Specialized Collections</h2>
+                
+                <h3>1. FrozenSet</h3>
+                <div class="code-block">
+# FrozenSet - Immutable version of set
+fs1 = frozenset([1, 2, 3, 4, 5])
+fs2 = frozenset([4, 5, 6, 7, 8])
+fs_empty = frozenset()
+
+# Set operations (return new frozensets)
+union = fs1 | fs2
+intersection = fs1 & fs2
+difference = fs1 - fs2
+symmetric_diff = fs1 ^ fs2
+
+# Frozenset methods (same as set, but no modification methods)
+is_subset = fs1.issubset(fs2)
+is_superset = fs1.issuperset({1, 2})
+is_disjoint = fs1.isdisjoint({9, 10})
+
+# Use as dictionary keys (since they're hashable)
+cache = {
+    frozenset([1, 2, 3]): "result1",
+    frozenset([4, 5, 6]): "result2"
+}
+
+# Convert between set and frozenset
+regular_set = {1, 2, 3}
+frozen = frozenset(regular_set)
+back_to_set = set(frozen)
+
+print(f"Frozenset: {fs1}")
+print(f"Union: {union}")
+print(f"Cache: {cache}")
+                </div>
+
+                <h3>2. Bytes and ByteArray</h3>
+                <div class="code-block">
+# Bytes - Immutable sequence of bytes
+b1 = b'Hello'
+b2 = bytes([72, 101, 108, 108, 111])  # Same as b1
+b3 = bytes('Hello', 'utf-8')          # From string
+b4 = bytes(5)                         # 5 zero bytes
+
+# Bytes operations
+length = len(b1)
+first_byte = b1[0]  # Returns int: 72
+substring = b1[1:4]  # Returns bytes: b'ell'
+
+# Convert to string
+text = b1.decode('utf-8')
+
+# ByteArray - Mutable sequence of bytes
+ba = bytearray(b'Hello')
+ba.append(33)           # Add byte (33 is ASCII for '!')
+ba.extend([32, 87])     # Add multiple bytes
+ba[0] = 104             # Change first byte to 'h'
+
+# ByteArray from different sources
+ba2 = bytearray('Hello', 'utf-8')
+ba3 = bytearray([65, 66, 67])  # ABC
+ba4 = bytearray(10)            # 10 zero bytes
+
+# Common operations
+ba.insert(5, 44)        # Insert comma at position 5
+removed = ba.pop()      # Remove and return last byte
+ba.reverse()           # Reverse in place
+count = ba.count(108)  # Count occurrences of 'l'
+
+# Hex representation
+hex_string = b1.hex()           # '48656c6c6f'
+from_hex = bytes.fromhex('48656c6c6f')
+
+# Memory view for efficient operations
+mv = memoryview(ba)
+print(f"Memory view: {mv.hex()}")
+
+print(f"Bytes: {b1}")
+print(f"ByteArray: {ba}")
+print(f"Hex: {hex_string}")
+                </div>
+
+                <h3>3. Array (from array module)</h3>
+                <div class="code-block">
+import array
+
+# Array - Efficient array of numeric values
+int_array = array.array('i', [1, 2, 3, 4, 5])      # Signed int
+float_array = array.array('f', [1.1, 2.2, 3.3])    # Float
+char_array = array.array('u', 'Hello')              # Unicode characters
+
+# Type codes
+# 'b': signed char, 'B': unsigned char
+# 'h': signed short, 'H': unsigned short  
+# 'i': signed int, 'I': unsigned int
+# 'l': signed long, 'L': unsigned long
+# 'f': float, 'd': double
+# 'u': unicode character
+
+# Array operations
+int_array.append(6)
+int_array.extend([7, 8, 9])
+int_array.insert(0, 0)
+removed = int_array.pop()
+int_array.reverse()
+
+# Array methods
+count = int_array.count(3)
+index = int_array.index(5)
+
+# Convert to/from other types
+as_list = int_array.tolist()
+as_bytes = int_array.tobytes()
+from_bytes = array.array('i')
+from_bytes.frombytes(as_bytes)
+
+# File operations
+with open('array_data.bin', 'wb') as f:
+    int_array.tofile(f)
+
+# Buffer info
+buffer_info = int_array.buffer_info()  # (address, length)
+
+# Memory efficient operations
+large_array = array.array('i', range(1000000))
+memory_size = large_array.buffer_info()[1] * large_array.itemsize
+
+print(f"Int array: {int_array}")
+print(f"Float array: {float_array}")
+print(f"Memory size: {memory_size} bytes")
+                </div>
+            </div>
+
+            <!-- Interactive Demo -->
+            <div class="subsection">
+                <h3>Interactive Collection Demo</h3>
+                <div class="demo-section">
+                    <h4>Try Different Collections</h4>
+                    <div class="demo-controls">
+                        <select id="collectionType" class="demo-input">
+                            <option value="list">List</option>
+                            <option value="set">Set</option>
+                            <option value="dict">Dictionary</option>
+                            <option value="counter">Counter</option>
+                            <option value="deque">Deque</option>
+                        </select>
+                        <input type="text" id="valueInput" class="demo-input" placeholder="Value" value="apple">
+                        <button class="demo-button" onclick="addItem()">Add</button>
+                        <button class="demo-button" onclick="removeItem()">Remove</button>
+                        <button class="demo-button" onclick="clearCollection()">Clear</button>
+                        <button class="demo-button" onclick="demoOperations()">Demo Operations</button>
+                    </div>
+                    <div id="collectionOutput" class="demo-output">Current collection: Empty</div>
+                </div>
+            </div>
+
+            <div class="note">
+                <strong>💡 Collection Categories:</strong>
+                <ul>
+                    <li><strong>Sequences:</strong> list, tuple, range, string (ordered, indexed)</li>
+                    <li><strong>Sets:</strong> set, frozenset (unordered, unique elements)</li>
+                    <li><strong>Mappings:</strong> dict, defaultdict, OrderedDict, ChainMap (key-value pairs)</li>
+                    <li><strong>Specialized:</strong> Counter, deque, namedtuple (specific use cases)</li>
+                </ul>
+            </div>
+
+            <div class="tip">
+                <strong>🚀 Choosing the Right Collection:</strong>
+                <ul>
+                    <li><strong>List:</strong> Ordered, mutable, allows duplicates - general purpose</li>
+                    <li><strong>Tuple:</strong> Ordered, immutable - for fixed data</li>
+                    <li><strong>Set:</strong> Unique elements, fast membership testing</li>
+                    <li><strong>Dict:</strong> Key-value mapping, fast lookups</li>
+                    <li><strong>Deque:</strong> Fast appends/pops from both ends</li>
+                    <li><strong>Counter:</strong> Counting and frequency analysis</li>
+                </ul>
+            </div>
+
+            <div class="warning">
+                <strong>⚠️ Performance Considerations:</strong>
+                <ul>
+                    <li>List: O(1) append, O(n) insert/delete at beginning</li>
+                    <li>Set: O(1) average for add/remove/lookup</li>
+                    <li>Dict: O(1) average for get/set/delete</li>
+                    <li>Deque: O(1) for operations at both ends</li>
+                    <li>Array: More memory efficient than list for numeric data</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Collection demo implementations
+        let collections = {
+            list: [],
+            set: new Set(),
+            dict: {},
+            counter: {},
+            deque: []
+        };
+
+        function updateOutput() {
+            const type = document.getElementById('collectionType').value;
+            let display = '';
+            
+            switch(type) {
+                case 'list':
+                    display = `List: [${collections.list.join(', ')}]`;
+                    break;
+                case 'set':
+                    display = `Set: {${Array.from(collections.set).join(', ')}}`;
+                    break;
+                case 'dict':
+                    const dictItems = Object.entries(collections.dict).map(([k, v]) => `${k}: ${v}`);
+                    display = `Dict: {${dictItems.join(', ')}}`;
+                    break;
+                case 'counter':
+                    const counterItems = Object.entries(collections.counter).map(([k, v]) => `${k}: ${v}`);
+                    display = `Counter: {${counterItems.join(', ')}}`;
+                    break;
+                case 'deque':
+                    display = `Deque: [${collections.deque.join(', ')}]`;
+                    break;
+            }
+            
+            document.getElementById('collectionOutput').textContent = 
+                display || 'Current collection: Empty';
+        }
+
+        function addItem() {
+            const type = document.getElementById('collectionType').value;
+            const value = document.getElementById('valueInput').value.trim();
+            
+            if (!value) return;
+            
+            switch(type) {
+                case 'list':
+                    collections.list.push(value);
+                    break;
+                case 'set':
+                    collections.set.add(value);
+                    break;
+                case 'dict':
+                    const [key, val] = value.includes(':') ? value.split(':').map(s => s.trim()) : [value, 'value'];
+                    collections.dict[key] = val;
+                    break;
+                case 'counter':
+                    collections.counter[value] = (collections.counter[value] || 0) + 1;
+                    break;
+                case 'deque':
+                    collections.deque.push(value);
+                    break;
+            }
+            
+            updateOutput();
+        }
+
+        function removeItem() {
+            const type = document.getElementById('collectionType').value;
+            const value = document.getElementById('valueInput').value.trim();
+            
+            switch(type) {
+                case 'list':
+                    const index = collections.list.indexOf(value);
+                    if (index > -1) collections.list.splice(index, 1);
+                    break;
+                case 'set':
+                    collections.set.delete(value);
+                    break;
+                case 'dict':
+                    delete collections.dict[value];
+                    break;
+                case 'counter':
+                    if (collections.counter[value] > 1) {
+                        collections.counter[value]--;
+                    } else {
+                        delete collections.counter[value];
+                    }
+                    break;
+                case 'deque':
+                    const dequeIndex = collections.deque.indexOf(value);
+                    if (dequeIndex > -1) collections.deque.splice(dequeIndex, 1);
+                    break;
+            }
+            
+            updateOutput();
+        }
+
+        function clearCollection() {
+            const type = document.getElementById('collectionType').value;
+            
+            switch(type) {
+                case 'list':
+                    collections.list = [];
+                    break;
+                case 'set':
+                    collections.set = new Set();
+                    break;
+                case 'dict':
+                    collections.dict = {};
+                    break;
+                case 'counter':
+                    collections.counter = {};
+                    break;
+                case 'deque':
+                    collections.deque = [];
+                    break;
+            }
+            
+            updateOutput();
+        }
+
+        function demoOperations() {
+            const type = document.getElementById('collectionType').value;
+            
+            // Clear and add demo data
+            clearCollection();
+            
+            switch(type) {
+                case 'list':
+                    collections.list = ['apple', 'banana', 'cherry', 'apple'];
+                    break;
+                case 'set':
+                    collections.set = new Set(['apple', 'banana', 'cherry']);
+                    break;
+                case 'dict':
+                    collections.dict = {'apple': 5, 'banana': 3, 'cherry': 8};
+                    break;
+                case 'counter':
+                    collections.counter = {'apple': 3, 'banana': 1, 'cherry': 2};
+                    break;
+                case 'deque':
+                    collections.deque = ['first', 'middle', 'last'];
+                    break;
+            }
+            
+            updateOutput();
+        }
+
+        // Initialize with empty display
+        updateOutput();
+    </script>
+</body>
+</html>
