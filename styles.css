@@ -395,6 +395,50 @@ body {
     outline: 2px solid var(--accent-color);
 }
 
+/* Quick Search Styles */
+.quick-search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 18px 0 0 0;
+    gap: 0.5rem;
+}
+.quick-search-input {
+    padding: 8px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
+    font-size: 1rem;
+    min-width: 220px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+.quick-search-input:focus {
+    border-color: var(--primary-color);
+}
+.quick-search-btn {
+    background: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+.quick-search-btn:hover, .quick-search-btn:focus {
+    background: var(--secondary-color);
+}
+/* Highlight effect for found card */
+.highlight-card {
+    outline: 3px solid var(--accent-color);
+    box-shadow: 0 0 0 4px var(--accent-color);
+    transition: outline 0.2s, box-shadow 0.2s;
+}
+
 /* Dark Mode Styles */
 body.dark-mode {
     background: linear-gradient(135deg, #18181b 0%, #27272a 100%);
