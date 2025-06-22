@@ -345,6 +345,92 @@ body {
     border-radius: 0 8px 8px 0;
 }
 
+/* Navigation Bar Styles */
+.main-navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--primary-color);
+    padding: 0.5rem 2rem;
+    box-shadow: var(--shadow-light);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+.navbar-logo {
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration: none;
+    letter-spacing: 1px;
+}
+.navbar-links {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+}
+.navbar-links li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.2s;
+}
+.navbar-links li a:hover,
+.navbar-links li a:focus {
+    color: var(--accent-color);
+    outline: none;
+}
+#darkModeToggle {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.3rem;
+    cursor: pointer;
+    margin-right: 1rem;
+    transition: color 0.2s;
+}
+#darkModeToggle:focus {
+    outline: 2px solid var(--accent-color);
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+    background: linear-gradient(135deg, #18181b 0%, #27272a 100%);
+    color: #e5e7eb;
+}
+body.dark-mode .container,
+body.dark-mode .content-wrapper {
+    background: #23272f;
+    color: #e5e7eb;
+}
+body.dark-mode .header,
+body.dark-mode .main-navigation h2 {
+    color: #e5e7eb;
+}
+body.dark-mode .topic-card {
+    background: #18181b;
+    color: #e5e7eb;
+    border-color: #333;
+}
+body.dark-mode .topic-card h3 {
+    color: #fff;
+}
+body.dark-mode .topic-card p {
+    color: #a1a1aa;
+}
+body.dark-mode .note {
+    background: #23272f;
+    border-left-color: #2196f3;
+    color: #e5e7eb;
+}
+body.dark-mode .tip {
+    background: #1e293b;
+    border-left-color: #4caf50;
+    color: #e5e7eb;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .container {
