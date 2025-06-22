@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrays/Lists - Python DSA Reference</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="main-navbar" aria-label="Main Navigation">
+        <a href="index.html" class="navbar-logo" aria-label="Home">🐍 Python DSA</a>
+        <button id="darkModeToggle" aria-label="Toggle dark mode">🌙</button>
+        <ul class="navbar-links">
+            <li><a href="arrays.html" class="active">Arrays</a></li>
+            <li><a href="strings.html">Strings</a></li>
+            <li><a href="tuples.html">Tuples</a></li>
+            <li><a href="dictionaries.html">Dictionaries</a></li>
+            <li><a href="sets.html">Sets</a></li>
+            <li><a href="collection.html">Collections</a></li>
+            <li><a href="stacks-queues.html">Stacks & Queues</a></li>
+            <li><a href="linked-lists.html">Linked Lists</a></li>
+            <li><a href="trees.html">Trees</a></li>
+            <li><a href="graphs.html">Graphs</a></li>
+            <li><a href="heaps.html">Heaps</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <a href="index.html" class="nav-back">
+            ← Back to Main Menu
+        </a>
+        
+        <div class="content-wrapper">
+            <h1 class="section-title">
+                <span>📋</span>
+                Arrays/Lists
+            </h1>
+
+            <div class="subsection">
+                <h3><span class="subsection-icon">🔧</span>List Creation and Basic Operations</h3>
+                <div class="visual-explanation">
+                    <div class="explanation-card">
+                        <h4>📝 Different Ways to Create Lists</h4>
+                        <p>Python offers multiple ways to create and initialize lists. Each method has its use cases:</p>
+                    </div>
+                </div>
+                <div class="code-block">
+<span class="comment"># Creating lists</span>
+<span class="variable">empty_list</span> = []                          <span class="comment"># Empty list: []</span>
+<span class="variable">numbers</span> = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]           <span class="comment"># List with numbers</span>
+<span class="variable">mixed</span> = [<span class="number">1</span>, <span class="string">"hello"</span>, <span class="number">3.14</span>, <span class="keyword">True</span>]     <span class="comment"># Mixed types allowed</span>
+<span class="variable">from_range</span> = <span class="function">list</span>(<span class="function">range</span>(<span class="number">10</span>))    <span class="comment"># [0, 1, 2, ..., 9]</span>
+
+<span class="comment"># List comprehensions - Pythonic way!</span>
+<span class="variable">squares</span> = [<span class="variable">x</span> ** <span class="number">2</span> <span class="keyword">for</span> <span class="variable">x</span> <span class="keyword">in</span> <span class="function">range</span>(<span class="number">10</span>)]           <span class="comment"># [0, 1, 4, 9, 16, ...]</span>
+<span class="variable">evens</span> = [<span class="variable">x</span> <span class="keyword">for</span> <span class="variable">x</span> <span class="keyword">in</span> <span class="function">range</span>(<span class="number">20</span>) <span class="keyword">if</span> <span class="variable">x</span> % <span class="number">2</span> == <span class="number">0</span>]  <span class="comment"># [0, 2, 4, 6, ...]</span>
+<span class="variable">nested</span> = [[<span class="variable">i</span> * <span class="variable">j</span> <span class="keyword">for</span> <span class="variable">j</span> <span class="keyword">in</span> <span class="function">range</span>(<span class="number">3</span>)] <span class="keyword">for</span> <span class="variable">i</span> <span class="keyword">in</span> <span class="function">range</span>(<span class="number">3</span>)]  <span class="comment"># 2D list</span>
+                </div>
+                
+                <div class="visual-demo">
+                    <h4>🎯 Visual Representation</h4>
+                    <div class="list-visualization">
+                        <div class="list-container">
+                            <div class="list-label">numbers = [1, 2, 3, 4, 5]</div>
+                            <div class="list-elements">
+                                <div class="list-element" data-index="0">1</div>
+                                <div class="list-element" data-index="1">2</div>
+                                <div class="list-element" data-index="2">3</div>
+                                <div class="list-element" data-index="3">4</div>
+                                <div class="list-element" data-index="4">5</div>
+                            </div>
+                            <div class="index-labels">
+                                <div class="index-label">0</div>
+                                <div class="index-label">1</div>
+                                <div class="index-label">2</div>
+                                <div class="index-label">3</div>
+                                <div class="index-label">4</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>Essential List Methods</h3>
+                <div class="method-grid">
+                    <div class="method-card">
+                        <h4>append(item) <span class="complexity-badge complexity-o1">O(1)</span></h4>
+                        <p>Add item to end of list</p>
+                        <div class="code-block">
+lst = [1, 2, 3]
+lst.append(4)    <span class="comment"># [1, 2, 3, 4]</span>
+                        </div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>insert(index, item) <span class="complexity-badge complexity-on">O(n)</span></h4>
+                        <p>Insert item at specific index</p>
+                        <div class="code-block">
+lst = [1, 2, 3]
+lst.insert(1, 'new')    <span class="comment"># [1, 'new', 2, 3]</span>
+                        </div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>remove(item) <span class="complexity-badge complexity-on">O(n)</span></h4>
+                        <p>Remove first occurrence of item</p>
+                        <div class="code-block">
+lst = [1, 2, 3, 2]
+lst.remove(2)    <span class="comment"># [1, 3, 2]</span>
+                        </div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>pop(index) <span class="complexity-badge complexity-o1">O(1) end, O(n) middle</span></h4>
+                        <p>Remove and return item at index</p>
+                        <div class="code-block">
+lst = [1, 2, 3]
+item = lst.pop()      <span class="comment"># item = 3, lst = [1, 2]</span>
+item = lst.pop(0)     <span class="comment"># item = 1, lst = [2]</span>
+                        </div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>extend(iterable) <span class="complexity-badge complexity-on">O(k)</span></h4>
+                        <p>Add all items from iterable</p>
+                        <div class="code-block">
+lst1 = [1, 2, 3]
+lst2 = [4, 5, 6]
+lst1.extend(lst2)    <span class="comment"># [1, 2, 3, 4, 5, 6]</span>
+                        </div>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>sort() <span class="complexity-badge complexity-on">O(n log n)</span></h4>
+                        <p>Sort list in place</p>
+                        <div class="code-block">
+lst = [3, 1, 4, 1, 5]
+lst.sort()                     <span class="comment"># [1, 1, 3, 4, 5]</span>
+lst.sort(reverse=True)         <span class="comment"># [5, 4, 3, 1, 1]</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3><span class="subsection-icon">🔍</span>Indexing and Slicing</h3>
+                <div class="visual-explanation">
+                    <div class="explanation-card">
+                        <h4>📍 Understanding List Indexing</h4>
+                        <p>Python uses zero-based indexing. Negative indices count from the end.</p>
+                    </div>
+                </div>
+                
+                <div class="indexing-visualization">
+                    <div class="list-with-indices">
+                        <div class="positive-indices">
+                            <div class="index-row">
+                                <span class="index-type">Positive:</span>
+                                <div class="index-box">0</div>
+                                <div class="index-box">1</div>
+                                <div class="index-box">2</div>
+                                <div class="index-box">3</div>
+                                <div class="index-box">4</div>
+                                <div class="index-box">5</div>
+                                <div class="index-box">6</div>
+                                <div class="index-box">7</div>
+                                <div class="index-box">8</div>
+                                <div class="index-box">9</div>
+                            </div>
+                        </div>
+                        <div class="list-values">
+                            <div class="value-box">0</div>
+                            <div class="value-box">1</div>
+                            <div class="value-box">2</div>
+                            <div class="value-box">3</div>
+                            <div class="value-box">4</div>
+                            <div class="value-box">5</div>
+                            <div class="value-box">6</div>
+                            <div class="value-box">7</div>
+                            <div class="value-box">8</div>
+                            <div class="value-box">9</div>
+                        </div>
+                        <div class="negative-indices">
+                            <div class="index-row">
+                                <span class="index-type">Negative:</span>
+                                <div class="index-box negative">-10</div>
+                                <div class="index-box negative">-9</div>
+                                <div class="index-box negative">-8</div>
+                                <div class="index-box negative">-7</div>
+                                <div class="index-box negative">-6</div>
+                                <div class="index-box negative">-5</div>
+                                <div class="index-box negative">-4</div>
+                                <div class="index-box negative">-3</div>
+                                <div class="index-box negative">-2</div>
+                                <div class="index-box negative">-1</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="code-block">
+<span class="variable">lst</span> = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]
+
+<span class="comment"># Basic indexing</span>
+<span class="variable">first</span> = <span class="variable">lst</span>[<span class="number">0</span>]          <span class="comment"># 0 (first element)</span>
+<span class="variable">last</span> = <span class="variable">lst</span>[-<span class="number">1</span>]         <span class="comment"># 9 (last element)</span>
+<span class="variable">second_last</span> = <span class="variable">lst</span>[-<span class="number">2</span>]   <span class="comment"># 8 (second from end)</span>
+
+<span class="comment"># Slicing [start:end:step]</span>
+<span class="variable">subset</span> = <span class="variable">lst</span>[<span class="number">2</span>:<span class="number">7</span>]       <span class="comment"># [2, 3, 4, 5, 6] - elements 2 to 6</span>
+<span class="variable">evens</span> = <span class="variable">lst</span>[::<span class="number">2</span>]        <span class="comment"># [0, 2, 4, 6, 8] - every 2nd element</span>
+<span class="variable">odds</span> = <span class="variable">lst</span>[<span class="number">1</span>::<span class="number">2</span>]        <span class="comment"># [1, 3, 5, 7, 9] - start at 1, every 2nd</span>
+<span class="variable">reverse</span> = <span class="variable">lst</span>[::-<span class="number">1</span>]     <span class="comment"># [9, 8, 7, 6, 5, 4, 3, 2, 1, 0] - reversed</span>
+<span class="variable">copy</span> = <span class="variable">lst</span>[:]           <span class="comment"># Creates a shallow copy</span>
+                </div>
+                
+                <div class="slicing-demo">
+                    <h4>🎮 Interactive Slicing Demo</h4>
+                    <div class="slice-controls">
+                        <label>Start: <input type="number" id="sliceStart" value="0" min="-10" max="9"></label>
+                        <label>End: <input type="number" id="sliceEnd" value="5" min="-10" max="10"></label>
+                        <label>Step: <input type="number" id="sliceStep" value="1" min="-10" max="10"></label>
+                        <button onclick="updateSliceDemo()" class="demo-button">Show Slice</button>
+                    </div>
+                    <div id="sliceResult" class="slice-result">
+                        lst[0:5:1] = [0, 1, 2, 3, 4]
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3><span class="subsection-icon">🎯</span>Interactive Demo</h3>
+                <div class="visual-explanation">
+                    <div class="explanation-card">
+                        <h4>🧪 Experiment with List Operations</h4>
+                        <p>Try different operations and see how they affect the list in real-time!</p>
+                    </div>
+                </div>
+                <div class="demo-section enhanced-demo">
+                    <h4>🎮 Visual List Operations</h4>
+                    <div class="demo-controls">
+                        <input type="text" id="listInput" class="demo-input" placeholder="Enter comma-separated values" value="1,2,3,4,5">
+                        <input type="text" id="itemInput" class="demo-input" placeholder="Item to add/remove" value="6">
+                        <input type="number" id="indexInput" class="demo-input" placeholder="Index" value="0">
+                    </div>
+                    <div class="operation-buttons">
+                        <button class="demo-button append-btn" onclick="appendItem()" title="Add item to end">
+                            <span class="btn-icon">➕</span> Append
+                        </button>
+                        <button class="demo-button insert-btn" onclick="insertItem()" title="Insert item at index">
+                            <span class="btn-icon">📍</span> Insert
+                        </button>
+                        <button class="demo-button remove-btn" onclick="removeItem()" title="Remove first occurrence">
+                            <span class="btn-icon">❌</span> Remove
+                        </button>
+                        <button class="demo-button pop-btn" onclick="popItem()" title="Remove item at index">
+                            <span class="btn-icon">🎯</span> Pop
+                        </button>
+                        <button class="demo-button sort-btn" onclick="sortList()" title="Sort the list">
+                            <span class="btn-icon">📊</span> Sort
+                        </button>
+                        <button class="demo-button reverse-btn" onclick="reverseList()" title="Reverse the list">
+                            <span class="btn-icon">🔄</span> Reverse
+                        </button>
+                    </div>
+                    
+                    <div class="visual-list-output">
+                        <h5>📋 Current List:</h5>
+                        <div id="visualList" class="visual-list-container">
+                            <!-- Visual list elements will be populated by JavaScript -->
+                        </div>
+                        <div id="listOutput" class="demo-output">Current list: [1, 2, 3, 4, 5]</div>
+                    </div>
+                    
+                    <div class="operation-history">
+                        <h5>📜 Operation History:</h5>
+                        <div id="operationLog" class="operation-log">
+                            <div class="log-entry">Initialized with [1, 2, 3, 4, 5]</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3><span class="subsection-icon">🧩</span>Common Patterns</h3>
+                
+                <div class="pattern-container">
+                    <div class="pattern-card">
+                        <h4>🎯 Two Pointers Technique</h4>
+                        <div class="pattern-explanation">
+                            <p>Use two pointers moving from opposite ends to solve problems efficiently.</p>
+                            <div class="visual-pointer-demo">
+                                <div class="pointer-array">
+                                    <div class="array-element" data-left="true">2</div>
+                                    <div class="array-element">7</div>
+                                    <div class="array-element">11</div>
+                                    <div class="array-element">15</div>
+                                    <div class="array-element" data-right="true">18</div>
+                                </div>
+                                <div class="pointer-labels">
+                                    <span class="pointer-label left">left ⬆</span>
+                                    <span class="pointer-label right">⬆ right</span>
+                                </div>
+                                <div class="pattern-note">Target: 9 → 2 + 7 = 9 ✅</div>
+                            </div>
+                        </div>
+                        <div class="code-block">
+<span class="keyword">def</span> <span class="function">two_sum</span>(<span class="variable">nums</span>, <span class="variable">target</span>):
+    <span class="string">"""Find two numbers that add up to target"""</span>
+    <span class="variable">left</span>, <span class="variable">right</span> = <span class="number">0</span>, <span class="function">len</span>(<span class="variable">nums</span>) - <span class="number">1</span>
+    
+    <span class="keyword">while</span> <span class="variable">left</span> < <span class="variable">right</span>:
+        <span class="variable">current_sum</span> = <span class="variable">nums</span>[<span class="variable">left</span>] + <span class="variable">nums</span>[<span class="variable">right</span>]
+        <span class="keyword">if</span> <span class="variable">current_sum</span> == <span class="variable">target</span>:
+            <span class="keyword">return</span> [<span class="variable">left</span>, <span class="variable">right</span>]
+        <span class="keyword">elif</span> <span class="variable">current_sum</span> < <span class="variable">target</span>:
+            <span class="variable">left</span> += <span class="number">1</span>                <span class="comment"># Need larger sum</span>
+        <span class="keyword">else</span>:
+            <span class="variable">right</span> -= <span class="number">1</span>               <span class="comment"># Need smaller sum</span>
+    
+    <span class="keyword">return</span> []
+                        </div>
+                    </div>
+                    
+                    <div class="pattern-card">
+                        <h4>🪟 Sliding Window Technique</h4>
+                        <div class="pattern-explanation">
+                            <p>Maintain a window of fixed size while sliding through the array.</p>
+                            <div class="visual-window-demo">
+                                <div class="window-array">
+                                    <div class="array-element window-element">1</div>
+                                    <div class="array-element window-element">4</div>
+                                    <div class="array-element window-element">2</div>
+                                    <div class="array-element">5</div>
+                                    <div class="array-element">3</div>
+                                    <div class="array-element">8</div>
+                                </div>
+                                <div class="window-indicator">
+                                    <span class="window-bracket">[</span>
+                                    <span class="window-size">k=3</span>
+                                    <span class="window-bracket">]</span>
+                                    <span class="window-sum">sum = 7</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="code-block">
+<span class="keyword">def</span> <span class="function">max_sum_subarray</span>(<span class="variable">nums</span>, <span class="variable">k</span>):
+    <span class="string">"""Find maximum sum of k consecutive elements"""</span>
+    <span class="keyword">if</span> <span class="function">len</span>(<span class="variable">nums</span>) < <span class="variable">k</span>:
+        <span class="keyword">return</span> <span class="number">0</span>
+    
+    <span class="comment"># Calculate sum of first window</span>
+    <span class="variable">window_sum</span> = <span class="function">sum</span>(<span class="variable">nums</span>[:<span class="variable">k</span>])
+    <span class="variable">max_sum</span> = <span class="variable">window_sum</span>
+    
+    <span class="comment"># Slide the window</span>
+    <span class="keyword">for</span> <span class="variable">i</span> <span class="keyword">in</span> <span class="function">range</span>(<span class="variable">k</span>, <span class="function">len</span>(<span class="variable">nums</span>)):
+        <span class="comment"># Remove leftmost, add rightmost</span>
+        <span class="variable">window_sum</span> = <span class="variable">window_sum</span> - <span class="variable">nums</span>[<span class="variable">i</span> - <span class="variable">k</span>] + <span class="variable">nums</span>[<span class="variable">i</span>]
+        <span class="variable">max_sum</span> = <span class="function">max</span>(<span class="variable">max_sum</span>, <span class="variable">window_sum</span>)
+    
+    <span class="keyword">return</span> <span class="variable">max_sum</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="note">
+                <strong>💡 Pro Tips:</strong>
+                <ul>
+                    <li>Use list comprehensions for readable code</li>
+                    <li>Remember that lists are mutable and passed by reference</li>
+                    <li>Use enumerate() when you need both index and value</li>
+                    <li>Use zip() to iterate over multiple lists simultaneously</li>
+                </ul>
+            </div>
+
+            <div class="tip">
+                <strong>🚀 Performance Tips:</strong>
+                <ul>
+                    <li>append() is O(1), insert(0, item) is O(n)</li>
+                    <li>Use collections.deque for frequent insertions at both ends</li>
+                    <li>List comprehensions are generally faster than for loops</li>
+                    <li>Use set() for O(1) membership testing instead of "in" on lists</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentList = [1, 2, 3, 4, 5];
+        let operationHistory = ['Initialized with [1, 2, 3, 4, 5]'];
+        
+        function updateOutput() {
+            document.getElementById('listOutput').textContent = `Current list: [${currentList.join(', ')}]`;
+            updateVisualList();
+            updateOperationLog();
+        }
+        
+        function updateVisualList() {
+            const container = document.getElementById('visualList');
+            container.innerHTML = '';
+            currentList.forEach((item, index) => {
+                const element = document.createElement('div');
+                element.className = 'visual-list-item';
+                element.textContent = item;
+                element.setAttribute('data-index', index);
+                container.appendChild(element);
+            });
+        }
+        
+        function updateOperationLog() {
+            const log = document.getElementById('operationLog');
+            log.innerHTML = '';
+            operationHistory.slice(-5).forEach(entry => {
+                const logEntry = document.createElement('div');
+                logEntry.className = 'log-entry';
+                logEntry.textContent = entry;
+                log.appendChild(logEntry);
+            });
+            log.scrollTop = log.scrollHeight;
+        }
+        
+        function addToHistory(operation) {
+            const timestamp = new Date().toLocaleTimeString();
+            operationHistory.push(`${timestamp}: ${operation} → [${currentList.join(', ')}]`);
+        }
+        
+        function getInputList() {
+            const input = document.getElementById('listInput').value;
+            currentList = input.split(',').map(item => {
+                const trimmed = item.trim();
+                const num = Number(trimmed);
+                return isNaN(num) ? trimmed : num;
+            });
+            updateOutput();
+        }
+        
+        function appendItem() {
+            getInputList();
+            const item = document.getElementById('itemInput').value.trim();
+            const num = Number(item);
+            const newItem = isNaN(num) ? item : num;
+            currentList.push(newItem);
+            addToHistory(`Appended ${JSON.stringify(newItem)}`);
+            updateOutput();
+            highlightNewItem(currentList.length - 1);
+        }
+        
+        function insertItem() {
+            getInputList();
+            const item = document.getElementById('itemInput').value.trim();
+            const index = parseInt(document.getElementById('indexInput').value) || 0;
+            const num = Number(item);
+            const newItem = isNaN(num) ? item : num;
+            const actualIndex = Math.max(0, Math.min(index, currentList.length));
+            currentList.splice(actualIndex, 0, newItem);
+            addToHistory(`Inserted ${JSON.stringify(newItem)} at index ${actualIndex}`);
+            updateOutput();
+            highlightNewItem(actualIndex);
+        }
+        
+        function removeItem() {
+            getInputList();
+            const item = document.getElementById('itemInput').value.trim();
+            const num = Number(item);
+            const target = isNaN(num) ? item : num;
+            const index = currentList.indexOf(target);
+            if (index !== -1) {
+                currentList.splice(index, 1);
+                addToHistory(`Removed ${JSON.stringify(target)} from index ${index}`);
+                updateOutput();
+            } else {
+                addToHistory(`Item ${JSON.stringify(target)} not found`);
+            }
+        }
+        
+        function popItem() {
+            getInputList();
+            const index = parseInt(document.getElementById('indexInput').value);
+            let poppedItem;
+            let actualIndex;
+            
+            if (isNaN(index) || index < 0 || index >= currentList.length) {
+                poppedItem = currentList.pop();
+                actualIndex = currentList.length;
+                addToHistory(`Popped ${JSON.stringify(poppedItem)} from end`);
+            } else {
+                poppedItem = currentList.splice(index, 1)[0];
+                actualIndex = index;
+                addToHistory(`Popped ${JSON.stringify(poppedItem)} from index ${index}`);
+            }
+            updateOutput();
+        }
+        
+        function sortList() {
+            getInputList();
+            currentList.sort((a, b) => {
+                if (typeof a === 'number' && typeof b === 'number') {
+                    return a - b;
+                }
+                return String(a).localeCompare(String(b));
+            });
+            addToHistory(`Sorted list`);
+            updateOutput();
+        }
+        
+        function reverseList() {
+            getInputList();
+            currentList.reverse();
+            addToHistory(`Reversed list`);
+            updateOutput();
+        }
+        
+        function highlightNewItem(index) {
+            setTimeout(() => {
+                const items = document.querySelectorAll('.visual-list-item');
+                if (items[index]) {
+                    items[index].classList.add('new');
+                    setTimeout(() => {
+                        items[index].classList.remove('new');
+                    }, 1000);
+                }
+            }, 100);
+        }
+        
+        // Slicing demo function
+        function updateSliceDemo() {
+            const start = parseInt(document.getElementById('sliceStart').value) || 0;
+            const end = parseInt(document.getElementById('sliceEnd').value) || 5;
+            const step = parseInt(document.getElementById('sliceStep').value) || 1;
+            
+            const testArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+            let result = [];
+            
+            try {
+                // Python-style slicing simulation
+                let actualStart = start < 0 ? testArray.length + start : start;
+                let actualEnd = end < 0 ? testArray.length + end : end;
+                
+                if (step > 0) {
+                    for (let i = actualStart; i < actualEnd && i < testArray.length; i += step) {
+                        if (i >= 0) result.push(testArray[i]);
+                    }
+                } else if (step < 0) {
+                    actualStart = start < 0 ? testArray.length + start : Math.min(start, testArray.length - 1);
+                    actualEnd = end < 0 ? testArray.length + end : end;
+                    for (let i = actualStart; i > actualEnd && i >= 0; i += step) {
+                        if (i < testArray.length) result.push(testArray[i]);
+                    }
+                }
+                
+                document.getElementById('sliceResult').textContent = 
+                    `lst[${start}:${end}:${step}] = [${result.join(', ')}]`;
+            } catch (e) {
+                document.getElementById('sliceResult').textContent = 
+                    `Invalid slice parameters`;
+            }
+        }
+        
+        // Initialize
+        updateOutput();
+        updateSliceDemo();
+    </script>
+    <script>
+    // Dark mode toggle
+    const toggle = document.getElementById('darkModeToggle');
+    toggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        if(document.body.classList.contains('dark-mode')) {
+            toggle.textContent = '☀️';
+        } else {
+            toggle.textContent = '🌙';
+        }
+    });
+    </script>
+</body>
+</html>
