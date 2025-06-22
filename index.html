@@ -7,10 +7,31 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <nav class="main-navbar" aria-label="Main Navigation">
+        <a href="index.html" class="navbar-logo" aria-label="Home">🐍 Python DSA</a>
+        <button id="darkModeToggle" aria-label="Toggle dark mode">🌙</button>
+        <ul class="navbar-links">
+            <li><a href="arrays.html">Arrays</a></li>
+            <li><a href="strings.html">Strings</a></li>
+            <li><a href="tuples.html">Tuples</a></li>
+            <li><a href="dictionaries.html">Dictionaries</a></li>
+            <li><a href="sets.html">Sets</a></li>
+            <li><a href="collection.html">Collections</a></li>
+            <li><a href="stacks-queues.html">Stacks & Queues</a></li>
+            <li><a href="linked-lists.html">Linked Lists</a></li>
+            <li><a href="trees.html">Trees</a></li>
+            <li><a href="graphs.html">Graphs</a></li>
+            <li><a href="heaps.html">Heaps</a></li>
+        </ul>
+    </nav>
     <div class="container">
         <div class="header">
             <h1>🐍 Python DSA Reference Guide</h1>
             <p>Your complete guide to Data Structures and Algorithms in Python</p>
+            <form class="quick-search" role="search" aria-label="Quick search" onsubmit="event.preventDefault(); quickSearch();">
+                <input type="search" id="quickSearchInput" class="quick-search-input" placeholder="Search topics..." aria-label="Search topics">
+                <button type="submit" class="quick-search-btn" aria-label="Search">🔍</button>
+            </form>
         </div>
 
         <div class="main-navigation">
@@ -99,5 +120,32 @@
             </div>
         </div>
     </div>
+    <script>
+    // Dark mode toggle
+    const toggle = document.getElementById('darkModeToggle');
+    toggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        if(document.body.classList.contains('dark-mode')) {
+            toggle.textContent = '☀️';
+        } else {
+            toggle.textContent = '🌙';
+        }
+    });
+    // Simple quick search for navigation
+    function quickSearch() {
+        const val = document.getElementById('quickSearchInput').value.toLowerCase();
+        const links = document.querySelectorAll('.topic-card h3');
+        let found = false;
+        links.forEach(card => {
+            if(card.textContent.toLowerCase().includes(val)) {
+                card.parentElement.scrollIntoView({behavior: 'smooth', block: 'center'});
+                card.parentElement.classList.add('highlight-card');
+                setTimeout(() => card.parentElement.classList.remove('highlight-card'), 1200);
+                found = true;
+            }
+        });
+        if(!found && val) alert('No topic found for: ' + val);
+    }
+    </script>
 </body>
 </html>
