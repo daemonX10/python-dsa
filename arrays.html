@@ -194,8 +194,7 @@ lst.sort(reverse=True)         <span class="comment"># [5, 4, 3, 1, 1]</span>
                         </div>
                     </div>
                 </div>
-                
-                <div class="code-block">
+                  <div class="code-block">
 <span class="variable">lst</span> = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]
 
 <span class="comment"># Basic indexing</span>
@@ -205,4 +204,508 @@ lst.sort(reverse=True)         <span class="comment"># [5, 4, 3, 1, 1]</span>
 
 <span class="comment"># Slicing [start:end:step]</span>
 <span class="variable">subset</span> = <span class="variable">lst</span>[<span class="number">2</span>:<span class="number">7</span>]       <span class="comment"># [2, 3, 4, 5, 6] - elements 2 to 6</span>
-<span class="variable">evens</span> = <span class="variable">lst</span>[::
+<span class="variable">evens</span> = <span class="variable">lst</span>[::<span class="number">2</span>]       <span class="comment"># [0, 2, 4, 6, 8] - every 2nd element</span>
+<span class="variable">reversed_lst</span> = <span class="variable">lst</span>[::-<span class="number">1</span>]  <span class="comment"># [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]</span>
+<span class="variable">middle</span> = <span class="variable">lst</span>[<span class="number">3</span>:<span class="number">7</span>:<span class="number">2</span>]   <span class="comment"># [3, 5] - from index 3 to 7, step 2</span>
+                </div>
+                
+                <div class="interactive-slicing">
+                    <h4>🎮 Interactive Slicing Demo</h4>
+                    <p>Adjust the slicing parameters to see how they affect the result:</p>
+                    <div class="slicing-controls">
+                        <div class="control-group">
+                            <label for="start-input">Start:</label>
+                            <input type="number" id="start-input" value="0" min="-10" max="10">
+                        </div>
+                        <div class="control-group">
+                            <label for="end-input">End:</label>
+                            <input type="number" id="end-input" value="5" min="-10" max="10">
+                        </div>
+                        <div class="control-group">
+                            <label for="step-input">Step:</label>
+                            <input type="number" id="step-input" value="1" min="1" max="5">
+                        </div>
+                    </div>
+                    <div class="slicing-output">
+                        <div class="slice-expression">lst[<span id="slice-start">0</span>:<span id="slice-end">5</span>:<span id="slice-step">1</span>] = <span id="slice-result">[0, 1, 2, 3, 4]</span></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h3><span class="subsection-icon">🔄</span>List Comprehensions</h3>
+                <div class="visual-explanation">
+                    <div class="explanation-card">
+                        <h4>🚀 Powerful One-Liners</h4>
+                        <p>List comprehensions are a concise way to create lists. They're more readable and often faster than loops.</p>
+                    </div>
+                </div>
+                
+                <div class="comprehension-examples">
+                    <div class="example-card">
+                        <h4>Basic Comprehension</h4>
+                        <div class="code-block">
+<span class="comment"># Traditional loop</span>
+<span class="variable">squares</span> = []
+<span class="keyword">for</span> <span class="variable">x</span> <span class="keyword">in</span> <span class="function">range</span>(<span class="number">10</span>):
+    <span class="variable">squares</span>.<span class="function">append</span>(<span class="variable">x</span> ** <span class="number">2</span>)
+
+<span class="comment"># List comprehension - much cleaner!</span>
+<span class="variable">squares</span> = [<span class="variable">x</span> ** <span class="number">2</span> <span class="keyword">for</span> <span class="variable">x</span> <span class="keyword">in</span> <span class="function">range</span>(<span class="number">10</span>)]
+                        </div>
+                        <div class="visual-flow">
+                            <div class="flow-step">range(10)</div>
+                            <div class="flow-arrow">→</div>
+                            <div class="flow-step">x for each item</div>
+                            <div class="flow-arrow">→</div>
+                            <div class="flow-step">x ** 2</div>
+                            <div class="flow-arrow">→</div>
+                            <div class="flow-result">[0, 1, 4, 9, 16, 25, 36, 49, 64, 81]</div>
+                        </div>
+                    </div>
+                    
+                    <div class="example-card">
+                        <h4>With Condition</h4>
+                        <div class="code-block">
+<span class="comment"># Only even squares</span>
+<span class="variable">even_squares</span> = [<span class="variable">x</span> ** <span class="number">2</span> <span class="keyword">for</span> <span class="variable">x</span> <span class="keyword">in</span> <span class="function">range</span>(<span class="number">10</span>) <span class="keyword">if</span> <span class="variable">x</span> % <span class="number">2</span> == <span class="number">0</span>]
+                        </div>
+                        <div class="visual-flow">
+                            <div class="flow-step">range(10)</div>
+                            <div class="flow-arrow">→</div>
+                            <div class="flow-step">filter: x % 2 == 0</div>
+                            <div class="flow-arrow">→</div>
+                            <div class="flow-step">x ** 2</div>
+                            <div class="flow-arrow">→</div>
+                            <div class="flow-result">[0, 4, 16, 36, 64]</div>
+                        </div>
+                    </div>
+                    
+                    <div class="example-card">
+                        <h4>Nested Comprehension</h4>
+                        <div class="code-block">
+<span class="comment"># 2D matrix (3x3)</span>
+<span class="variable">matrix</span> = [[<span class="variable">i</span> * <span class="variable">j</span> <span class="keyword">for</span> <span class="variable">j</span> <span class="keyword">in</span> <span class="function">range</span>(<span class="number">3</span>)] <span class="keyword">for</span> <span class="variable">i</span> <span class="keyword">in</span> <span class="function">range</span>(<span class="number">3</span>)]
+                        </div>
+                        <div class="matrix-visualization">
+                            <div class="matrix-grid">
+                                <div class="matrix-cell">0</div>
+                                <div class="matrix-cell">0</div>
+                                <div class="matrix-cell">0</div>
+                                <div class="matrix-cell">0</div>
+                                <div class="matrix-cell">1</div>
+                                <div class="matrix-cell">2</div>
+                                <div class="matrix-cell">0</div>
+                                <div class="matrix-cell">2</div>
+                                <div class="matrix-cell">4</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h3><span class="subsection-icon">🧠</span>Common Patterns & Algorithms</h3>
+                <div class="pattern-tabs">
+                    <div class="tab-headers">
+                        <button class="tab-button active" data-tab="two-pointers">Two Pointers</button>
+                        <button class="tab-button" data-tab="sliding-window">Sliding Window</button>
+                        <button class="tab-button" data-tab="binary-search">Binary Search</button>
+                        <button class="tab-button" data-tab="sorting">Sorting</button>
+                    </div>
+                    
+                    <div class="tab-content active" id="two-pointers">
+                        <h4>🔄 Two Pointers Technique</h4>
+                        <p>Use two pointers moving towards each other or in the same direction to solve problems efficiently.</p>
+                        <div class="code-block">
+<span class="comment"># Example: Check if array is palindrome</span>
+<span class="keyword">def</span> <span class="function">is_palindrome</span>(<span class="variable">arr</span>):
+    <span class="variable">left</span>, <span class="variable">right</span> = <span class="number">0</span>, <span class="function">len</span>(<span class="variable">arr</span>) - <span class="number">1</span>
+    
+    <span class="keyword">while</span> <span class="variable">left</span> &lt; <span class="variable">right</span>:
+        <span class="keyword">if</span> <span class="variable">arr</span>[<span class="variable">left</span>] != <span class="variable">arr</span>[<span class="variable">right</span>]:
+            <span class="keyword">return</span> <span class="keyword">False</span>
+        <span class="variable">left</span> += <span class="number">1</span>
+        <span class="variable">right</span> -= <span class="number">1</span>
+    
+    <span class="keyword">return</span> <span class="keyword">True</span>
+                        </div>
+                        <div class="algorithm-visualization">
+                            <div class="array-demo">
+                                <div class="demo-array">
+                                    <div class="array-element" data-pointer="left">1</div>
+                                    <div class="array-element">2</div>
+                                    <div class="array-element">3</div>
+                                    <div class="array-element">2</div>
+                                    <div class="array-element" data-pointer="right">1</div>
+                                </div>
+                                <div class="pointer-labels">
+                                    <span class="pointer-label left">L</span>
+                                    <span class="pointer-label right">R</span>
+                                </div>
+                            </div>
+                            <button class="demo-button" onclick="animateTwoPointers()">▶ Animate</button>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" id="sliding-window">
+                        <h4>🪟 Sliding Window Technique</h4>
+                        <p>Maintain a "window" of elements and slide it through the array to find optimal solutions.</p>
+                        <div class="code-block">
+<span class="comment"># Example: Maximum sum of k consecutive elements</span>
+<span class="keyword">def</span> <span class="function">max_sum_k_elements</span>(<span class="variable">arr</span>, <span class="variable">k</span>):
+    <span class="variable">window_sum</span> = <span class="function">sum</span>(<span class="variable">arr</span>[:<span class="variable">k</span>])  <span class="comment"># First window</span>
+    <span class="variable">max_sum</span> = <span class="variable">window_sum</span>
+    
+    <span class="keyword">for</span> <span class="variable">i</span> <span class="keyword">in</span> <span class="function">range</span>(<span class="variable">k</span>, <span class="function">len</span>(<span class="variable">arr</span>)):
+        <span class="variable">window_sum</span> = <span class="variable">window_sum</span> - <span class="variable">arr</span>[<span class="variable">i</span> - <span class="variable">k</span>] + <span class="variable">arr</span>[<span class="variable">i</span>]
+        <span class="variable">max_sum</span> = <span class="function">max</span>(<span class="variable">max_sum</span>, <span class="variable">window_sum</span>)
+    
+    <span class="keyword">return</span> <span class="variable">max_sum</span>
+                        </div>
+                        <div class="algorithm-visualization">
+                            <div class="window-demo">
+                                <div class="demo-array">
+                                    <div class="array-element window-element">2</div>
+                                    <div class="array-element window-element">1</div>
+                                    <div class="array-element window-element">5</div>
+                                    <div class="array-element">1</div>
+                                    <div class="array-element">3</div>
+                                    <div class="array-element">2</div>
+                                </div>
+                                <div class="window-indicator">
+                                    <div class="window-bracket">[</div>
+                                    <div class="window-size">k=3</div>
+                                    <div class="window-bracket">]</div>
+                                </div>
+                            </div>
+                            <button class="demo-button" onclick="animateSlidingWindow()">▶ Animate</button>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" id="binary-search">
+                        <h4>🎯 Binary Search</h4>
+                        <p>Efficiently search in sorted arrays by repeatedly dividing the search space in half.</p>
+                        <div class="code-block">
+<span class="comment"># Binary search implementation</span>
+<span class="keyword">def</span> <span class="function">binary_search</span>(<span class="variable">arr</span>, <span class="variable">target</span>):
+    <span class="variable">left</span>, <span class="variable">right</span> = <span class="number">0</span>, <span class="function">len</span>(<span class="variable">arr</span>) - <span class="number">1</span>
+    
+    <span class="keyword">while</span> <span class="variable">left</span> &lt;= <span class="variable">right</span>:
+        <span class="variable">mid</span> = (<span class="variable">left</span> + <span class="variable">right</span>) // <span class="number">2</span>
+        
+        <span class="keyword">if</span> <span class="variable">arr</span>[<span class="variable">mid</span>] == <span class="variable">target</span>:
+            <span class="keyword">return</span> <span class="variable">mid</span>
+        <span class="keyword">elif</span> <span class="variable">arr</span>[<span class="variable">mid</span>] &lt; <span class="variable">target</span>:
+            <span class="variable">left</span> = <span class="variable">mid</span> + <span class="number">1</span>
+        <span class="keyword">else</span>:
+            <span class="variable">right</span> = <span class="variable">mid</span> - <span class="number">1</span>
+    
+    <span class="keyword">return</span> -<span class="number">1</span>  <span class="comment"># Not found</span>
+                        </div>
+                        <div class="algorithm-visualization">
+                            <div class="binary-search-demo">
+                                <div class="demo-array">
+                                    <div class="array-element">1</div>
+                                    <div class="array-element">3</div>
+                                    <div class="array-element">5</div>
+                                    <div class="array-element highlight">7</div>
+                                    <div class="array-element">9</div>
+                                    <div class="array-element">11</div>
+                                    <div class="array-element">13</div>
+                                </div>
+                                <div class="search-info">
+                                    Target: <span class="target-value">7</span> | Steps: <span class="step-count">0</span>
+                                </div>
+                            </div>
+                            <button class="demo-button" onclick="animateBinarySearch()">▶ Animate</button>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" id="sorting">
+                        <h4>📊 Sorting Algorithms</h4>
+                        <p>Different algorithms for arranging elements in order.</p>
+                        <div class="sorting-comparison">
+                            <div class="sort-algorithm">
+                                <h5>Bubble Sort <span class="complexity-badge complexity-on2">O(n²)</span></h5>
+                                <div class="code-block">
+<span class="keyword">def</span> <span class="function">bubble_sort</span>(<span class="variable">arr</span>):
+    <span class="variable">n</span> = <span class="function">len</span>(<span class="variable">arr</span>)
+    <span class="keyword">for</span> <span class="variable">i</span> <span class="keyword">in</span> <span class="function">range</span>(<span class="variable">n</span>):
+        <span class="keyword">for</span> <span class="variable">j</span> <span class="keyword">in</span> <span class="function">range</span>(<span class="number">0</span>, <span class="variable">n</span> - <span class="variable">i</span> - <span class="number">1</span>):
+            <span class="keyword">if</span> <span class="variable">arr</span>[<span class="variable">j</span>] &gt; <span class="variable">arr</span>[<span class="variable">j</span> + <span class="number">1</span>]:
+                <span class="variable">arr</span>[<span class="variable">j</span>], <span class="variable">arr</span>[<span class="variable">j</span> + <span class="number">1</span>] = <span class="variable">arr</span>[<span class="variable">j</span> + <span class="number">1</span>], <span class="variable">arr</span>[<span class="variable">j</span>]
+                                </div>
+                            </div>
+                            <div class="sort-algorithm">
+                                <h5>Quick Sort <span class="complexity-badge complexity-nlogn">O(n log n)</span></h5>
+                                <div class="code-block">
+<span class="keyword">def</span> <span class="function">quick_sort</span>(<span class="variable">arr</span>):
+    <span class="keyword">if</span> <span class="function">len</span>(<span class="variable">arr</span>) &lt;= <span class="number">1</span>:
+        <span class="keyword">return</span> <span class="variable">arr</span>
+    
+    <span class="variable">pivot</span> = <span class="variable">arr</span>[<span class="function">len</span>(<span class="variable">arr</span>) // <span class="number">2</span>]
+    <span class="variable">left</span> = [<span class="variable">x</span> <span class="keyword">for</span> <span class="variable">x</span> <span class="keyword">in</span> <span class="variable">arr</span> <span class="keyword">if</span> <span class="variable">x</span> &lt; <span class="variable">pivot</span>]
+    <span class="variable">middle</span> = [<span class="variable">x</span> <span class="keyword">for</span> <span class="variable">x</span> <span class="keyword">in</span> <span class="variable">arr</span> <span class="keyword">if</span> <span class="variable">x</span> == <span class="variable">pivot</span>]
+    <span class="variable">right</span> = [<span class="variable">x</span> <span class="keyword">for</span> <span class="variable">x</span> <span class="keyword">in</span> <span class="variable">arr</span> <span class="keyword">if</span> <span class="variable">x</span> &gt; <span class="variable">pivot</span>]
+    
+    <span class="keyword">return</span> <span class="function">quick_sort</span>(<span class="variable">left</span>) + <span class="variable">middle</span> + <span class="function">quick_sort</span>(<span class="variable">right</span>)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h3><span class="subsection-icon">🎮</span>Interactive Array Playground</h3>
+                <div class="interactive-demo">
+                    <div class="demo-controls">
+                        <div class="control-panel">
+                            <h4>Array Operations</h4>
+                            <div class="input-group">
+                                <input type="text" id="array-input" placeholder="Enter numbers (comma-separated)" value="1,2,3,4,5">
+                                <button onclick="createArray()">Create Array</button>
+                            </div>
+                            <div class="operation-buttons">
+                                <button onclick="appendElement()">Append</button>
+                                <button onclick="insertElement()">Insert</button>
+                                <button onclick="removeElement()">Remove</button>
+                                <button onclick="popElement()">Pop</button>
+                                <button onclick="sortArray()">Sort</button>
+                                <button onclick="reverseArray()">Reverse</button>
+                                <button onclick="clearArray()">Clear</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="demo-visualization">
+                        <div class="visual-array" id="visual-array">
+                            <!-- Array elements will be rendered here -->
+                        </div>
+                        <div class="array-info">
+                            <span>Length: <span id="array-length">0</span></span>
+                            <span>Operations: <span id="operation-count">0</span></span>
+                        </div>
+                    </div>
+                    
+                    <div class="operation-log">
+                        <h4>Operation History</h4>
+                        <div id="log-container">
+                            <div class="log-entry">Welcome! Start by creating an array above.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dark Mode Toggle Script -->
+    <script>
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+        
+        // Check for saved dark mode preference
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            body.classList.add('dark-mode');
+            darkModeToggle.textContent = '☀️';
+        }
+        
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('darkMode', 'enabled');
+                darkModeToggle.textContent = '☀️';
+            } else {
+                localStorage.setItem('darkMode', null);
+                darkModeToggle.textContent = '🌙';
+            }
+        });
+
+        // Interactive slicing demo
+        const startInput = document.getElementById('start-input');
+        const endInput = document.getElementById('end-input');
+        const stepInput = document.getElementById('step-input');
+        const sliceStart = document.getElementById('slice-start');
+        const sliceEnd = document.getElementById('slice-end');
+        const sliceStep = document.getElementById('slice-step');
+        const sliceResult = document.getElementById('slice-result');
+        
+        const baseArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+        
+        function updateSlicing() {
+            const start = parseInt(startInput.value) || 0;
+            const end = parseInt(endInput.value) || baseArray.length;
+            const step = parseInt(stepInput.value) || 1;
+            
+            sliceStart.textContent = start;
+            sliceEnd.textContent = end;
+            sliceStep.textContent = step;
+            
+            // Calculate slice result
+            let result = [];
+            const actualStart = start < 0 ? Math.max(0, baseArray.length + start) : Math.min(start, baseArray.length);
+            const actualEnd = end < 0 ? Math.max(0, baseArray.length + end) : Math.min(end, baseArray.length);
+            
+            for (let i = actualStart; i < actualEnd; i += step) {
+                if (i < baseArray.length) {
+                    result.push(baseArray[i]);
+                }
+            }
+            
+            sliceResult.textContent = `[${result.join(', ')}]`;
+        }
+        
+        startInput.addEventListener('input', updateSlicing);
+        endInput.addEventListener('input', updateSlicing);
+        stepInput.addEventListener('input', updateSlicing);
+        
+        // Tab functionality
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const tabId = button.getAttribute('data-tab');
+                
+                // Remove active class from all buttons and contents
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+                
+                // Add active class to clicked button and corresponding content
+                button.classList.add('active');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+        
+        // Interactive array playground
+        let currentArray = [];
+        let operationCount = 0;
+        
+        function createArray() {
+            const input = document.getElementById('array-input').value;
+            currentArray = input.split(',').map(item => item.trim()).filter(item => item !== '');
+            updateVisualArray();
+            logOperation(`Created array: [${currentArray.join(', ')}]`);
+        }
+        
+        function updateVisualArray() {
+            const visualArray = document.getElementById('visual-array');
+            const arrayLength = document.getElementById('array-length');
+            const operationCountElement = document.getElementById('operation-count');
+            
+            visualArray.innerHTML = '';
+            
+            currentArray.forEach((item, index) => {
+                const element = document.createElement('div');
+                element.className = 'visual-element';
+                element.innerHTML = `
+                    <div class="element-value">${item}</div>
+                    <div class="element-index">${index}</div>
+                `;
+                visualArray.appendChild(element);
+            });
+            
+            arrayLength.textContent = currentArray.length;
+            operationCountElement.textContent = operationCount;
+        }
+        
+        function logOperation(message) {
+            operationCount++;
+            const logContainer = document.getElementById('log-container');
+            const logEntry = document.createElement('div');
+            logEntry.className = 'log-entry';
+            logEntry.textContent = `${operationCount}. ${message}`;
+            logContainer.appendChild(logEntry);
+            logContainer.scrollTop = logContainer.scrollHeight;
+        }
+        
+        function appendElement() {
+            const value = prompt('Enter value to append:');
+            if (value !== null && value.trim() !== '') {
+                currentArray.push(value.trim());
+                updateVisualArray();
+                logOperation(`Appended "${value.trim()}" to array`);
+            }
+        }
+        
+        function insertElement() {
+            const index = parseInt(prompt('Enter index to insert at:'));
+            const value = prompt('Enter value to insert:');
+            if (!isNaN(index) && value !== null && value.trim() !== '') {
+                currentArray.splice(index, 0, value.trim());
+                updateVisualArray();
+                logOperation(`Inserted "${value.trim()}" at index ${index}`);
+            }
+        }
+        
+        function removeElement() {
+            const value = prompt('Enter value to remove:');
+            if (value !== null && value.trim() !== '') {
+                const index = currentArray.indexOf(value.trim());
+                if (index !== -1) {
+                    currentArray.splice(index, 1);
+                    updateVisualArray();
+                    logOperation(`Removed "${value.trim()}" from array`);
+                } else {
+                    logOperation(`"${value.trim()}" not found in array`);
+                }
+            }
+        }
+        
+        function popElement() {
+            if (currentArray.length > 0) {
+                const popped = currentArray.pop();
+                updateVisualArray();
+                logOperation(`Popped "${popped}" from array`);
+            } else {
+                logOperation('Cannot pop from empty array');
+            }
+        }
+        
+        function sortArray() {
+            currentArray.sort((a, b) => {
+                const numA = parseFloat(a);
+                const numB = parseFloat(b);
+                if (!isNaN(numA) && !isNaN(numB)) {
+                    return numA - numB;
+                }
+                return a.localeCompare(b);
+            });
+            updateVisualArray();
+            logOperation('Sorted array');
+        }
+        
+        function reverseArray() {
+            currentArray.reverse();
+            updateVisualArray();
+            logOperation('Reversed array');
+        }
+        
+        function clearArray() {
+            currentArray = [];
+            updateVisualArray();
+            logOperation('Cleared array');
+        }
+        
+        // Animation functions for algorithm demos
+        function animateTwoPointers() {
+            // Add animation logic here
+            console.log('Two pointers animation');
+        }
+        
+        function animateSlidingWindow() {
+            // Add animation logic here
+            console.log('Sliding window animation');
+        }
+          function animateBinarySearch() {
+            // Add animation logic here
+            console.log('Binary search animation');
+        }
+        
+        // Initialize with default array
+        createArray();
+    </script>
+</body>
+</html>
