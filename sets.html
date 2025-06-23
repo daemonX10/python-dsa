@@ -5,6 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sets - Python DSA Reference</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .set-visual {
+            display: inline-flex;
+            gap: 4px;
+            padding: 0.5rem;
+            background: #f3f4f6;
+            border: 2px dashed #6b7280;
+            border-radius: 12px;
+            margin: 0.5rem;
+        }
+        .set-element {
+            background: #10b981;
+            color: white;
+            padding: 0.3rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
     <nav class="main-navbar" aria-label="Main Navigation">
@@ -238,10 +257,10 @@ list3 = [5, 6, 7, 8, 9]
 common = set(list1) & set(list2) & set(list3)  <span class="comment"># {5}</span>
 
 <span class="comment"># Find elements present in any list</span>
-all_elements = set(list1) | set(list2) | set(list3)
+all_elements = set(list1) | set(list2) | set(list3);
 
 <span class="comment"># Find elements unique to first list</span>
-unique_to_first = set(list1) - set(list2) - set(list3)
+unique_to_first = set(list1) - set(list2) - set(list3);
                 </div>
 
                 <h4>Efficient Membership Testing</h4>
