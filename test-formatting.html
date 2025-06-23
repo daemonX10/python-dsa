@@ -9,10 +9,16 @@
 <body>
     <div class="container">
         <div class="content-wrapper">
-            <h1>Python Code Formatting Test</h1>
+            <h1 class="section-title">
+                <span>🧪</span>
+                Python Code Formatting Test
+            </h1>
+            
+            <div class="format-status-badge format-status-good">Formatting: Good</div>
             
             <h3>This is how your code should look:</h3>
-            <div class="code-block"># Creating lists
+            <div class="code-preview-container">
+                <div class="code-block"># Creating lists
 empty_list = []
 numbers = [1, 2, 3, 4, 5]
 mixed = [1, "hello", 3.14, True]
@@ -38,10 +44,16 @@ def two_sum(nums, target):
             right -= 1
     
     return []</div>
+                <div class="code-quality-indicator">
+                    <span class="quality-check quality-check-pass">✓ Proper indentation</span>
+                    <span class="quality-check quality-check-pass">✓ Clear naming</span>
+                    <span class="quality-check quality-check-pass">✓ Good comments</span>
+                </div>
+            </div>
 
             <h3>Method Card Example:</h3>
             <div class="method-card">
-                <h4>append(item)</h4>
+                <h4>append(item) <span class="format-tip">Best Practice</span></h4>
                 <p>Add item to end of list</p>
                 <div class="code-block">lst = [1, 2, 3]
 lst.append(4)  # [1, 2, 3, 4]</div>
