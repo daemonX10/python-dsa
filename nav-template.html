@@ -1,17 +1,27 @@
-    <nav class="main-navbar" aria-label="Main Navigation">
-        <a href="index.html" class="navbar-logo" aria-label="Home">🐍 Python DSA</a>
-        <button id="darkModeToggle" aria-label="Toggle dark mode">🌙</button>
-        <ul class="navbar-links">
-            <li><a href="arrays.html">Arrays</a></li>
-            <li><a href="strings.html">Strings</a></li>
-            <li><a href="tuples.html">Tuples</a></li>
-            <li><a href="dictionaries.html">Dictionaries</a></li>
-            <li><a href="sets.html">Sets</a></li>
-            <li><a href="collection.html">Collections</a></li>
-            <li><a href="stacks-queues.html">Stacks & Queues</a></li>
-            <li><a href="linked-lists.html">Linked Lists</a></li>
-            <li><a href="trees.html">Trees</a></li>
-            <li><a href="graphs.html">Graphs</a></li>
-            <li><a href="heaps.html">Heaps</a></li>
+<nav class="main-navbar enhanced-nav" aria-label="Main Navigation">
+        <a href="index.html" class="navbar-logo" aria-label="Home">
+            🐍 <span class="logo-text">Python DSA</span>
+            <span class="nav-status-indicator">Ready</span>
+        </a>
+        <div class="nav-controls">
+            <button id="darkModeToggle" class="nav-button" aria-label="Toggle dark mode">🌙</button>
+            <button id="searchToggle" class="nav-button" aria-label="Toggle search">🔍</button>
+        </div>
+        <ul class="navbar-links enhanced-links">
+            <li><a href="arrays.html" data-topic="arrays">Arrays <span class="nav-badge">Basic</span></a></li>
+            <li><a href="strings.html" data-topic="strings">Strings <span class="nav-badge">Basic</span></a></li>
+            <li><a href="tuples.html" data-topic="tuples">Tuples <span class="nav-badge">Basic</span></a></li>
+            <li><a href="dictionaries.html" data-topic="dictionaries">Dictionaries <span class="nav-badge">Basic</span></a></li>
+            <li><a href="sets.html" data-topic="sets">Sets <span class="nav-badge">Basic</span></a></li>
+            <li><a href="collection.html" data-topic="collections">Collections <span class="nav-badge">Intermediate</span></a></li>
+            <li><a href="stacks-queues.html" data-topic="stacks-queues">Stacks & Queues <span class="nav-badge">Intermediate</span></a></li>
+            <li><a href="linked-lists.html" data-topic="linked-lists">Linked Lists <span class="nav-badge">Intermediate</span></a></li>
+            <li><a href="trees.html" data-topic="trees">Trees <span class="nav-badge">Advanced</span></a></li>
+            <li><a href="graphs.html" data-topic="graphs">Graphs <span class="nav-badge">Advanced</span></a></li>
+            <li><a href="heaps.html" data-topic="heaps">Heaps <span class="nav-badge">Advanced</span></a></li>
         </ul>
+        <div class="nav-search-box" id="navSearch" style="display: none;">
+            <input type="text" placeholder="Search topics..." class="nav-search-input">
+            <button class="nav-search-close" onclick="toggleSearch()">×</button>
+        </div>
     </nav>
