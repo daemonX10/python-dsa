@@ -5,6 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stacks & Queues - Python DSA Reference</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .lifo-badge {
+            background: linear-gradient(135deg, #fecaca, #f87171);
+            color: #991b1b;
+            padding: 0.3rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin: 0.3rem;
+            display: inline-block;
+        }
+        .fifo-badge {
+            background: linear-gradient(135deg, #bfdbfe, #60a5fa);
+            color: #1e40af;
+            padding: 0.3rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin: 0.3rem;
+            display: inline-block;
+        }
+    </style>
 </head>
 <body>
     <nav class="main-navbar" aria-label="Main Navigation">
@@ -36,7 +58,7 @@
             </h1>
 
             <div class="subsection">
-                <h3>Stack (LIFO - Last In, First Out)</h3>
+                <h3>Stack (LIFO - Last In, First Out) <span class="lifo-badge">LIFO</span></h3>
                 <div class="code-block">
 <span class="comment"># Using list as stack</span>
 stack = []
@@ -97,7 +119,7 @@ is_empty = len(stack) == 0
             </div>
 
             <div class="subsection">
-                <h3>Queue (FIFO - First In, First Out)</h3>
+                <h3>Queue (FIFO - First In, First Out) <span class="fifo-badge">FIFO</span></h3>
                 <div class="code-block">
 <span class="keyword">from</span> collections <span class="keyword">import</span> deque
 
