@@ -5,6 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Graphs - Python DSA Reference</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .graph-type {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            color: #92400e;
+            padding: 0.3rem 0.6rem;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin: 0.2rem;
+            display: inline-block;
+            border: 1px solid #f59e0b;
+        }
+        .vertex {
+            background: #1f2937;
+            color: white;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0.2rem;
+            font-weight: bold;
+        }
+        .edge-indicator {
+            color: #374151;
+            margin: 0 0.3rem;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
     <nav class="main-navbar" aria-label="Main Navigation">
@@ -613,37 +643,4 @@ def topological_sort_kahn(graph):
             
             if (start && end) {
                 const path = graph.findPath(start, end);
-                if (path) {
-                    updateOutput(`Path from ${start} to ${end}: [${path.join(' → ')}]`);
-                } else {
-                    updateOutput(`No path found from ${start} to ${end}`);
-                }
-            }
-        }
-        
-        function clearGraph() {
-            graph.clear();
-            updateOutput();
-        }
-        
-        // Initialize with sample graph
-        graph.addEdge('A', 'B');
-        graph.addEdge('A', 'C');
-        graph.addEdge('B', 'D');
-        graph.addEdge('C', 'D');
-        graph.addEdge('D', 'E');        updateOutput();
-    </script>
-    <script>
-    // Dark mode toggle
-    const toggle = document.getElementById('darkModeToggle');
-    toggle.addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
-        if(document.body.classList.contains('dark-mode')) {
-            toggle.textContent = '☀️';
-        } else {
-            toggle.textContent = '🌙';
-        }
-    });
-    </script>
-</body>
-</html>
+                if
