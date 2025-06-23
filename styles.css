@@ -646,7 +646,10 @@ body.dark-mode .warning {
 }
 
 .list-element:hover {
-    transform: translateY(-2px);
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+    background: var(--secondary-color);
+    cursor: pointer;
 }
 
 .index-labels {
