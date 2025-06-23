@@ -435,6 +435,181 @@ body {
     outline: 2px solid var(--accent-color);
 }
 
+/* Enhanced Navigation Styles */
+.enhanced-nav {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.logo-text {
+    font-weight: 700;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.nav-status-indicator {
+    display: inline-block;
+    padding: 2px 8px;
+    background: #10b981;
+    color: white;
+    border-radius: 8px;
+    font-size: 0.6rem;
+    font-weight: 500;
+    margin-left: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    animation: pulse 2s infinite;
+}
+
+.nav-controls {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.nav-button {
+    background: none;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.nav-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-2px);
+}
+
+.enhanced-links {
+    position: relative;
+}
+
+.enhanced-links li a {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    transition: all 0.3s ease;
+}
+
+.nav-badge {
+    font-size: 0.6rem;
+    padding: 3px 8px;
+    border-radius: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-left: 8px;
+}
+
+.nav-badge:contains("Basic") {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+}
+
+.enhanced-links li a[data-topic*="arrays"] .nav-badge,
+.enhanced-links li a[data-topic*="strings"] .nav-badge,
+.enhanced-links li a[data-topic*="tuples"] .nav-badge,
+.enhanced-links li a[data-topic*="dictionaries"] .nav-badge,
+.enhanced-links li a[data-topic*="sets"] .nav-badge {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+}
+
+.enhanced-links li a[data-topic*="collections"] .nav-badge,
+.enhanced-links li a[data-topic*="stacks-queues"] .nav-badge,
+.enhanced-links li a[data-topic*="linked-lists"] .nav-badge {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: white;
+}
+
+.enhanced-links li a[data-topic*="trees"] .nav-badge,
+.enhanced-links li a[data-topic*="graphs"] .nav-badge,
+.enhanced-links li a[data-topic*="heaps"] .nav-badge {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: white;
+}
+
+.nav-search-box {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 25px;
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.nav-search-input {
+    border: none;
+    background: transparent;
+    outline: none;
+    padding: 8px;
+    font-size: 0.9rem;
+    color: #374151;
+    min-width: 200px;
+}
+
+.nav-search-close {
+    background: none;
+    border: none;
+    color: #6b7280;
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 4px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.nav-search-close:hover {
+    background: rgba(0, 0, 0, 0.1);
+    color: #374151;
+}
+
+.dark-mode .nav-search-box {
+    background: rgba(31, 41, 55, 0.95);
+    border-color: rgba(75, 85, 99, 0.3);
+}
+
+.dark-mode .nav-search-input {
+    color: #d1d5db;
+}
+
+.dark-mode .nav-search-input::placeholder {
+    color: #9ca3af;
+}
+
+.dark-mode .nav-button {
+    border-color: rgba(75, 85, 99, 0.4);
+    color: #d1d5db;
+}
+
+.dark-mode .nav-button:hover {
+    background: rgba(75, 85, 99, 0.2);
+    border-color: rgba(75, 85, 99, 0.6);
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
 /* Quick Search Styles */
 .quick-search {
     display: flex;
